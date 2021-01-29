@@ -1,0 +1,174 @@
+create table member(
+no number not null unique,
+id varchar2(50) not null primary key,
+pw varchar2(50) not null,
+name varchar2(50) not null,
+gender varchar2(1) not null check(gender in('M','F')),
+bornYear number not null,
+grade number not null,
+loginCounter number default 0,
+regidate timestamp default current_timestamp
+);
+
+create SEQUENCE seq_member START WITH 1 INCREMENT by 1 minvalue 1;
+
+drop table member;
+drop sequence seq_member;   
+
+select *from member;
+
+commit;
+
+update member set grade = 3 where id ='lss';
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+create table board(
+no      number      not null,         
+num     number  not null,
+writer  varchar2(50) not null,
+subject varchar2(50) not null,  
+content clob         not null,
+email   varchar2(50)         ,
+passwd  varchar2(50)         ,
+refNo   number       not null,
+StepNo  number       not null,
+LevelNo number       not null,
+p_no    number               ,
+hit     number       not null,
+regiDate date       DEFAULT sysdate,
+service number       not null,
+primary key(no)
+);
+
+drop table board;
+drop sequence seq_board;
+create sequence seq_board start with 1 increment by 1 minvalue 1;
+
+select*from board order by refNo desc, levelNo asc ;
+
+select*from 
+(select ROWNUM rn, no, num, writer, subject, content, email ,passwd, refNo, StepNo, LevelNo, hit, regiDate, service from
+(select*from board where subject like '%2%' order by no desc)) where rn between 0 and 10  ;
+
+select*from (select ROWNUM rn,bb.* from
+(select*from board where subject like '%2%' or  content like '%2%' order by refNo desc, levelNo asc) bb)
+where rn between 1 and 20;
+
+select * from 
+(select ROWNUM rn,bb.* from
+(select b.*,(select count(*) from board where p_no =b.no) p from board b order by refNo desc, levelNo asc)bb ) where no=1;
+
+--between 1 and 20 
+
+select b.*,(select count(*) from board where p_no =b.no) p from board b order by no desc;
+
+select rownum from board;
+
+select count(*) from board;
+
+commit;
+
+select*from board where subject like '%고%';
+
+
+
+/*begin
+for i in 1 .. 1000 loop
+insert into board values (seq_board.nextval,i,i,i,i,i,i,i,1,1,0,0,sysdate,1);
+end loop;
+end;*/
+
+select count(*) from board where refNo = 1002 and stepNo >1 and levelNo >1; 
+
+select * from board where no =1010+1;
+
+select * from (select bb.*, rownum rn from (select * from board order by refNo desc, levelNo asc) bb ) where rn=(select max(rn) from 
+(select bb.*, rownum rn from 
+(select no from board order by refNo desc, levelNo asc) bb )
+ where rn < (select rn from 
+(select bb.*, rownum rn from 
+(select no from board order by refNo desc, levelNo asc) bb)
+ where no=1000 ));
+ 
+ select*from(select b.*, LAG(no) OVER (ORDER BY refNo desc, levelNo asc)
+ preNo,LAG(subject) OVER (ORDER BY refNo desc, levelNo asc)preSubject,
+ LEAD(no) OVER (ORDER BY refNo desc, levelNo asc) nextNo,
+ LEAD(subject) OVER (ORDER BY refNo desc, levelNO asc) nextSubject
+ from board b order by refNo desc, levelNo asc ) where no =1000;
+ 
+-------------------------------------------------------------------------------------------------------
+
+create table ask(
+no number not null primary key,
+id varchar(50) not null,
+bunryu varchar2(10) not null,
+subject varchar2(100) not null,
+content clob         not null,
+answer varchar2(1) not null check(answer in('X','O')),
+regidate timestamp default current_timestamp
+);
+
+create sequence seq_ask start with 1 increment by 1 minvalue 1;
+
+
+drop table ask;
+drop sequence seq_ask;
+
+select * from ask;
+
+
+--------------------------------------------------------------------------------------------------------
+
+create table answer(
+no number not null primary key,
+id varchar2(50) not null,
+rank varchar2(100),
+subject varchar2(100) not null,
+content clob not null,
+regidate timestamp default current_timestamp
+);
+
+drop table answer;
+
+select * from answer;
+
+---------------------------------------------------------------------------------------------------------
+
+create table product(
+no number not null primary key,
+p_code varchar2(50) not null,
+p_name varchar2(50) not null,
+p_price number not null,
+p_count number not null,
+regidate timestamp default current_timestamp
+);
+
+create sequence seq_product start with 1 increment by 1 minvalue 1;
+
+drop table product;
+drop sequence seq_product;
+
+select*from product;
+
+update product set p_count= (p_count + 1) where no=1; 
+---------------------------------------------------------------------------------------------------
+create table delivery(
+no number not null primary key, -- 식별 번호
+member_id varchar2(50)not null, --구매자 아이디
+p_code varchar(50) not null, -- 상품 코드
+p_name varchar(50) not null, -- 상품 이름
+p_NOP number not null, -- 구매 갯수
+p_total number not null, --총 구매가격
+member_addr  varchar(100) not null, --구매자 주소
+current_status varchar(20) not null -- 배송 현황 
+);
+
+drop table delivery;
+
+create sequence seq_delivery start with 1 increment by 1 minvalue 1;
+
+drop sequence seq_delivery;
+

@@ -1,0 +1,10 @@
+create tablespace jspStudy
+datafile 'c:/sqldata/jspStudy.dbf' size 50m
+autoextend on
+next 10m
+maxsize unlimited;
+
+create user jspStudy identified by 1234
+default tablespace jspStudy
+
+grant connect,resource,dba to jspStudy

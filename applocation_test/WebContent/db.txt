@@ -1,0 +1,22 @@
+create table member(
+id varchar2(50) not null,
+passwd varchar2(50) not null,
+changeDate date default sysdate not null,
+primary key(id)
+);
+
+insert into member values('hong','1234',to_date('2020-07-23 11:52:00','YYYY-MM-DD HH24:MI:SS'));
+
+insert into member values('kim','0987',to_date('2020-07-01 13:00:00','YYYY-MM-DD HH24:MI:SS'));
+
+select*from member;
+
+commit;
+
+select*from member where id='hong' and passwd = '1234';
+
+select * from member where id = 'hong';
+
+drop table member;
+
+update member set passwd='1234', changedate=sysdate where id='hong'

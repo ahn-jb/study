@@ -1,0 +1,87 @@
+=====================Oracle================================================================================
+
+create tablespace jspInterfaceImplExam
+datafile 'C:\Users\hkit\Desktop\ajb\sqldata\jspInterfaceImplExam.dbf' size 50m
+autoextend on
+next 10m
+maxsize unlimited;
+
+create user jspInterfaceImplExam identified by 1234
+default tablespace jspInterfaceImplExam
+
+grant connect,resource,dba to jspInterfaceImplExam
+
+create table resume(
+no number not null primary key,
+pic varchar2(50) not null, -- 사진
+name varchar2(50) not null, -- 이름
+email varchar2(50) not null,-- 이메일
+phone varchar2(50) not null,-- 휴대폰
+adress varchar2(50) not null, --주소
+toeic number,
+toefl number,
+japan number,
+china number,
+
+gigan1 varchar2(50), --기간1
+school1 varchar2(50), --학교명1
+jeongong1 varchar2(50), --전공1
+
+gigan2 varchar2(50), --기간2
+school2 varchar2(50), --학교명2
+jeongong2 varchar2(50), --전공2
+
+gigan3 varchar2(50), --기간3
+school3 varchar2(50), --학교명3
+jeongong3 varchar2(50), --전공3
+
+gigan4 varchar2(50), --기간4
+school4 varchar2(50), --학교명4
+jeongong4 varchar2(50), --전공4
+
+wdate date default sysdate
+);
+
+
+
+
+
+======================Mysql===============================================================================
+
+create database jspInterfaceImplExam;
+
+grant all privileges on jspInterfaceImplExam.*to jspInterfaceImplExam@localhost identified by '1234';
+
+flush privileges;
+
+
+create table resume(
+no int not null auto_increment primary key,
+pic varchar(50) not null, 
+name varchar(50) not null, 
+email varchar(50) not null,
+phone varchar(50) not null,
+adress varchar(50) not null, 
+toeic int,
+toefl int,
+japan int,
+china int,
+
+gigan1 varchar(50), 
+school1 varchar(50),
+jeongong1 varchar(50), 
+
+gigan2 varchar(50),
+school2 varchar(50),
+jeongong2 varchar(50),
+
+gigan3 varchar(50),
+school3 varchar(50),
+jeongong3 varchar(50),
+
+gigan4 varchar(50),
+school4 varchar(50),
+jeongong4 varchar(50),
+
+wdate timestamp default now()
+);
