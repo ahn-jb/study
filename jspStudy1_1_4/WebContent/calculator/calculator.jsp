@@ -44,7 +44,6 @@
 			<td class="button" align="center" id="" onclick="test('/');">/</td>			
 		</tr>
 	</table>
-	
 <script>
 	function test(value1){
 		var a = 0;
@@ -103,6 +102,8 @@
 		function removeColor(e) {
 			if (e.target.className === 'button On') {
 				  console.log(e.target);
+// 				  console.dir(e.target);
+// 				  console.log(e.target.innerText);
 				  e.target.classList.remove('On');
 			  }
 		}
@@ -114,10 +115,63 @@
 		function mouseUpColor(e) {
 			e.target.style.backgroundColor = '';
 		}
+		
+		function keyDownColor(e) {
+			if (e.target.className === 'button') {
+				 console.log(e.target);
+				 e.target.classList.add('On');
+			}
+		}
+		function keyUpColor(e) {
+			if (e.target.className === 'button On') {
+				  console.log(e.target);
+				  e.target.classList.remove('On');
+			  }
+		}
 	cal.addEventListener("mouseover", showColor);
 	cal.addEventListener("mouseout", removeColor);
 	cal.addEventListener("mousedown", mouseDownColor);
 	cal.addEventListener("mouseup", mouseUpColor);
+	
+	cal.addEventListener("keydown", keyDownColor);
+	cal.addEventListener("keyup", keyUpColor);
+$(document).keydown(function(event) {
+	if(event.keyCode == '13') {
+		test('=');
+	}else if(event.keyCode == '96'){
+		test('0');
+	}else if(event.keyCode == '97'){
+		test('1');
+	}else if(event.keyCode == '98'){
+		test('2');
+	}else if(event.keyCode == '99'){
+		test('3');
+	}else if(event.keyCode == '100'){
+		test('4');
+	}else if(event.keyCode == '101'){
+		test('5');
+	}else if(event.keyCode == '102'){
+		test('6');
+	}else if(event.keyCode == '103'){
+		test('7');
+	}else if(event.keyCode == '104'){
+		test('8');
+	}else if(event.keyCode == '105'){
+		test('9');
+	}else if(event.keyCode == '110'){
+		test('.');
+	}else if(event.keyCode == '111'){
+		test('/');
+	}else if(event.keyCode == '106'){
+		test('*');
+	}else if(event.keyCode == '107'){
+		test('+');
+	}else if(event.keyCode == '109'){
+		test('-');
+	}else if(event.keyCode == '67'){
+		test('C');
+	}
+});
 </script>
 </body>
 </html>
