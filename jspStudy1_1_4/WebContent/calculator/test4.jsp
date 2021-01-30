@@ -5,21 +5,38 @@
 <head>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<style type="text/css">
+div {
+  font-size: 2rem;
+  text-align: center;
+  color: white;
+  background: black;
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.5s ease;
+}
+
+.pressed {
+  background: tomato;
+/*   transform: scale(1.2); */
+}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
-	......!!!
+
+<div id="*">1</div>
+<div id="-">2</div>
+<div id="+">3</div>	
+
 <script>
-$(document).keydown(function(event) {
-  if (event.keyCode == '37') {
-    alert('좌측 화살키를 누르셨습니다.');
-  }
-  else if (event.keyCode == '39') {
-    alert('우측 화살키를 누르셨습니다.');
-  }
+window.addEventListener("keydown", e => {
+   const key = document.getElementById(e.key);
+   if (key) key.classList.add('pressed');
 });
-$(document).keydown(function(event) {
-  console.log(event.keyCode);
+window.addEventListener("keyup", e => {
+   const key = document.getElementById(e.key);
+   if (key) key.classList.remove('pressed');
 });
 </script>
 </body>

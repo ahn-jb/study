@@ -110,7 +110,6 @@
  	</form>
 <script type="text/javascript">
 	function chuga2(){
-		alert("aa");
 		chugaProc.method="post";
 		chugaProc.action="${path}/test_servlet/chugaProc.do";
 		chugaProc.submit();
