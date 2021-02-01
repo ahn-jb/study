@@ -71,15 +71,15 @@
 			success: function(data){
 				$("#resultJson").text(data);
 				
-				var json_sj = JSON.parse(data);
-				$("#json_name").text(json_sj.name);
-				$("#json_kor").text(json_sj.kor);
-				$("#json_eng").text(json_sj.eng);
-				$("#json_mat").text(json_sj.mat);
-				$("#json_sci").text(json_sj.sci);
-				$("#json_his").text(json_sj.his);
-				$("#json_tot").text(json_sj.tot);
-				$("#json_avg").text(json_sj.avg);
+// 				var json_sj = JSON.parse(data);
+// 				$("#json_name").text(json_sj.name);
+// 				$("#json_kor").text(json_sj.kor);
+// 				$("#json_eng").text(json_sj.eng);
+// 				$("#json_mat").text(json_sj.mat);
+// 				$("#json_sci").text(json_sj.sci);
+// 				$("#json_his").text(json_sj.his);
+// 				$("#json_tot").text(json_sj.tot);
+// 				$("#json_avg").text(json_sj.avg);
 			}
 		});
 	}
