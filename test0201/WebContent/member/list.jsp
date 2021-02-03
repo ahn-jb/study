@@ -1,8 +1,6 @@
-<%@page import="com.sun.jdi.Location"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/inc_header.jsp" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +8,6 @@
 <title></title>
 </head>
 <body>
-	
 	<form>
 		<h2>회원관리</h2>
 		<table border="1" width="1500" >
@@ -77,7 +74,6 @@
 				</tr>
 				</c:if>
 		</table>
-
 	</form>
 <script>
 	function GoPage(value1,value2,value3){

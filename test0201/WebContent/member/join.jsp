@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <title>회원가입</title>
 </head>
 <body>
@@ -154,7 +153,7 @@
 			alert('이름을 입력하세요.')
 			document.joinForm.name.focus();
 			return false;
-		}else if(document.joinForm.gender.value.trim() ==""){
+		}else if(document.joinForm.gender.value ==""){
 			alert('성별을 선택하세요.')
 			document.joinForm.gender.focus();
 			return false;
@@ -173,10 +172,6 @@
 		}else if(document.joinForm.parcel_addr.value.trim() ==""){
 			alert('지번주소를 입력하세요.')
 			document.joinForm.parcel_addr.focus();
-			return false;
-		}else if(document.joinForm.result.value.trim() == "" ){
-			alert('아이디를 확인해주세요.')
-			document.joinForm.id.focus();
 			return false;
 		}else if(confirm('가입하시겠습니까?')){
 			joinForm.method="post";
