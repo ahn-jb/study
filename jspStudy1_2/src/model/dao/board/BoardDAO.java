@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import model.dto.board.BoardDTO;
+import model.dto.memo.MemoDTO;
 
 
 public class BoardDAO {
@@ -14,7 +15,11 @@ public class BoardDAO {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-
+	
+	
+	String tableName01 = "board";
+	String tableName02 = "board_comment";
+	
 	public void getConn() {
 		try {
 			String driver = "oracle.jdbc.driver.OracleDriver";
@@ -52,22 +57,28 @@ public class BoardDAO {
 		getConn();
 		int result = 0;
 		try {
-			String sql = "insert into board values(seq_board.nextval," + "?,?,?,?,?,?" + ",?,?,?,?,?,"
-					+ "to_char(sysdate,'yyyy-mm-dd'),?)";
+			String sql = "insert into board values(seq_board.nextval," 
+					+ "?,?,?,?,?,?"
+					+ ",?,?,?,?,?,"
+					+ "?,?,?,?,?,"
+					+ "sysdate)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, dto.getNum());
-			pstmt.setString(2, dto.getWriter());
-			pstmt.setString(3, dto.getSubject());
-			pstmt.setString(4, dto.getContent());
-			pstmt.setString(5, dto.getEmail());
-			pstmt.setString(6, dto.getPasswd());
-			pstmt.setInt(7, dto.getRefNo());
-			pstmt.setInt(8, dto.getStepNo());
-			pstmt.setInt(9, dto.getLevelNo());
-			pstmt.setInt(10, dto.getP_no());
-			pstmt.setInt(11, dto.getHit());
-			pstmt.setInt(12, dto.getService());
-
+			pstmt.setString(2, dto.getTbl());
+			pstmt.setString(3, dto.getWriter());
+			pstmt.setString(4, dto.getSubject());
+			pstmt.setString(5, dto.getContent());
+			pstmt.setString(6, dto.getEmail());
+			pstmt.setString(7, dto.getPasswd());
+			pstmt.setInt(8, dto.getRefNo());
+			pstmt.setInt(9, dto.getStepNo());
+			pstmt.setInt(10, dto.getLevelNo());
+			pstmt.setInt(11, dto.getP_no());
+			pstmt.setInt(12, dto.getHit());
+			pstmt.setString(13, dto.getIp());
+			pstmt.setInt(14, dto.getMemberNo());
+			pstmt.setInt(15, dto.getNoticeNo());
+			pstmt.setString(16, dto.getSecretGubun());
 			result = pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -80,8 +91,8 @@ public class BoardDAO {
 	}
 
 	public int getMaxNum() {
-		int num = 0;
 		getConn();
+		int num = 0;
 		try {
 			String sql = "select nvl(max(num),0)  from board";
 			pstmt = conn.prepareStatement(sql);
@@ -99,8 +110,8 @@ public class BoardDAO {
 	}
 
 	public int getMaxRefNo() {
-		int num = 0;
 		getConn();
+		int num = 0;
 		try {
 			String sql = "select nvl(max(refNo),0)  from board";
 			pstmt = conn.prepareStatement(sql);
@@ -130,6 +141,23 @@ public class BoardDAO {
 		}
 	}
 	
+	public int getMaxNoticeNo(String tbl) {
+		getConn();
+		int result = 0;
+		try {
+			String sql = "select nvl(max(noticeNo),0) from board where tbl=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tbl);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public void setUpdateReLevel(BoardDTO dto) {
 		getConn();
 
@@ -148,10 +176,10 @@ public class BoardDAO {
 	}
 	
 	public ArrayList<BoardDTO> getSelectAll() {
-		ArrayList<BoardDTO> arrayList = new ArrayList<BoardDTO>();
 		getConn();
+		ArrayList<BoardDTO> arrayList = new ArrayList<BoardDTO>();
 		try {
-			String sql = "select*from board order by refNo desc, levelNo asc ";
+			String sql = "select*from board order by noticeNo desc, refNo desc, levelNo asc ";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
@@ -170,7 +198,6 @@ public class BoardDAO {
 				dto.setP_no(rs.getInt("p_no"));
 				dto.setHit(rs.getInt("hit"));
 				dto.setRegiDate(rs.getDate("regiDate"));
-				dto.setService(rs.getInt("service"));
 				arrayList.add(dto);
 
 			}
@@ -185,8 +212,8 @@ public class BoardDAO {
 	}
 	
 	public BoardDTO getSelectOne(int no) {
-		BoardDTO dto = new BoardDTO();
 		getConn();
+		BoardDTO dto = new BoardDTO();
 		try {
 			String sql = "select*from board where no=? ";
 			pstmt = conn.prepareStatement(sql);
@@ -195,6 +222,7 @@ public class BoardDAO {
 			if(rs.next()) {
 				dto.setNo(rs.getInt("no"));
 				dto.setNum(rs.getInt("num"));
+				dto.setTbl(rs.getString("tbl"));
 				dto.setWriter(rs.getString("writer"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
@@ -205,44 +233,48 @@ public class BoardDAO {
 				dto.setLevelNo(rs.getInt("levelNo"));
 				dto.setP_no(rs.getInt("p_no"));
 				dto.setHit(rs.getInt("hit"));
+				dto.setIp(rs.getString("ip"));
+				dto.setMemberNo(rs.getInt("memberNo"));
+				dto.setNoticeNo(rs.getInt("noticeNo"));
+				dto.setSecretGubun(rs.getString("secretGubun"));
 				dto.setRegiDate(rs.getDate("regiDate"));
-				dto.setService(rs.getInt("service"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-		}finally {
-			getConnClose();
 		}
 		return dto;
 	}
 	
-	public BoardDTO getSelectView(int no, String search , String bunryu) {//상세보기 출력
-		BoardDTO dto = new BoardDTO();
+	public BoardDTO getView(int no, String search , String bunryu) {//상세보기 출력
 		getConn();
+		BoardDTO dto = new BoardDTO();
 		try {
-			String sql1 = " select*from(select b.*, LAG(no) OVER (ORDER BY refNo desc, levelNo asc)"
-					+ " preNo,LAG(subject) OVER (ORDER BY refNo desc, levelNo asc)preSubject,"
-					+ " LEAD(no) OVER (ORDER BY refNo desc, levelNo asc) nextNo,"
-					+ " LEAD(subject) OVER (ORDER BY refNo desc, levelNO asc) nextSubject"
-					+ " from board b where service >0 ";
+			String sql1 = " select*from(select b.*,"
+					+ "(select count(*) from board where refNo =b.refNo and stepNo = (b.stepNo+1) and levelNo =(b.levelNo+1))child_counter,"
+					+ " LAG(no) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) preNo, "
+					+ " LAG(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc)preSubject,"
+					+ " LEAD(no) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) nextNo,"
+					+ " LEAD(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNO asc) nextSubject"
+					+ " from board b ";
 			String sql ="";
 			if(bunryu == null || bunryu =="") {
 				sql = sql1 +" order by refNo desc, levelNo asc ) where no =? ";
 			}else if(bunryu.equals("subject") || bunryu.equals("content") || bunryu.equals("writer")) {
-				sql = sql1 + " and "+bunryu+" like '%"+search+"%' order by refNo desc, levelNo asc ) where no =? ";
-			}else if(bunryu.equals("total")) {
-				sql = sql1 + " and subject like '%"+search+"%'"
-						+ " or service >0 and content like '%"+search+"%' order by refNo desc, levelNo asc ) where no =? ";
+				sql = sql1 +" where "+bunryu+" like '%"+search+"%' order by refNo desc, levelNo asc ) where no =? ";
+			}else if(bunryu.equals("writer_subject_content")) {
+				sql = sql1 + "where subject like '%"+search+"%'"
+						+ " or content like '%"+search+"%'  or writer like '%"+ search +"%' order by refNo desc, levelNo asc ) where no =? ";
 			}else {
 				sql = sql1 +" order by refNo desc, levelNo asc ) where no =? ";
 			}
-			
+//			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				dto.setNo(rs.getInt("no"));
 				dto.setNum(rs.getInt("num"));
+				dto.setTbl(rs.getString("tbl"));
 				dto.setWriter(rs.getString("writer"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
@@ -253,11 +285,15 @@ public class BoardDAO {
 				dto.setLevelNo(rs.getInt("levelNo"));
 				dto.setP_no(rs.getInt("p_no"));
 				dto.setHit(rs.getInt("hit"));
+				dto.setIp(rs.getString("ip"));
+				dto.setMemberNo(rs.getInt("memberNo"));
+				dto.setNoticeNo(rs.getInt("noticeNo"));
+				dto.setSecretGubun(rs.getString("secretGubun"));
 				dto.setRegiDate(rs.getDate("regiDate"));
-				dto.setService(rs.getInt("service"));
+				dto.setChild_counter(rs.getInt("child_counter"));
 				dto.setPreNo(rs.getInt("preNo"));
-				dto.setNextNo(rs.getInt("nextNo"));
 				dto.setPreSubject(rs.getString("preSubject"));
+				dto.setNextNo(rs.getInt("nextNo"));
 				dto.setNextSubject(rs.getString("nextSubject"));
 			}
 		} catch (Exception e) {
@@ -269,15 +305,20 @@ public class BoardDAO {
 	}
 
 	public int setUpdate(BoardDTO dto) {//수정하기
-		int result = 0;
 		getConn();
+		int result = 0;
 		try {
-			String sql = "update board set subject=?,content =?,email =? where no =?";
+			String sql = "update board set writer=?, subject=?, content=?, email =?, passwd=?, noticeNo=?, secretGubun=? where no =?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getSubject());
-			pstmt.setString(2, dto.getContent());
-			pstmt.setString(3, dto.getEmail());
-			pstmt.setInt(4, dto.getNo());
+			
+			pstmt.setString(1, dto.getWriter());
+			pstmt.setString(2, dto.getSubject());
+			pstmt.setString(3, dto.getContent());
+			pstmt.setString(4, dto.getEmail());
+			pstmt.setString(5, dto.getPasswd());
+			pstmt.setInt(6, dto.getNoticeNo());
+			pstmt.setString(7, dto.getSecretGubun());
+			pstmt.setInt(8, dto.getNo());
 			result = pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -289,13 +330,13 @@ public class BoardDAO {
 	}
 
 	public int Delete(int no) {//삭제하기
-		int result = 0;
 		getConn();
+		int result = 0;
 		try {
-			String sql = "update board set service=? where no=? ";
+			String sql = "delete from board where no=? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, 0);
-			pstmt.setInt(2, no);
+//			pstmt.setInt(1, 0);
+			pstmt.setInt(1, no);
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -306,43 +347,44 @@ public class BoardDAO {
 		return result;
 	}
 
-	public ArrayList<BoardDTO> search(int startRow, int endRow,String search, String bunryu) {
+	public ArrayList<BoardDTO> search(int startRow, int endRow,String tbl,String search_data, String search_option) {
 		getConn();
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
-//		System.out.println(bunryu);
 		try {
 			String sql1 = "select*from " 
 					+ " (select ROWNUM rn,bb.* from"
-					+ " (select b.*,(select count(*) from board where p_no=b.no) p_no_result from "
-					+ " board b where service>0 ";
+					+ " (select b.*,(select count(*) from board where p_no=b.no) child_counter from "
+					+ " board b where tbl=? ";
 			String sql= "";
-			if(bunryu == null || bunryu =="") {
+			if(search_option == null || search_option =="") {
 				sql = sql1 
-						+ " order by refNo desc, levelNo asc) bb)"
+						+ " order by noticeNo desc, refNo desc, levelNo asc) bb)"
 						+ " where rn between ? and ?";
-			}else if(bunryu.equals("subject") || bunryu.equals("content") || bunryu.equals("writer")) {
+			}else if(search_option.equals("subject") || search_option.equals("content") || search_option.equals("writer")) {
 				sql = sql1 
-						+ " and " + bunryu +" like '%" + search + "%'  order by refNo desc, levelNo asc) bb)"
+						+ " and " + search_option +" like '%" + search_data + "%'  order by noticeNo desc, refNo desc, levelNo asc) bb)"
 						+ " where rn between ? and ?";
-			}else if(bunryu.equals("total")) {
+			}else if(search_option.equals("writer_subject_content")) {
 				sql = sql1 
-						+ " and subject like '%"+ search + "%' or service>0 and content like '%" + search + "%' "
-						+ " order by refNo desc, levelNo asc) bb)"
+						+ " and (subject like '%"+ search_data + "%' or content like '%" + search_data + "%' or writer like '%"+ search_data +"%')"
+						+ " order by noticeNo desc, refNo desc, levelNo asc) bb)"
 						+ " where rn between ? and ? ";
 			}else {
 				sql = sql1 
-						+ " order by refNo desc, levelNo asc) bb)"
+						+ " order by noticeNo desc, refNo desc, levelNo asc) bb)"
 						+ " where rn between ? and ?";
 			}
 //			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(1,tbl);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardDTO dto = new BoardDTO();
 				dto.setNo(rs.getInt("no"));
 				dto.setNum(rs.getInt("num"));
+				dto.setTbl(rs.getString("tbl"));
 				dto.setWriter(rs.getString("writer"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
@@ -353,56 +395,135 @@ public class BoardDAO {
 				dto.setLevelNo(rs.getInt("levelNo"));
 				dto.setP_no(rs.getInt("p_no"));
 				dto.setHit(rs.getInt("hit"));
+				dto.setIp(rs.getString("ip"));
+				dto.setMemberNo(rs.getInt("memberNo"));
+				dto.setNoticeNo(rs.getInt("noticeNo"));
+				dto.setSecretGubun(rs.getString("secretGubun"));
 				dto.setRegiDate(rs.getDate("regiDate"));
-				dto.setService(rs.getInt("service"));
-				dto.setP_no_result(rs.getInt("p_no_result"));
-				dto.setAnswer_boolean("O");	
-				if(dto.getP_no_result() >0){
-					dto.setAnswer_boolean("X");
-				}
-//				System.out.println(dto.getAnswer_boolean());
+				dto.setChild_counter(rs.getInt("child_counter"));
 				list.add(dto);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			getConnClose();
 		}
 
 		return list;
 	}
 
-	public int getCount(String bunryu ,String search) {
+	public int getCount(String tbl,String bunryu ,String search) {
 		getConn();
 		int count = 0;
-//		System.out.println("count_bunryu : "+bunryu);
 		try {
-			String sql1 = "select count(*) from board";
+			String sql1 = "select count(*) from board where tbl =?";
 			String sql="";
 			if(bunryu == null || bunryu =="") {
 				sql = sql1;
 			}else if(bunryu.equals("subject") || bunryu.equals("content") || bunryu.equals("writer")) {
-				sql = sql1 +  " where service >0 and " + bunryu + " like '%" + search + "%'";
-			}else if(bunryu.equals("total")) {
-				sql = sql1 + " where service >0 and subject like '%" + search + "%' or service >0 and content like '%" + search +"%'";
+				sql = sql1 +  " and " + bunryu + " like '%" + search + "%'";
+			}else if(bunryu.equals("writer_subject_content")) {
+				sql = sql1 + " and (subject like '%" + search + "%' or content like '%" + search +"%' or writer like '%"+ search +"%')";
 			}else {
 				sql = sql1;
 			}
 //			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tbl);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				count = rs.getInt(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			getConnClose();
 		}
 
 		return count;
 	}
+	// Comment
+	public int CommentInsert(BoardDTO dto) {
+		getConn();
+		int result=0;
+		try {
+			String sql="insert into board_comment values (seq_board_comment.nextval,?,?,?,?,?,?,sysdate)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,dto.getBoard_no());
+			pstmt.setString(2, dto.getComment_writer());
+			pstmt.setString(3, dto.getComment_content());
+			pstmt.setString(4, dto.getComment_passwd());
+			pstmt.setInt(5, dto.getMemberNo());
+			pstmt.setString(6, dto.getIp());
+			result = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public int getTotalRecord(int no) {
+		getConn();
+		int count = 0;
+		try {
+			String sql="select count(*) from board_comment where board_no=?";	
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs= pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public ArrayList<BoardDTO> getComment(int no,int startRecord,int lastRecord){
+		getConn();
+		ArrayList<BoardDTO> list = new ArrayList<>();
+		try{
+			String sql = "select*from "
+					+ "(select rownum rn,a.* from "
+					+ "(select * from board_comment where board_no=? order by comment_no desc) a)"
+					+ " where rn between ? and ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.setInt(2, startRecord);
+			pstmt.setInt(3, lastRecord);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				dto.setComment_no(rs.getInt("comment_no"));
+				dto.setBoard_no(rs.getInt("board_no"));
+				dto.setComment_writer(rs.getString("comment_writer"));
+				dto.setComment_content(rs.getString("comment_content"));
+				dto.setComment_passwd(rs.getString("comment_passwd"));
+				dto.setMemberNo(rs.getInt("memberNo"));
+				dto.setIp(rs.getString("ip"));
+				dto.setRegiDate(rs.getDate("regiDate"));
+				list.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public int tblchk(String temp) {
+		getConn();
+		int result_tbl =0;
+		try {
+			String sql = "select count(*) from boardChk where tbl=? and serviceGubun=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,temp);
+			pstmt.setString(2,"T");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result_tbl = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result_tbl;
+	}
 
 }
+
 

@@ -27,7 +27,6 @@ public class BoardController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doProc(request, response);
 	}
 	protected void doProc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

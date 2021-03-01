@@ -1,0 +1,244 @@
+ create table member(
+no number not null unique,
+id varchar2(50) not null primary key,
+pw varchar2(150) not null,
+name varchar2(50) not null,
+gender varchar2(1) not null check(gender in('M','F')),
+bornYear number not null,
+grade number not null,
+loginCounter number default 0,
+postNum varchar2(100) not null,     
+street_addr varchar2(100) not null,  
+parcel_addr varchar2(100) not null,  
+detail_addr varchar2(100),  
+reference varchar2(100) ,
+regidate timestamp default current_timestamp
+);
+
+create SEQUENCE seq_member START WITH 1 INCREMENT by 1 minvalue 1;
+
+drop table member;
+drop sequence seq_member;   
+
+select *from member order by no asc;
+
+commit;
+
+update member set grade = 1 where id ='hong';
+update member set pw = '1234' where id ='hong';
+select * from member where no =1;
+------------------------------------------------------------------------------------------------------------------
+create table memo(
+no number not null primary key,
+writer varchar2(50) not null,
+content clob not null,
+regi_date date default sysdate
+);
+
+create sequence seq_memo START WITH 1 INCREMENT by 1 minvalue 1;
+
+drop table memo;
+drop sequence seq_memo;
+
+delete from memo where no=1;
+
+select*from memo;
+
+commit;
+
+----------------------------------------------------------------------------------------------
+create table guestbook(
+no number not null primary key,
+name varchar2(50) not null,
+email varchar2(50) not null,
+passwd varchar2(50) not null,
+content clob not null,
+regi_date date DEFAULT sysdate
+);
+
+create sequence seq_guestbook START WITH 1 INCREMENT by 1 minvalue 1;
+
+select*from guestbook;
+
+select*from  (select ROWNUM rn , bb.* from (select * from guestbook where name like '%%'  order by no desc) bb) where rn between 1 and 1;
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+create table board(
+no      number       not null,         
+num     number       not null,
+tbl     varchar2(50) not null,
+writer  varchar2(50) not null,
+subject varchar2(50) not null,  
+content clob         not null,
+email   varchar2(50)         ,
+passwd  varchar2(50)         ,
+refNo   number       not null,
+StepNo  number       not null,
+LevelNo number       not null,
+p_no    number               ,
+hit     number       not null,
+ip      varchar2(50)         ,
+memberNo number      not null,
+noticeNo number      not null,
+secretGubun varchar2(1) not null check (secretGubun in('T','F')),
+regiDate date        DEFAULT sysdate,
+primary key(no)
+);
+
+drop table board;
+drop sequence seq_board;
+create sequence seq_board start with 1 increment by 1 minvalue 1;
+
+delete from board where writer = '1004';
+commit;
+select*from board where writer='1004';
+select*from board order by noticeNo desc, refNo desc, levelNo asc;
+
+/*select*from
+(select b.*,
+(select count(*) from board where refNo =b.refNo and stepNo = (b.stepNo+1) and levelNo =(b.levelNo+1))child_counter,
+LAG(no) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) preNo,
+LAG(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc)preSubject,
+LEAD(no) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) nextNo,
+LEAD(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNO asc) nextSubject from board b 
+order by refNo desc, levelNo asc ) where no =1;*/
+
+commit;
+/*begin
+for i in 18 .. 100 loop
+insert into board values (seq_board.nextval,i,'freeboard',i,i,i,i,i,i,1,1,0,0,'192.168.123.10',0,0,'F',sysdate);
+end loop;
+end;*/
+
+select count(*) from board where refNo = 1002 and stepNo >1 and levelNo >1; 
+
+select * from board;
+
+select*from
+(select ROWNUM rn,bb.* from 
+(select b.*,(select count(*) from board where p_no=b.no) child_counter 
+from  board b where tbl='aaa'  order by noticeNo desc, refNo desc, levelNo asc) bb) where rn between 1 and 5;
+
+----------------------------------------------------------------------------------------------------------------------------
+create table boardChk(
+no number not null,
+tbl varchar2(50) not null,
+tblname varchar2(50) not null,
+serviceGubun varchar2(1) not null check (serviceGubun in('T','F')),
+regidate date default sysdate
+);
+
+create sequence seq_boardChk start with 1 increment by 1 minvalue 1;
+
+select*from boardchk;
+insert into boardChk values(seq_boardChk.nextval,'javaboard','자바게시판','T',sysdate);
+select*from boardChk where tbl='aaa' and serviceGubun='T';
+select*from boardChk where tbl=? and serviceGubun='T';
+select count(*) from boardChk where tbl='aaa' and serviceGubun='T';
+---------------------------------------------------------------------------------
+create table survey(
+no number not null primary key,
+question varchar2(4000) not null,
+ans1 varchar2(4000) not null,
+ans2 varchar2(4000) not null,
+ans3 varchar2(4000) not null,
+ans4 varchar2(4000) not null,
+status char(1) default '1',  --실행중 1 종료 0
+start_date  timestamp default current_timestamp,
+last_date   timestamp default current_timestamp,
+regi_date   timestamp default current_timestamp
+);
+
+drop table survey;
+drop sequence seq_survey;
+create sequence seq_survey start with 1 increment by 1 minvalue 1;
+
+select*from survey;
+commit;
+
+select count(*) from survey where no > 0 and current_timestamp > last_date;
+
+select * from (select A.*, Rownum Rnum from 
+(select t1.*, (select count(*) from survey_answer t2 where t2.no = t1.no)servey_counter 
+from survey t1 where no>0 and current_timestamp > last_date order by no desc) A) where Rnum >=1 and Rnum<=2;
+
+select t1.*, (select count(*) from survey_answer t2 where t2.no = t1.no) survey_counter from survey t1 where no>0 order by no desc;
+
+select count(*) from survey where no > 0 and question like '%시작전%';
+----------------------------------------------------------------------------------------------------------------------------
+create table survey_answer(
+answer_no number not null primary key, --일련번호
+no number not null references survey(no), --문제번호
+answer number not null, --응답번호
+regi_date timestamp default current_timestamp
+);
+
+drop table survey_answer;
+drop sequence seq_survey_answer;
+create sequence seq_survey_answer start with 1 increment by 1 minvalue 1;
+
+select*from survey_answer;
+
+-------------------------------------------------------------------------
+create table board_comment(
+comment_no number not null primary key, --댓글 일련번호
+board_no number not null references board(no), --게시물 번호
+comment_writer varchar2(50) not null,
+comment_content clob not null,
+comment_passwd varchar2(50) not null,
+memberNo number not null,
+ip varchar2(50) not null,
+regiDate date default sysdate
+);
+create sequence seq_board_comment start with 1 increment by 1 minvalue 1;
+
+drop table board_comment;
+drop sequence seq_board_comment;
+
+select * from board_comment where board_no=184;
+delete from board_comment where board_no=184;
+
+select*from board_comment;
+select count(*) from board_comment;
+select*from (select rownum rn,a.* from (select * from board_comment where comment_no > 0 order by comment_no desc) a) where board_no=100 and rn between 1 and 5;
+
+insert into board_comment values(seq_board_comment.nextval,2,'1','1','1',1,'12',sysdate);
+commit;
+
+select*from (select a.*,rownum rn from (select * from board_comment where board_no=99 order by comment_no desc ) a) where rn between 1 and 10;
+
+-------------------------------------------------------------------------------------------------------------------------------
+create table product(
+no number not null primary key, --상품코드
+name varchar2(50) not null,--상품이름
+price number default 0, --단가
+description clob, --상품설명
+product_img varchar2(1000) not null, --상품이미지 파일이름
+regi_date timestamp default current_timestamp
+);
+create sequence seq_product start with 1 increment by 1 nomaxvalue nocache;
+
+drop table product;
+drop sequence seq_product;
+
+insert into product values(seq_product.nextval,'사과',1500,'맛있는 사과','apple.jpg',current_timestamp);
+select*from product;
+commit;
+
+select*from 
+(select ROWNUM rn,bb.* from 
+(select b.*,(select count(*) from product where no>0) from product b  order by no desc) bb) where rn between 1 and 5;
+
+select*from product;
+delete from product where name='';
+commit;
+
+ select*from
+ (select b.*,
+ (select count(*) from board where refNo =b.refNo and stepNo = (b.stepNo+1) and levelNo =(b.levelNo+1))child_counter,
+ LAG(no) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) preNo,
+ LAG(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc)preSubject,
+ LEAD(no) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) nextNo,
+ LEAD(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) nextSubject from board b
+ order by refNo desc, levelNo asc ) where no =187;
+ select*from board where subject='104';
