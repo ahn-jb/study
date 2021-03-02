@@ -43,6 +43,7 @@
 	</table>
 <script>
 $(document).ready(function(){
+	$("#name").select();
 	$("#name").focus();
 	
 	$("#btnChugaProc").click(function(){

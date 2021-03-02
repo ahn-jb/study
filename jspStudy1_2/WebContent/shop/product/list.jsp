@@ -55,7 +55,7 @@
 		</tr>
 		<tr>
 			<td>
-				<table border="1" width="1400">
+				<table border="1" width="1500">
 					<tr>
 						<td width="70">상품코드</td>
 						<td width="150">상품사진</td>
@@ -71,16 +71,26 @@
 							<td>${dto.no}</td>
 							<td align="center">
 								<c:choose>
-									<c:when test="${fn:split(dto.product_img,',')[0] =='-'}">
+									<c:when test="${dto.product_img == '-,-,-'}">
 										<a href="#" onclick="suntaek_proc('view','','${dto.no}');">이미지X</a>
 									</c:when>
 									<c:otherwise>
+										<c:if test="${dto.product_img != '-,-,-'}">
 										<c:set var="temp1" value="${fn:split(dto.product_img,',')[0]}"></c:set>
+										<c:set var="temp2" value="${fn:split(temp1,'|')[0]}"></c:set>
+										<c:set var="temp3" value="${fn:split(temp1,'|')[1]}"></c:set>
+										<a href="#" onclick="suntaek_proc('view','','${dto.no}');">
+											<img src="${path}/attach/product_img/${temp3}" alt="${dto.name}" title="${dto.name}" style="width:130px; height:70px;">
+										</a>
+										</c:if>
+<%-- 										<c:if test="${dto.product_img != '-,-,-'}"> --%>
+<%-- 										<c:set var="temp1" value="${fn:split(dto.product_img,',')[1]}"></c:set> --%>
 <%-- 										<c:set var="temp2" value="${fn:split(temp1,'|')[0]}"></c:set> --%>
 <%-- 										<c:set var="temp3" value="${fn:split(temp1,'|')[1]}"></c:set> --%>
-										<a href="#" onclick="suntaek_proc('view','','${dto.no}');">
-											<img src="${path}/attach/product_img/${temp1}" alt="${dto.name}" title="${dto.name}" style="width:130px; height:70px;">
-										</a>
+<%-- 										<a href="#" onclick="suntaek_proc('view','','${dto.no}');"> --%>
+<%-- 											<img src="${path}/attach/product_img/${temp3}" alt="${dto.name}" title="${dto.name}" style="width:130px; height:70px;"> --%>
+<!-- 										</a> -->
+<%-- 										</c:if> --%>
 									</c:otherwise>
 								</c:choose>
 							</td>

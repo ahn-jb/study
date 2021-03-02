@@ -139,4 +139,26 @@ public class ProductDAO {
 		}
 		return result;
 	}
+	
+	public ProductDTO getView(int no) {
+		getConn();
+		ProductDTO dto = new ProductDTO();
+		try {
+			String sql = "select * from product where no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setNo(rs.getInt("no"));
+				dto.setName(rs.getString("name"));
+				dto.setPrice(rs.getInt("price"));
+				dto.setDescription(rs.getString("description"));
+				dto.setProduct_img(rs.getString("product_img"));
+				dto.setRegi_date(rs.getTimestamp("regi_date"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
 }

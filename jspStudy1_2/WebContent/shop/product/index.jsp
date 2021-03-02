@@ -12,7 +12,7 @@ no : <span id="span_no">${no}</span><br>
 search_option : <span id="span_search_option">${search_option}</span><br>
 search_data : <span id="span_search_data">${search_data}</span><br>
 
-<div id="result" style="border: 1px solid red; height: 400px; "></div>
+<div id="result" style="border: 1px solid red; height: 500px; "></div>
 
 <script>
 $(document).ready(function(){
@@ -22,13 +22,13 @@ $(document).ready(function(){
 </c:if>
 });
 function GoPage(value1,value2){
-	var parm;
+	var parm = {};
 	var process_data;
 	var content_type;
 	var url = "${path}/product_servlet/"+value1+".do";
 	
 	if(value1 == 'list'){
-		result.style.height = "400px";
+		result.style.height = "500px";
 		param ={
 				"pageNumber" : $("#span_pageNumber").text(),
 				"pageSize" : $("#span_pageSize").text(),
@@ -36,13 +36,16 @@ function GoPage(value1,value2){
 				"search_data" : $("#span_search_data").text()
 		}
 	}else if(value1 =='chuga'){
-		result.style.height = "300px";
+		result.style.height = "400px";
 		 param = {}
-	}else if(value1 == "chugaProc" ){       
+	}else if(value1 == "chugaProc" || value1== "sujungProc" ){
+		alert($("#span_no").text());
 		process_data = false;
 		content_type = false;
 		
 		param = new FormData();
+		
+		param.append("no", $("#span_no").text());
 		param.append("name",$("#name").val());
 		param.append("price",$("#price").val());
 		param.append("description",$("#description").val());
@@ -55,6 +58,11 @@ function GoPage(value1,value2){
 		var file_counter =parseInt($('input[name="file"]').length);
 		for(i=0; i<file_counter; i++){
 			param.append(i,$('input[name="file"]')[i].files[0]);
+		}
+	}else if(value1 =="view" || value1 == "sujung"){
+		result.style.height = "600px";
+		param = {
+			"no" : $("#span_no").text()
 		}
 	}
 
@@ -80,17 +88,18 @@ function GoPage(value1,value2){
 function suntaek_proc(value1,value2,value3){
 	if(value1 == 'chuga'){
 		$("#span_no").text("");	
-	}else if(value1 == "chugaProc"){
-		
 	}
-	
 	if(value1 != ''){
 		$("#span_proc").text(value1);
-	}else if(value2 != ''){
-		$("#span_pageNumber").text(value2);		
-	}else if(value3 != ''){
-		$("#span_no").text(value3);		
 	}
+	if(value2 != ''){
+		$("#span_pageNumber").text(value2);		
+	}
+	if(value3 != ''){
+		alert(value3);
+		$("#span_no").text(value3);	
+	}
+	
 	GoPage(value1,'');
 }
 
