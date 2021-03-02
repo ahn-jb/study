@@ -39,7 +39,6 @@ function GoPage(value1,value2){
 		result.style.height = "400px";
 		 param = {}
 	}else if(value1 == "chugaProc" || value1== "sujungProc" ){
-		alert($("#span_no").text());
 		process_data = false;
 		content_type = false;
 		
@@ -73,9 +72,9 @@ function GoPage(value1,value2){
 			contentType: content_type,
 			url  : url,
 			success: function(data){
-				if(value1 =='chugaProc'){
+				if(value1 =='chugaProc' ){
 					suntaek_proc('list','1','');
-				}else if(value1 == 'sujeongProc'){
+				}else if(value1 == 'sujungProc'){
 // 					GoPage('view',$("#span_no").text());
 					$("#result").html(data);
 				}else{
@@ -96,7 +95,6 @@ function suntaek_proc(value1,value2,value3){
 		$("#span_pageNumber").text(value2);		
 	}
 	if(value3 != ''){
-		alert(value3);
 		$("#span_no").text(value3);	
 	}
 	

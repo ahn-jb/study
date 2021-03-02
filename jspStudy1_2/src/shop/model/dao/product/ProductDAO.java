@@ -161,4 +161,22 @@ public class ProductDAO {
 		}
 		return dto;
 	}
+	
+	public int Update(ProductDTO dto) {
+		getConn();
+		int result =0;
+		try {
+			String sql ="update product set name=?,price=?,description=?,product_img=? where no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.setInt(2, dto.getPrice());
+			pstmt.setString(3, dto.getDescription());
+			pstmt.setString(4, dto.getProduct_img());
+			pstmt.setInt(5, dto.getNo());
+			result = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

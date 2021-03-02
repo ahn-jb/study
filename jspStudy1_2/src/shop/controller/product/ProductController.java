@@ -163,22 +163,34 @@ public class ProductController extends HttpServlet {
 			temp = multi.getParameter("price");
 			int price = Integer.parseInt(temp);
 			String description = multi.getParameter("description");
-			
-			String[] array = new String[3];
-			
-			if(no > 0 ) {
+			if(multi.getParameter("no") == null || multi.getParameter("no")=="") {
+				no = 0;
+			}else {
 				no = Integer.parseInt(multi.getParameter("no"));
+			}
+			String[] array = new String[3];
+			System.out.println(no);
+			if(no > 0 ) {
 				dto = dao.getView(no);
 			
+				String[] imsi = dto.getProduct_img().split(",");
 				for(int i=0; i<array.length; i++ ) {
-					String[] imsi = dto.getProduct_img().split(",");
-					System.out.println(imsi[i]);
+					System.out.println("imsi["+i+"]: "+imsi[i]);
+					int point = imsi[i].lastIndexOf("|");
+
+					imsi[i] = imsi[i].substring(point+1);
+					System.out.println("imsi["+i+"]: "+imsi[i]);
+					
+					java.io.File file2 = new java.io.File(img_path03+imsi[i]);
+					file2.delete();
+					array[i] = "-";
 				}
-			}else {
 				
+			}else {
 				for(int i=0; i<array.length; i++) {
 					array[i]= "-";
 				}
+			}
 				Enumeration files = multi.getFileNames();
 				while(files.hasMoreElements()) {
 					String formName = (String)files.nextElement();
@@ -232,12 +244,16 @@ public class ProductController extends HttpServlet {
 				dto.setPrice(price);
 				dto.setDescription(description);
 				dto.setProduct_img(str);
+				int result;
+				if(no >0) {
+					result = dao.Update(dto);
+					out.println("<script>alert('정상적으로 수정되었습니다.'); suntaek_proc('view','','"+no+"');</script>");
+				}else {
+					result = dao.setInsert(dto);
 					
-//				int result = dao.setInsert(dto);
-			}
+				}
 			
-			
-			
+
 		}else if(url.indexOf("view.do") != -1) {
 			request.setAttribute("menu_gubun", "product_view");
 			dto = dao.getView(no);
@@ -252,23 +268,6 @@ public class ProductController extends HttpServlet {
 			page= "/shop/product/sujung.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
-		}else if(url.indexOf("sujungProc.do") != -1) {
-			request.setAttribute("menu_gubun", "product_sujungProc");
-			String img_path01 = request.getSession().getServletContext().getRealPath("/attach/product_img/");			
-			String img_path02 = img_path01.replace("\\", "/");
-			String img_path03 = img_path01.replace("\\", "\\\\");
-			
-			
-			String[] array = new String[3];
-			System.out.println(no);
-			dto = dao.getView(no);
-			String filename= dto.getProduct_img();
-			System.out.println("파일이름: "+filename);
-			
-//			java.io.File f1;
-//			 String old_path = img_path03+filename;
-//			 f1 = new java.io.File(old_path);
-			
 		}
 	}
 
