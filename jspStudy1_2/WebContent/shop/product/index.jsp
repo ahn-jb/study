@@ -43,9 +43,8 @@ function GoPage(value1,value2){
 		content_type = false;
 		
 		param = new FormData();
-		if(value1 == "sujungProc"){			
-			param.append("no", $("#span_no").text());
-		}
+		
+		param.append("no", $("#span_no").text());
 		param.append("name",$("#name").val());
 		param.append("price",$("#price").val());
 		param.append("description",$("#description").val());
@@ -59,13 +58,11 @@ function GoPage(value1,value2){
 		for(i=0; i<file_counter; i++){
 			param.append(i,$('input[name="file"]')[i].files[0]);
 		}
-	}else if(value1 =="view" || value1 == "sujung" ){
+	}else if(value1 =="view" || value1 == "sujung"){
 		result.style.height = "600px";
 		param = {
 			"no" : $("#span_no").text()
 		}
-	}else if(value1 == "sakje"){
-		
 	}
 
 		$.ajax({
@@ -90,15 +87,7 @@ function GoPage(value1,value2){
 function suntaek_proc(value1,value2,value3){
 	if(value1 == 'chuga'){
 		$("#span_no").text("");	
-	}else if(value1 =='sakje'){
-		if(confirm('정말 삭제하시겠습니까?')){			
-		}else{
-			suntaek_proc('view','',value3);
-		}
-	}else if(value1 =='list'){
-		$("#span_no").text("");	
 	}
-	
 	if(value1 != ''){
 		$("#span_proc").text(value1);
 	}

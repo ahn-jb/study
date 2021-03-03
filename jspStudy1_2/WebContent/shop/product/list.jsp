@@ -17,7 +17,8 @@
 		</tr>
 		<tr>
 			<td colspan="10">
-				<form name="search">				
+				<form name="search">
+				
 					<select name="search_option" id="search_option">
 						<c:choose>
 						<c:when test="${search_option == 'name'}">
@@ -141,10 +142,10 @@
 </table>
 <script type="text/javascript">
 $("#btnChuga").click(function(){
-	 suntaek_proc('chuga','','');
+	GoPage('chuga','');
 });
 $("#list_all").click(function(){
-	suntaek_proc('list','1','');
+	GoPage('list','');
 });
 </script>
 </body>

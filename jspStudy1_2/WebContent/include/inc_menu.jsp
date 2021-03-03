@@ -54,9 +54,6 @@
 			<td style="padding:0px 20px;" id="productAjax">
 				<a href="${path}/product_servlet/index.do">쇼핑몰(ajax)</a>
 			</td>
-			<td style="padding:0px 20px;" id="mallAjax">
-				<a href="${path}/mall_servlet/index.do">Mall(ajax)</a>
-			</td>
 			<td style="padding:0px 20px;" id="calculator">
 				<a href="${path}/calculator_servlet/index.do">계산기</a>
 			</td>
@@ -98,9 +95,6 @@
 			</c:when>
 			<c:when test="${menu_str02 == 'product' }">
 				<script>$("#productAjax").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'mall' }">
-				<script>$("#mallAjax").css("background-color","silver");</script>
 			</c:when>
 	</c:choose>
 				${menu_gubun}/

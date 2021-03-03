@@ -60,9 +60,6 @@
 					<c:when test="${menu_gubun == 'calculator_index'}">
 						<jsp:include page="../calculator/calculator.jsp" />
 					</c:when>
-					<c:when test="${menu_gubun == 'mall_index'}">
-						<jsp:include page="../shop/mall/index.jsp" />
-					</c:when>
 					<c:when test="${menu_gubun == 'exception'}">
 						<jsp:include page="../main/exception.jsp" />
 					</c:when>

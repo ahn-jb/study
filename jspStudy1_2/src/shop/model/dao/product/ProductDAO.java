@@ -179,17 +179,4 @@ public class ProductDAO {
 		}
 		return result;
 	}
-	public int Delete(int no) {
-		getConn();
-		int result = 0;
-		try {
-			String sql = "delete from product where no=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
-			result = pstmt.executeUpdate();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
 }
