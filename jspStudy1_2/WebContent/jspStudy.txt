@@ -229,8 +229,8 @@ select*from
 (select ROWNUM rn,bb.* from 
 (select b.*,(select count(*) from product where no>0) from product b  order by no desc) bb) where rn between 1 and 5;
 
-select*from product;
-delete from product where name='';
+select*from product where no=0;
+delete from product where no=0;
 commit;
 
  select*from
@@ -242,3 +242,30 @@ commit;
  LEAD(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) nextSubject from board b
  order by refNo desc, levelNo asc ) where no =187;
  select*from board where subject='104';
+ ---------------------------------------------------------------------------------------------------------------
+ create table cart(
+ no number not null primary key, --일련번호
+ memberNo number not null,--사용자코드
+ productNo number not null,--상품코드
+ amount number default 0, --수량
+ regi_date TIMESTAMP default current_timestamp
+ );
+ create sequence seq_cart start with 1 increment by 1 nomaxvalue nocache;
+ 
+ select * from cart;
+ delete from cart where memberNo=1;
+ 
+ alter table cart add constraint fk_cart_memberNo foreign key(memberNo) references member(no);
+ alter table cart add constraint fk_cart_productNo foreign key(productNo) references product(no);
+ 
+alter table cart drop constraint fk_cart_memberNo;
+select rownum rn from cart a join product b on a.productNo = b.no where memberNo=1;
+select*from cart a join product b on a.productNo = b.no where memberNo=1;
+
+select *from (select ROWNUM rn, a.*, bb.name , bb.price, bb.product_img, bb.description from cart a join product bb on a.productNo = bb.no where memberNo=1 order by a.regi_date desc) where rn BETWEEN 1 and 10;
+
+select a.*, bb.name , bb.price, bb.product_img, bb.description from cart a join product bb on a.productNo = bb.no 
+where memberNo=1 order by a.no desc;
+
+select * from cart a join product bb on a.productNo = bb.no 
+where memberNo=1;
