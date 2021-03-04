@@ -85,7 +85,7 @@ public class CartDAO {
 			String sql = "select *from "
 						+ "(select ROWNUM rn, a.*, bb.name , bb.price, bb.product_img, bb.description from cart a join product bb on a.productNo = bb.no"
 						+ " where memberNo=? order by a.regi_date desc) where rn BETWEEN ? and ?";
-			System.out.println(sql);
+//			System.out.println(sql);
 			pstmt =conn.prepareStatement(sql);
 			pstmt.setInt(1, memberNo);
 			pstmt.setInt(2, startRow);
@@ -93,6 +93,7 @@ public class CartDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				CartDTO dto = new CartDTO();
+				dto.setNo(rs.getInt("no"));
 				dto.setProduct_name(rs.getString("name"));
 				dto.setProduct_price(rs.getInt("price"));
 				dto.setProduct_description(rs.getString("description"));
@@ -107,5 +108,19 @@ public class CartDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	public int CartDelete(int memberNo,int cartNo) {
+		getConn();
+		int result = 0;
+		try {
+			String sql="delete from cart where memberNo=? and no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, cartNo);
+			result = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

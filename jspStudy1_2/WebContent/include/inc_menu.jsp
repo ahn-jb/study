@@ -52,10 +52,10 @@
 				<a href="${path}/board2_servlet/list.do">게시판</a>
 			</td>
 			<td style="padding:0px 20px;" id="productAjax">
-				<a href="${path}/product_servlet/index.do">쇼핑몰(ajax)</a>
+				<a href="${path}/product_servlet/index.do">쇼핑몰[관리자](ajax)</a>
 			</td>
 			<td style="padding:0px 20px;" id="mallAjax">
-				<a href="${path}/mall_servlet/index.do">Mall(ajax)</a>
+				<a href="${path}/mall_servlet/index.do">쇼핑몰(ajax)</a>
 			</td>
 			<td style="padding:0px 20px;" id="calculator">
 				<a href="${path}/calculator_servlet/index.do">계산기</a>

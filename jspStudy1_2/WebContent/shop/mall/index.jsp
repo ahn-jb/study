@@ -51,6 +51,12 @@ function GoPage(value1,value2){
 			"pageNumber" : $("#span_pageNumber").text(),
 			"pageSize" : $("#span_pageSize").text(),
 		}
+	}else if(value1 == "cart_sakje"){
+		param={
+			"cartDel": $("#span_cartDel").text(),
+			"checked": $("#span_checkAll").text(),
+			"index"  : $("#span_index").text()
+		}
 	}
 	$.ajax({
 		type :"post",
