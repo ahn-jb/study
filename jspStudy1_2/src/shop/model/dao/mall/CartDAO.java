@@ -93,6 +93,7 @@ public class CartDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				CartDTO dto = new CartDTO();
+				dto.setNo(rs.getInt("no"));
 				dto.setProduct_name(rs.getString("name"));
 				dto.setProduct_price(rs.getInt("price"));
 				dto.setProduct_description(rs.getString("description"));
@@ -107,5 +108,19 @@ public class CartDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	public int CartDelete(int memberNo,int cartNo) {
+		getConn();
+		int result = 0;
+		try {
+			String sql="delete from cart where memberNo=? and no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, cartNo);
+			result = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

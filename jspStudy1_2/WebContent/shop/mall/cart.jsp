@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	cartDel: <span id="span_cartDel">${span_cartDel}</span><br>
+	index: <span id="span_index">${span_index}</span><br>
+	checked: <span id="span_checkAll">${span_checkAll}</span>
 	<table border="0" align="center" width="1000">
 		<tr>
 			<td colspan="10">
@@ -24,7 +27,7 @@
 				<table border="1" align="center" width="100%">
 					<tr>	
 						<td>
-							<input type="checkbox" id="check_all">
+							<input type="checkbox" id="allCheck" value="" />
 						</td>
 						<td>상품사진</td>
 						<td>상품명</td>
@@ -33,78 +36,108 @@
 						<td>금액</td>
 						<td>등록일</td>
 					</tr>
-					<c:forEach var="dto" items="${Cart_list}">
+					<c:if test="${totalRecord >0 }">
+						<c:forEach var="dto" items="${Cart_list}">
+						<tr>
+							<td><input type="checkbox"  name="checking" id="checking" value="${dto.no}">&nbsp; ${dto.no}</td>
+							<td>
+								<c:choose>
+									<c:when test="${dto.product_img == '-,-,-'}">
+										<a href="#" onclick="suntaek_proc('mall_view','','${dto.no}');">이미지X</a>
+									</c:when>
+									<c:otherwise>
+										<c:if test="${dto.product_img != '-,-,-'}">
+											<c:set var="temp1" value="${fn:split(dto.product_img,',')[0]}"></c:set>
+											<c:set var="temp2" value="${fn:split(temp1,'|')[0]}"></c:set>
+											<c:set var="temp3" value="${fn:split(temp1,'|')[1]}"></c:set>
+											<a href="#" onclick="suntaek_proc('mall_view','','${dto.no}');">
+												<img src="${path}/attach/product_img/${temp3}" alt="${dto.product_name}" title="${dto.product_name}" style="width:130px; height:70px;">
+											</a>
+										</c:if>
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td>${dto.product_name }</td>
+							<td>${dto.product_price }</td>
+							<td>${dto.amount }</td>
+							<td>${dto.amount * dto.product_price}</td>
+							<td>${dto.regi_date}</td>
+						</tr>
+						<c:set var="total_price" value="${total_price = total_price + (dto.amount * dto.product_price) }"></c:set>
+						</c:forEach>
+						<tr>
+							<td colspan="10" align="center">
+								<h4>합계금액 : ${total_price}원</h4> 
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${totalRecord ==0 }">
 					<tr>
-						<td><input type="checkbox" name="checking" id="checking" ></td>
-						<td>
-							<c:choose>
-								<c:when test="${dto.product_img == '-,-,-'}">
-									<a href="#" onclick="suntaek_proc('mall_view','','${dto.no}');">이미지X</a>
-								</c:when>
-								<c:otherwise>
-									<c:if test="${dto.product_img != '-,-,-'}">
-										<c:set var="temp1" value="${fn:split(dto.product_img,',')[0]}"></c:set>
-										<c:set var="temp2" value="${fn:split(temp1,'|')[0]}"></c:set>
-										<c:set var="temp3" value="${fn:split(temp1,'|')[1]}"></c:set>
-										<a href="#" onclick="suntaek_proc('mall_view','','${dto.no}');">
-											<img src="${path}/attach/product_img/${temp3}" alt="${dto.product_name}" title="${dto.product_name}" style="width:130px; height:70px;">
-										</a>
-									</c:if>
-								</c:otherwise>
-							</c:choose>
-						</td>
-						<td>${dto.product_name }</td>
-						<td>${dto.product_price }</td>
-						<td>${dto.amount }</td>
-						<td>${dto.amount * dto.product_price}</td>
-						<td>${dto.regi_date}</td>
+						<td colspan="10" align="center"><h3>장바구니가 비어있습니다.</h3></td>
 					</tr>
-					<c:set var="total_price" value="${total_price = total_price + (dto.amount * dto.product_price) }"></c:set>
-					</c:forEach>
-					<tr>
-						<td colspan="10" align="center">
-							<h4>합계금액 : ${total_price}원</h4> 
-						</td>
-					</tr>
+					</c:if>
 				</table>
-				<button type="button">장바구니 비우기</button>
-				<button type="button">쇼핑하기</button>
-				<button type="button">장바구니</button>
+				<button type="button" onclick="cartSakje();">장바구니 비우기</button>
+				<button type="button" onclick="suntaek_proc('mall_list','1','');">쇼핑하기</button>
+				<button onclick="suntaek_proc('cart_list2','1','');">장바구니</button>
 			</td>
 		</tr>
-		<tr>
-			<td colspan="10" height="50" align="center">
-				<a href="#" onclick="suntaek_proc('cart_list2','1','');">[첫페이지]</a>&nbsp;&nbsp;
-				<c:if test="${startPage > blockSize }">
-					<a href="#" onclick="suntaek_proc('cart_list2','${startPage -blockSize}','');">[이전 10개]</a>
-				</c:if>
-				<c:if test="${startPage <=blockSize }"> [이전10개] </c:if>&nbsp;&nbsp;
-				<c:forEach var="i" begin="${startPage}" end="${lastPage}" step="1">
-				<c:if test="${i == pageNumber}"> [${i}]</c:if>
-				<c:if test="${i != pageNumber}">
-					<a href="#" onclick="suntaek_proc('cart_list2','${i}','');">${i}</a>
-				</c:if>
-				</c:forEach>&nbsp;&nbsp;
-				<c:if test="${lastPage < totalPage }">
-					<a href="#" onclick="suntaek_proc('cart_list2','${startPage + blockSize}','');">[다음 10개]</a>
-				</c:if>
-				<c:if test="${lastPage >= totalPage }"> [다음10개] </c:if>&nbsp;&nbsp;
-				<a href="#" onclick="suntaek_proc('cart_list2','${totalPage}','');">[끝페이지]</a> 
-			</td>
-		</tr>
+		<c:if test="${totalRecord >0 }">
+			<tr>
+				<td colspan="10" height="50" align="center">
+					<a href="#" onclick="suntaek_proc('cart_list2','1','');">[첫페이지]</a>&nbsp;&nbsp;
+					<c:if test="${startPage > blockSize }">
+						<a href="#" onclick="suntaek_proc('cart_list2','${startPage -blockSize}','');">[이전 10개]</a>
+					</c:if>
+					<c:if test="${startPage <=blockSize }"> [이전10개] </c:if>&nbsp;&nbsp;
+					<c:forEach var="i" begin="${startPage}" end="${lastPage}" step="1">
+					<c:if test="${i == pageNumber}"> [${i}]</c:if>
+					<c:if test="${i != pageNumber}">
+						<a href="#" onclick="suntaek_proc('cart_list2','${i}','');">${i}</a>
+					</c:if>
+					</c:forEach>&nbsp;&nbsp;
+					<c:if test="${lastPage < totalPage }">
+						<a href="#" onclick="suntaek_proc('cart_list2','${startPage + blockSize}','');">[다음 10개]</a>
+					</c:if>
+					<c:if test="${lastPage >= totalPage }"> [다음10개] </c:if>&nbsp;&nbsp;
+					<a href="#" onclick="suntaek_proc('cart_list2','${totalPage}','');">[끝페이지]</a> 
+				</td>
+			</tr>
+		</c:if>
 	</table>
 <script>
 $(document).ready(function(){
-	$("#check_all").check(funtion(){
-		alert("aaa")
-		if($("#check_all")).prop("cheked"){
-			$("input[name=checking]").prop("checked",true);
+	$("#allCheck").click(function(){
+		if($("#allCheck").prop("checked")) {
+			$("input[type=checkbox]").prop("checked",true);
+			$("#span_checkAll").text("1");
 		}else{
-			$("input[name=checking]").prop("checked",false);
+			$("input[type=checkbox]").prop("checked",false);
+			$("#span_checkAll").text("");
 		}
 	});
 });
 
+function cartSakje(){
+	var obj="";
+	var number = 0;
+	var imsi=0;
+	$('input[type="checkbox"]:checked').each(function(index){
+		
+		if(index!=0){
+			obj += ",";
+		}
+		if($(this).val() == ""){
+			imsi= -1;
+		}else{
+			number = index;
+		}
+		obj +=$(this).val();
+		$("#span_cartDel").text(obj);
+		$("#span_index").text(index+1+imsi);
+	});
+	suntaek_proc('cart_sakje','','')
+}
 </script>
 </body>
 </html>

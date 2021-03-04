@@ -197,6 +197,32 @@ public class MallController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
 			
+		}else if(url.indexOf("cart_sakje.do") != -1) {
+			request.setAttribute("menu_gubun", "product_cart_sakje");
+			
+			if(request.getParameter("index")==null || request.getParameter("index")=="") {
+				temp=path+"/mall_servlet/cart_list2.do";
+				response.sendRedirect(temp);
+				return;
+			}
+
+			String cartDel = request.getParameter("cartDel");
+			String index_ = request.getParameter("index");
+			int index = Integer.parseInt(index_);
+			if(request.getParameter("checked")!=null && request.getParameter("checked")!="") {
+				cartDel = cartDel.substring(1);
+			}
+			String[] imsi = new String[index];
+			imsi = cartDel.split(",");
+			
+			int result =0;
+			for(int i=0; i<imsi.length; i++) {
+				int cartNo = Integer.parseInt(imsi[i]);
+				result = cartDao.CartDelete(cookNo, cartNo);
+			}
+			
+			temp=path+"/mall_servlet/cart_list2.do";
+			response.sendRedirect(temp);
 		}
 		
 	}
