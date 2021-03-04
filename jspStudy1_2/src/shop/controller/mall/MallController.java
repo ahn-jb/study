@@ -90,17 +90,13 @@ public class MallController extends HttpServlet {
 		String page = "/main/main.jsp";
 		if(url.indexOf("index.do") != -1) {
 			request.setAttribute("menu_gubun", "mall_index");
+			
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
-		}else if(url.indexOf("list.do") != -1) {
+		}else if(url.indexOf("mall_list.do") != -1) {
 			request.setAttribute("menu_gubun", "mall_list");
-			String pageSize_ = request.getParameter("pageSize");
-			int pageSize = 0;
-			if(pageSize_ == null || pageSize_ == "") {
-				pageSize = 10;
-			}else {
-				pageSize = Integer.parseInt(pageSize_);
-			}
+			
+			int pageSize = 9;
 			int blockSize= 10;
 			int totalRecord = dao.getCount(search_option, search_data);
 			int number =totalRecord - pageSize * (pageNumber-1);
@@ -117,15 +113,13 @@ public class MallController extends HttpServlet {
 					lastPage = totalPage;
 				}
 			}
-
-			ArrayList<ProductDTO> list =dao.search(startRecord,lastRecord,search_data,search_option);
-			request.setAttribute("menu_gubun", "board_list");
+			ArrayList<ProductDTO> list =dao.search(startRecord,lastRecord,search_data,search_option);		
+			request.setAttribute("menu_gubun", "mall_list");
 			request.setAttribute("list",list);
 			request.setAttribute("count",totalRecord);
 			request.setAttribute("pageNumber",pageNumber);
 			request.setAttribute("pageSize",pageSize);
-			request.setAttribute("blockSize",blockSize);
-			
+			request.setAttribute("blockSize",blockSize);			
 			request.setAttribute("totalRecord",totalRecord);
 			request.setAttribute("number",number);
 			request.setAttribute("startRecord",startRecord);
@@ -139,6 +133,70 @@ public class MallController extends HttpServlet {
 			page= "/shop/mall/list.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
+		}else if(url.indexOf("mall_view.do") != -1) {
+			request.setAttribute("menu_gubun", "product_view");
+			dto = dao.getView(no);
+			request.setAttribute("dto", dto);
+			page= "/shop/mall/view.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
+		}else if(url.indexOf("mall_cart.do") != -1) {
+			request.setAttribute("menu_gubun", "product_mall_cart");
+			
+			String amount_ = request.getParameter("amount");
+			int amount = Integer.parseInt(amount_);
+			
+			cartDto.setMemberNo(cookNo);
+			cartDto.setProductNo(no);
+			cartDto.setAmount(amount);
+			
+			int result = cartDao.setInsert(cartDto);
+			if(result>0) {
+				out.println("<script>alert('장바구니 추가완료'); suntaek_proc('mall_list','1','');</script>");
+			}else {
+				out.println("<script>alert('실패'); suntaek_proc('mall_view','','"+no+"');</script>");
+			}
+			
+		}else if(url.indexOf("cart_list2.do") != -1) {
+			request.setAttribute("menu_gubun", "product_cart_list");
+			
+			int pageSize = 10;
+			int blockSize= 10;
+			int totalRecord = cartDao.getCount(cookNo);
+			int number =totalRecord - pageSize * (pageNumber-1);
+			int startRecord = pageSize * (pageNumber -1) +1;
+			int lastRecord = pageSize * pageNumber;
+			int totalPage =0;
+			int startPage =1;
+			int lastPage = 1;
+			if(totalRecord>0) {
+				totalPage = totalRecord / pageSize +(totalRecord%pageSize == 0? 0:1);
+				startPage = (pageNumber/blockSize - (pageNumber % blockSize !=0 ? 0:1))*blockSize +1 ;
+				lastPage = startPage + blockSize - 1;
+				if(lastPage > totalPage) {	
+					lastPage = totalPage;
+				}
+			}
+			ArrayList<CartDTO> Cart_list = cartDao.getCartlist(cookNo,startRecord, lastRecord);	
+			request.setAttribute("menu_gubun", "mall_list");
+			request.setAttribute("count",totalRecord);
+			request.setAttribute("pageNumber",pageNumber);
+			request.setAttribute("pageSize",pageSize);
+			request.setAttribute("blockSize",blockSize);			
+			request.setAttribute("totalRecord",totalRecord);
+			request.setAttribute("number",number);
+			request.setAttribute("startRecord",startRecord);
+			request.setAttribute("lastRecord",lastRecord);
+			request.setAttribute("totalPage",totalPage);
+			request.setAttribute("startPage",startPage);
+			request.setAttribute("lastPage",lastPage);
+			request.setAttribute("search_option",search_option);
+			request.setAttribute("search_data",search_data);
+			request.setAttribute("Cart_list", Cart_list);
+			page= "/shop/mall/cart.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
+			
 		}
 		
 	}

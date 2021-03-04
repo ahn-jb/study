@@ -122,7 +122,7 @@ public class ProductController extends HttpServlet {
 			}
 
 			ArrayList<ProductDTO> list =dao.search(startRecord,lastRecord,search_data,search_option);
-			request.setAttribute("menu_gubun", "board_list");
+			request.setAttribute("menu_gubun", "product_list");
 			request.setAttribute("list",list);
 			request.setAttribute("count",totalRecord);
 			request.setAttribute("pageNumber",pageNumber);

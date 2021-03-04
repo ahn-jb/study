@@ -47,7 +47,7 @@
 						</c:choose>
 					</select>
 					<input type="text" name="search_data" id="search_data" value="${search_data}" style="width:: 150px;">
-					<input type="button" value="검색" onclick="search();"><br>
+					<input type="button" value="검색" onclick="search2();"><br>
 					전체 ${totalRecord}건입니다.
 				</form>
 			</td>
@@ -146,6 +146,12 @@ $("#btnChuga").click(function(){
 $("#list_all").click(function(){
 	suntaek_proc('list','1','');
 });
+
+function search2(){
+	$("#span_search_option").text($("#search_option").val())
+	$("#span_search_data").text($("#search_data").val())
+	suntaek_proc('list','1','');
+}
 </script>
 </body>
 </html>

@@ -56,9 +56,9 @@ public class ProductDAO {
 			if(bunryu == null || bunryu =="") {
 				sql = sql1;
 			}else if(bunryu.equals("name") || bunryu.equals("discription")) {
-				sql = sql1  + bunryu + " like '%" + search + "%'";
+				sql = sql1 +" where " + bunryu + " like '%" + search + "%'";
 			}else if(bunryu.equals("total")) {
-				sql = sql1 + " (name like '%" + search + "%' or discription like '%" + search +"%' )";
+				sql = sql1 +" where "+ " (name like '%" + search + "%' or discription like '%" + search +"%' )";
 			}else {
 				sql = sql1;
 			}

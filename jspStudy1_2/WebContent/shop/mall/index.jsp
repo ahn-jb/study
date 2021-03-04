@@ -19,17 +19,15 @@ search_data : <span id="span_search_data">${search_data}</span><br>
 <script>
 $(document).ready(function(){
 	<c:if test="${menu_gubun == 'mall_index'}">
-	 	GoPage('list','');
+	 	suntaek_proc('mall_list','1','');
 
 	</c:if>
 	});
 function GoPage(value1,value2){
-	var parm = {};
-	var process_data;
-	var content_type;
+	var param
 	var url = "${path}/mall_servlet/"+value1+".do";
 	
-	if(value1 == 'list'){
+	if(value1 == 'mall_list'){
 		result.style.height = "750px";
 		param ={
 				"pageNumber" : $("#span_pageNumber").text(),
@@ -37,16 +35,30 @@ function GoPage(value1,value2){
 				"search_option" : $("#span_search_option").text(),
 				"search_data" : $("#span_search_data").text()
 		}
+	}else if(value1 =="mall_view"){
+		result.style.height = "500px";
+		param ={
+			"no" : $("#span_no").text()
+		}
+	}else if(value1== "mall_cart"){
+		param={
+			"no" : $("#span_no").text(),
+			"amount" : $("#purchase_count").val()
+		}
+	}else if(value1 == "cart_list2"){
+		result.style.height = "750px";
+		param={
+			"pageNumber" : $("#span_pageNumber").text(),
+			"pageSize" : $("#span_pageSize").text(),
+		}
 	}
 	$.ajax({
 		type :"post",
 		data : param,
-		processData: process_data,
-		contentType: content_type,
 		url  : url,
 		success: function(data){
 			if(value1 =='chugaProc' ){
-				suntaek_proc('list','1','');
+				suntaek_proc('mall_list','1','');
 			}else if(value1 == 'sujungProc'){
 				$("#result").html(data);
 			}else{
@@ -54,5 +66,33 @@ function GoPage(value1,value2){
 			}
 		}
 	});
+}
+function suntaek_proc(value1,value2,value3){
+	if(value1 == 'chuga'){
+		$("#span_no").text("");	
+	}else if(value1 =='sakje'){
+		if(confirm('정말 삭제하시겠습니까?')){			
+		}else{
+			suntaek_proc('view','',value3);
+		}
+	}else if(value1 =='mall_list'){
+		$("#span_no").text("");	
+	}else if(value1 =='mall_list_all'){
+		$("#span_search_option").text('')
+		$("#span_search_data").text('')	
+		suntaek_proc('mall_list','1','');
+	}
+	
+	if(value1 != ''){
+		$("#span_proc").text(value1);
+	}
+	if(value2 != ''){
+		$("#span_pageNumber").text(value2);		
+	}
+	if(value3 != ''){
+		$("#span_no").text(value3);	
+	}
+	
+	GoPage(value1,'');
 }
 </script>
