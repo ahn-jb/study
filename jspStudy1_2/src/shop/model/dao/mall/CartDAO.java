@@ -85,7 +85,7 @@ public class CartDAO {
 			String sql = "select *from "
 						+ "(select ROWNUM rn, a.*, bb.name , bb.price, bb.product_img, bb.description from cart a join product bb on a.productNo = bb.no"
 						+ " where memberNo=? order by a.regi_date desc) where rn BETWEEN ? and ?";
-			System.out.println(sql);
+//			System.out.println(sql);
 			pstmt =conn.prepareStatement(sql);
 			pstmt.setInt(1, memberNo);
 			pstmt.setInt(2, startRow);
