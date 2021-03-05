@@ -57,14 +57,13 @@
 		<tr>
 			<td colspan="2">
 				<select name="purchase_count" id="purchase_count">
-					<option value="1">1개</option>
-					<option value="2">2개</option>
-					<option value="3">3개</option>
-					<option value="4">4개</option>
+					<c:forEach var="i" begin="1" end="10" step="1">
+						<option value="${i}">${i}개</option>
+					</c:forEach>
 				</select>
 				<button type="button" onclick="suntaek_proc('mall_cart','1','');">장바구니담기</button>
 				<button type="button" onclick="suntaek_proc('cart_list2','1','');">장바구니</button>
-				<button type="button" onclick="suntaek_proc('mall_list','1','');">목록으로</button>
+				<button type="button" onclick="suntaek_proc('mall_list_all','1','');">목록으로</button>
 			</td>				
 		</tr>
 	</table>

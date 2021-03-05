@@ -97,7 +97,7 @@
 							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.price}" /></td>
 							<td>${dto.description}</td>
 							<td>${dto.product_img}</td>
-							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="0"/></td>
+							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.buy_count}"/></td>
 							<td>${dto.regi_date}</td>
 						</tr>
 						<c:set var="number" value="${number= number-1}"></c:set>

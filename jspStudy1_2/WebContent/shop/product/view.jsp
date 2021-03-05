@@ -52,7 +52,7 @@
 			</tr>
 			<tr>
 				<td>장바구니 수량</td>
-				<td><fmt:formatNumber type="number" maxFractionDigits="3" value="0"/></td>
+				<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.buy_count}"/></td>
 			</tr>
 			<tr>
 				<td width="200px">등록일</td>

@@ -11,8 +11,16 @@ public class ProductDTO {
 	private String description;
 	private String product_img;
 	private Timestamp regi_date;
+	private int buy_count;
 	
 	
+	
+	public int getBuy_count() {
+		return buy_count;
+	}
+	public void setBuy_count(int buy_count) {
+		this.buy_count = buy_count;
+	}
 	public int getNo() {
 		return no;
 	}

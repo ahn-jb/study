@@ -28,7 +28,7 @@ function GoPage(value1,value2){
 	var url = "${path}/product_servlet/"+value1+".do";
 	
 	if(value1 == 'list'){
-		result.style.height = "500px";
+		result.style.height = "1000px";
 		param ={
 				"pageNumber" : $("#span_pageNumber").text(),
 				"pageSize" : $("#span_pageSize").text(),

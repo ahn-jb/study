@@ -209,9 +209,6 @@ public class MallController extends HttpServlet {
 			String cartDel = request.getParameter("cartDel");
 			String index_ = request.getParameter("index");
 			int index = Integer.parseInt(index_);
-			if(request.getParameter("checked")!=null && request.getParameter("checked")!="") {
-				cartDel = cartDel.substring(1);
-			}
 			String[] imsi = new String[index];
 			imsi = cartDel.split(",");
 			

@@ -46,7 +46,7 @@ function GoPage(value1,value2){
 			"amount" : $("#purchase_count").val()
 		}
 	}else if(value1 == "cart_list2"){
-		result.style.height = "750px";
+		result.style.height = "1100px";
 		param={
 			"pageNumber" : $("#span_pageNumber").text(),
 			"pageSize" : $("#span_pageSize").text(),
@@ -65,7 +65,7 @@ function GoPage(value1,value2){
 		success: function(data){
 			if(value1 =='chugaProc' ){
 				suntaek_proc('mall_list','1','');
-			}else if(value1 == 'sujungProc'){
+			}else if(value1 == 'mall_list'){
 				$("#result").html(data);
 			}else{
 				$("#result").html(data);
@@ -76,11 +76,6 @@ function GoPage(value1,value2){
 function suntaek_proc(value1,value2,value3){
 	if(value1 == 'chuga'){
 		$("#span_no").text("");	
-	}else if(value1 =='sakje'){
-		if(confirm('정말 삭제하시겠습니까?')){			
-		}else{
-			suntaek_proc('view','',value3);
-		}
 	}else if(value1 =='mall_list'){
 		$("#span_no").text("");	
 	}else if(value1 =='mall_list_all'){

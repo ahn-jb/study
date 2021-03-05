@@ -81,7 +81,7 @@ public class ProductDAO {
 		try {
 			String sql1 = "select*from " 
 					+ " (select ROWNUM rn,bb.* from"
-					+ " (select b.*,(select count(*) from product where no>0) from product b ";
+					+ " (select b.*,(select count(*)  from cart c group by productno having b.no=c.productno)as buy_count from product b ";
 			String sql= "";
 			if(search_option == null || search_option =="") {
 				sql = sql1 
@@ -101,7 +101,7 @@ public class ProductDAO {
 						+ " order by no desc) bb)"
 						+ " where rn between ? and ?";
 			}
-//			System.out.println(sql);
+			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -114,6 +114,7 @@ public class ProductDAO {
 				dto.setDescription(rs.getString("description"));
 				dto.setProduct_img(rs.getString("product_img"));
 				dto.setRegi_date(rs.getTimestamp("regi_date"));
+				dto.setBuy_count(rs.getInt("buy_count"));
 				list.add(dto);
 			}
 		} catch (Exception e) {
