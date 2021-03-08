@@ -1,0 +1,32 @@
+create tablespace jspTEST
+datafile 'C:\Users\hkit\Desktop\ajb\sqldata\jspTEST.dbf' size 50m //변경 해야함
+autoextend on
+next 10m
+maxsize unlimited;
+
+create user jspTEST identified by 1234
+default tablespace jspTEST
+
+grant connect,resource,dba to jspTEST
+
+///////////////////////////////////////////////////////////////////////////////
+create table board(
+no      number       not null,         
+writer  varchar2(50) not null,
+subject varchar2(50) not null,  
+content clob         not null,
+passwd  varchar2(50)         ,
+regidate date       DEFAULT sysdate,
+primary key(no)
+);
+
+create sequence seq_board start with 1 increment by 1 minvalue 1;
+
+drop table board;
+drop sequence seq_board;
+
+begin
+for i in 1 .. 100 loop
+insert into board values (seq_board.nextval,i,i,i,i,sysdate);
+end loop;
+end;
