@@ -33,7 +33,8 @@ public class EmailService {
         props.put("mail.smtp.port", port);
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
-
+        props.put("mail.smtp.starttls.enable","true");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         Session session = Session.getDefaultInstance(props, 
                 new javax.mail.Authenticator() {
                     String un = username;

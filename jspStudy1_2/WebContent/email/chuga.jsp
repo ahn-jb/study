@@ -28,6 +28,14 @@
 				발신자 이메일
 			</td>
 			<td>
+				<input type="text" name="fromEmail" id="fromEmail">
+			</td>
+		</tr>
+		<tr>
+			<td style="align:center;">
+				수신자 이메일
+			</td>
+			<td>
 				<input type="text" name="toEmail" id="toEmail">
 			</td>
 		</tr>

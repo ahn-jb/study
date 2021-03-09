@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import email.model.dto.EmailDTO;
+import email.service.EmailService;
 import shop.common.UtilProduct;
 import shop.model.dao.product.ProductDAO;
 import shop.model.dto.product.ProductDTO;
@@ -92,11 +93,15 @@ public class EmailController extends HttpServlet {
 			rd.forward(request, response);
 		}else if(url.indexOf("chugaProc.do") != -1) {
 			String fromName = request.getParameter("fromName");
-			String fromEmail = request.getParameter("formEmail");
+			String fromEmail = request.getParameter("fromEmail");
 			String toEmail = request.getParameter("toEmail");
 			String subject = request.getParameter("subject");
 			String content = request.getParameter("content");
-			
+			System.out.println("fromName: "+fromName);
+			System.out.println("fromEmail: "+fromEmail);
+			System.out.println("toEmail: "+toEmail);
+			System.out.println("subject: "+subject);
+			System.out.println("content: "+content);
 			EmailDTO dto = new EmailDTO();
 			dto.setFromName(fromName);
 			dto.setFromEmail(fromEmail);
@@ -104,12 +109,12 @@ public class EmailController extends HttpServlet {
 			dto.setSubject(subject);
 			dto.setContent(content);
 			
-//			EmailService service = new EmailService();
-//			try {
-//				service.mailSender(dto);
-//			}catch(Exception e) {
-//				e.printStackTrace();
-//			}
+			EmailService service = new EmailService();
+			try {
+				service.mailSender(dto);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 			
 		}
 	}
