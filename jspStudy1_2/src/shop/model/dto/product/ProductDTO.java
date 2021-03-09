@@ -12,6 +12,7 @@ public class ProductDTO {
 	private String product_img;
 	private Timestamp regi_date;
 	private int buy_count;
+
 	
 	
 	

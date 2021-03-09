@@ -123,4 +123,28 @@ public class CartDAO {
 		}
 		return result;
 	}
+	
+	public ArrayList<CartDTO> getListCartProductGroup(){
+		getConn();
+		ArrayList<CartDTO> list = new ArrayList<>();
+		try {
+			String sql = "";
+			sql += "select p.name product_name, sum(c.amount * p.price)buy_money ";
+			sql += " from cart c inner join product p on c.productNo = p.no ";
+			sql += "group by p.name ";
+			sql += "order by name asc ";
+//			System.out.println("chart_sql: "+sql);
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				CartDTO dto = new CartDTO();
+				dto.setProduct_name(rs.getString("product_name"));
+				dto.setBuy_money(rs.getInt("buy_money"));
+				list.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

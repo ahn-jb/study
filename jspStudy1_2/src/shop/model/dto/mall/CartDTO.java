@@ -14,8 +14,16 @@ public class CartDTO {
 	private int product_price;
 	private String product_description;
 	private	String product_img;
+	private int buy_money;
 	
 	
+	
+	public int getBuy_money() {
+		return buy_money;
+	}
+	public void setBuy_money(int buy_money) {
+		this.buy_money = buy_money;
+	}
 	public int getNo() {
 		return no;
 	}

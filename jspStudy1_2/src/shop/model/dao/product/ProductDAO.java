@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import model.dto.board.BoardDTO;
+import shop.model.dto.mall.CartDTO;
 import shop.model.dto.product.ProductDTO;
 
 public class ProductDAO {
@@ -193,4 +194,6 @@ public class ProductDAO {
 		}
 		return result;
 	}
+	
+	
 }
