@@ -65,4 +65,30 @@ drop table test;
 drop sequence seq_test;
 select*from test;
 select * from test order by no desc;
+--------------------------------------------------------------------------------------------------------------------------------
+create table SJ(
+no number not null primary key,
+student_no number not null,
+test_no number not null,
+kor number not null,
+eng number not null,
+mat number not null,
+sci number not null,
+his number not null,
+regidate date default sysdate
+);
+
+create sequence seq_SJ start with 1 increment by 1 minvalue 1;
+drop table SJ;
+drop sequence seq_sj;
+
+select*from  SJ;
+commit;
+
+select*from student;
+select * from test;
+select count(*) from SJ;
+
+select a.no,a.kor,a.eng,a.mat,a.sci,a.his,b.name,c.test_name 
+from SJ a join student b on a.student_no = b.no join test c on a.test_no = c.no order by no desc;
 

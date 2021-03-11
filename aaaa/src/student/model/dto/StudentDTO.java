@@ -20,6 +20,17 @@ public class StudentDTO {
 	private String test_name;
 	private Date test_regidate;
 	
+	private int SJ_no;
+	private int kor;
+	private int eng;
+	private int mat;
+	private int sci;
+	private int his;
+	private int total;
+	private double avg;
+	private Date SJ_regidate;
+	
+	
 	
 	public int getYear() {
 		return year;
@@ -102,6 +113,65 @@ public class StudentDTO {
 	}
 	public void setTest_regidate(Date test_regidate) {
 		this.test_regidate = test_regidate;
+	}
+	
+	
+	
+	
+	
+	public int getSJ_no() {
+		return SJ_no;
+	}
+	public void setSJ_no(int sJ_no) {
+		SJ_no = sJ_no;
+	}
+	public int getKor() {
+		return kor;
+	}
+	public void setKor(int kor) {
+		this.kor = kor;
+	}
+	public int getEng() {
+		return eng;
+	}
+	public void setEng(int eng) {
+		this.eng = eng;
+	}
+	public int getMat() {
+		return mat;
+	}
+	public void setMat(int mat) {
+		this.mat = mat;
+	}
+	public int getSci() {
+		return sci;
+	}
+	public void setSci(int sci) {
+		this.sci = sci;
+	}
+	public int getHis() {
+		return his;
+	}
+	public void setHis(int his) {
+		this.his = his;
+	}
+	public Date getSJ_regidate() {
+		return SJ_regidate;
+	}
+	public void setSJ_regidate(Date sJ_regidate) {
+		SJ_regidate = sJ_regidate;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	public double getAvg() {
+		return avg;
+	}
+	public void setAvg(double avg) {
+		this.avg = avg;
 	}
 
 	

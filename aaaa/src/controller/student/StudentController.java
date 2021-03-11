@@ -211,6 +211,87 @@ public class StudentController extends HttpServlet {
 				temp=path+"/student_servlet/testChuga.do";
 			}
 			response.sendRedirect(temp);
+		}else if(url.indexOf("SJ.do") != -1) {
+			request.setAttribute("menu_gubun", "student_SJ");
+			
+			int pageSize = 10;
+			int blockSize= 10;
+			int totalRecord = dao.SJCount(search_option,search_data);
+			int number =totalRecord - pageSize * (pageNumber-1);
+			int startRecord = pageSize * (pageNumber -1) +1;
+			int lastRecord = pageSize * pageNumber;
+			int totalPage =0;
+			int startPage =1;
+			int lastPage = 1;
+			if(totalRecord>0) {
+				totalPage = totalRecord / pageSize +(totalRecord%pageSize == 0? 0:1);
+				startPage = (pageNumber/blockSize - (pageNumber % blockSize !=0 ? 0:1))*blockSize +1 ;
+				lastPage = startPage + blockSize - 1;
+				if(lastPage > totalPage) {	
+					lastPage = totalPage;
+				}
+			}
+
+			ArrayList<StudentDTO> list =dao.SJSearch(startRecord,lastRecord,search_data,search_option);
+			request.setAttribute("list",list);
+			request.setAttribute("pageNumber",pageNumber);
+			request.setAttribute("pageSize",pageSize);
+			request.setAttribute("blockSize",blockSize);
+			
+			request.setAttribute("totalRecord",totalRecord);
+			request.setAttribute("number",number);
+			request.setAttribute("startRecord",startRecord);
+			request.setAttribute("lastRecord",lastRecord);
+			request.setAttribute("totalPage",totalPage);
+			request.setAttribute("startPage",startPage);
+			request.setAttribute("lastPage",lastPage);
+			request.setAttribute("search_option",search_option);
+			request.setAttribute("search_data",search_data);
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
+		}else if(url.indexOf("SJChuga.do") != -1) {
+			request.setAttribute("menu_gubun", "student_SJChuga");
+			
+			ArrayList<StudentDTO> Student_list = dao.selectStudent();
+			ArrayList<StudentDTO> test_list = dao.selectTest();
+			
+			request.setAttribute("Student_list", Student_list);
+			request.setAttribute("test_list", test_list);
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
+		}else if(url.indexOf("SJChugaProc.do") != -1) {
+			request.setAttribute("menu_gubun", "student_SJChugaProc");
+			
+			String student_no_ = request.getParameter("student_no");
+			int student_no = Integer.parseInt(student_no_);
+			String test_no_ = request.getParameter("test_no");
+			int test_no = Integer.parseInt(test_no_);
+			String kor_ = request.getParameter("kor");
+			int kor = Integer.parseInt(kor_);
+			String eng_ = request.getParameter("eng");
+			int eng = Integer.parseInt(eng_);
+			String mat_ = request.getParameter("mat");
+			int mat = Integer.parseInt(mat_);
+			String sci_ = request.getParameter("sci");
+			int sci = Integer.parseInt(sci_);
+			String his_ = request.getParameter("his");
+			int his = Integer.parseInt(his_);
+			
+			dto.setNo(student_no);
+			dto.setTest_no(test_no);
+			dto.setKor(kor);
+			dto.setEng(eng);
+			dto.setMat(mat);
+			dto.setSci(sci);
+			dto.setHis(his);
+			
+			int result = dao.SJInsert(dto);
+			if(result > 0) {
+				temp = path+"/student_servlet/SJ.do";
+			}else {
+				temp = path+"/student_servlet/SJChuga.do";
+			}
+			response.sendRedirect(temp);
 		}
 	}
 

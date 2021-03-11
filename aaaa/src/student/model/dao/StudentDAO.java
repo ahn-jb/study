@@ -89,7 +89,24 @@ public class StudentDAO {
 		}
 		return count;
 	}
-	
+	public ArrayList<StudentDTO> selectStudent(){
+		getConn();
+		ArrayList<StudentDTO> list = new ArrayList<>();
+		try {
+			String sql = "select*from student";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				StudentDTO dto = new StudentDTO();
+				dto.setNo(rs.getInt("no"));
+				dto.setName(rs.getString("name"));
+				list.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	public ArrayList<StudentDTO> search(int startRow, int endRow,String search_data, String search_option) {
 		getConn();
 		ArrayList<StudentDTO> list = new ArrayList<>();
@@ -177,5 +194,113 @@ public class StudentDAO {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	public ArrayList<StudentDTO> selectTest(){
+		getConn();
+		ArrayList<StudentDTO> list = new ArrayList<>();
+		try {
+			String sql = "select * from test";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				StudentDTO dto = new StudentDTO();
+				dto.setTest_no(rs.getInt("no"));
+				dto.setTest_name(rs.getString("test_name"));
+				list.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public int SJInsert(StudentDTO dto) {
+		getConn();
+		int result =0;
+		try {
+			String sql = "insert into SJ values(seq_SJ.nextval,?,?,?,?,?,?,?,sysdate)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,dto.getNo());
+			pstmt.setInt(2,dto.getTest_no());
+			pstmt.setInt(3,dto.getKor());
+			pstmt.setInt(4,dto.getEng());
+			pstmt.setInt(5,dto.getMat());
+			pstmt.setInt(6,dto.getSci());
+			pstmt.setInt(7,dto.getHis());
+			result = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public int SJCount(String search_option,String search_data) {
+		getConn();
+		int count = 0;
+		try {
+			String sql ="";
+			String sql1 ="select count(*) from SJ ";
+			if(search_option == null || search_option =="") {
+				sql = sql1;
+			}else {
+				sql = sql1 +" where "+ search_option+" like '%"+search_data+"%'";
+			}
+//			System.out.println(sql);
+			pstmt =conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public ArrayList<StudentDTO> SJSearch(int startRecord,int lastRecord,String search_data,String search_option ){
+		getConn();
+		ArrayList<StudentDTO> list = new ArrayList<StudentDTO>();
+		try {
+			String sql = "";
+			String sql1 = "select * from "
+					+ "(select rownum rn,bb.* from "
+					+ "(select a.no,a.kor,a.eng,a.mat,a.sci,a.his,a.regidate,b.name,c.test_name from SJ a "
+					+ "join student b on a.student_no = b.no join test c on a.test_no = c.no ";
+			if(search_option == null || search_option =="") {
+				sql = sql1 + " order by no desc) bb) "
+						+ "where rn between ? and ? ";
+			}else {
+				sql = sql1 + " where " + search_option + " like '%" + search_data + "%' "
+						+ "order by no desc) bb) where rn between ? and ? ";
+			}
+//			System.out.println("SJSearch sql: "+sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRecord);
+			pstmt.setInt(2, lastRecord);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				StudentDTO dto = new StudentDTO();
+				dto.setSJ_no(rs.getInt("no"));
+				dto.setName(rs.getString("name"));
+				dto.setTest_name(rs.getString("test_name"));
+				dto.setKor(rs.getInt("kor"));
+				dto.setEng(rs.getInt("eng"));
+				dto.setMat(rs.getInt("mat"));
+				dto.setSci(rs.getInt("sci"));
+				dto.setHis(rs.getInt("his"));
+				dto.setSJ_regidate(rs.getDate("regidate"));
+				int total = dto.getKor()+dto.getEng()+dto.getMat()+dto.getSci()+dto.getHis();
+				double avg_ = total/5.0;
+				double avg = Math.round(avg_*100)/100.0;
+				System.out.println(avg);
+				dto.setTotal(total);
+				dto.setAvg(avg);
+				list.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

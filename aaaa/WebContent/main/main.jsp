@@ -36,6 +36,9 @@
 					<c:when test="${menu_gubun == 'student_SJ'}">
 						<jsp:include page="../student/SJ.jsp" /> 
 					</c:when>
+					<c:when test="${menu_gubun == 'student_SJChuga'}">
+						<jsp:include page="../student/SJChuga.jsp" /> 
+					</c:when>
 					
 					<c:otherwise>
 					</c:otherwise>
