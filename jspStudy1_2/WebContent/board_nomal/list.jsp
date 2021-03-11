@@ -50,24 +50,24 @@
 									</c:forEach>
 									<%Re= Re+"┗ Re :"; %>
 								</c:if>
-					<tr>
-						<td>${dto.getNum()}</td>
-						<td width="650">
-							<%=Re %><a href="#" onclick="go('board_view','${dto.getNo()}');" >${dto.getSubject()}</a>
-						</td>
-						<td align="center">${dto.getWriter()}</td>
-						<td align="center">${dto.getRegiDate()}</td>
-						<td align="center">${dto.getHit()}</td>
-						<td>${ip}</td>
-						<td>${dto.getMemberNo()}</td>
-						<td>${dto.getNoticeNo()}</td>
-						<td>${dto.getSecretGubun()}</td>
-						<td>${dto.getChild_counter()}</td>
-						<td>${dto.getRefNo()}</td>
-						<td>${dto.getStepNo()}</td>
-						<td>${dto.getLevelNo()}</td>
-						<td>${dto.getP_no()}</td>
-					</tr>
+							<tr>
+								<td>${dto.getNum()}</td>
+								<td width="650">
+									<%=Re %><a href="#" onclick="go('board_view','${dto.getNo()}');" >${dto.getSubject()}</a>
+								</td>
+								<td align="center">${dto.getWriter()}</td>
+								<td align="center">${dto.getRegiDate()}</td>
+								<td align="center">${dto.getHit()}</td>
+								<td>${ip}</td>
+								<td>${dto.getMemberNo()}</td>
+								<td>${dto.getNoticeNo()}</td>
+								<td>${dto.getSecretGubun()}</td>
+								<td>${dto.getChild_counter()}</td>
+								<td>${dto.getRefNo()}</td>
+								<td>${dto.getStepNo()}</td>
+								<td>${dto.getLevelNo()}</td>
+								<td>${dto.getP_no()}</td>
+							</tr>
 						</c:forEach>
 					</c:if>
 					<c:if test="${totalRecord == 0 }">

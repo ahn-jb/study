@@ -1,0 +1,68 @@
+create table board(
+no      number       not null,         
+writer  varchar2(50) not null,
+subject varchar2(50) not null,  
+content clob         not null,
+passwd  varchar2(50)         ,
+regidate date       DEFAULT sysdate,
+primary key(no)
+);
+
+create sequence seq_board start with 1 increment by 1 minvalue 1;
+
+drop table board;
+drop sequence seq_board;
+
+
+select count(*) from board;
+select *from board;
+
+select*from 
+(select ROWNUM rn,bb.* from 
+(select b.*,(select count(*) from board) child_counter from  board b  order by no desc) bb) where rn between 1 and 10;
+
+select*from (select ROWNUM rn,bb.* from(select * from board order by no desc)bb) where rn between 1 and 10;
+
+/*begin
+for i in 1 .. 100 loop
+insert into board values (seq_board.nextval,i,i,i,i,sysdate);
+end loop;
+end;*/
+
+commit;
+
+create table student(
+no number not null primary key,
+year number not null,
+class varchar2(50) not null,
+num varchar2(50) not null,
+name varchar2(50) not null,
+born varchar2(50) not null,
+s_phone varchar2(50),
+p_phone varchar2(50),
+adr varchar2(200) not null,
+regidate date default sysdate
+);
+
+create sequence seq_student start with 1 increment by 1 minvalue 1;
+
+drop table student;
+
+select * from student;
+
+select *from
+(select rownum rn, bb.* from (select *from student where year like '%1%' order by year desc, class desc) bb ) where rn between 1 and 2 ;
+select count(*) from student  where year like '%1%';
+----------------------------------------------------------------------------------------------------------------------------------------
+create table test(
+no number not null primary key,
+test_name varchar2(50) not null,
+regidate date default sysdate
+);
+create sequence seq_test start with 1 increment by 1 minvalue 1;
+
+drop table test;
+drop sequence seq_test;
+select*from test;
+select * from test order by no desc;
+
