@@ -89,17 +89,21 @@ public class StudentDAO {
 		}
 		return count;
 	}
-	public ArrayList<StudentDTO> selectStudent(){
+	
+	public ArrayList<StudentDTO> selectStudent(int Student_year, String student_class){
 		getConn();
 		ArrayList<StudentDTO> list = new ArrayList<>();
 		try {
-			String sql = "select*from student";
+			String sql = "select*from student where year=? and class=?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Student_year);
+			pstmt.setString(2, student_class);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				StudentDTO dto = new StudentDTO();
 				dto.setNo(rs.getInt("no"));
 				dto.setName(rs.getString("name"));
+				dto.setNum(rs.getString("num"));
 				list.add(dto);
 			}
 		}catch(Exception e) {
@@ -200,7 +204,7 @@ public class StudentDAO {
 		getConn();
 		ArrayList<StudentDTO> list = new ArrayList<>();
 		try {
-			String sql = "select * from test";
+			String sql = "select * from test order by no asc";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -240,11 +244,13 @@ public class StudentDAO {
 		int count = 0;
 		try {
 			String sql ="";
-			String sql1 ="select count(*) from SJ ";
+
 			if(search_option == null || search_option =="") {
-				sql = sql1;
+				sql ="select count(*) from SJ ";
 			}else {
-				sql = sql1 +" where "+ search_option+" like '%"+search_data+"%'";
+				sql = "select count(*) from (select a.no,a.kor,a.eng,a.mat,a.sci,a.his,a.regidate,b.year,b.class,b.name,c.test_name "
+						+ "from SJ a join student b on a.student_no = b.no join test c on a.test_no = c.no "
+						+ "where "+ search_option+" like '%"+search_data+"%')";
 			}
 //			System.out.println(sql);
 			pstmt =conn.prepareStatement(sql);
@@ -265,7 +271,7 @@ public class StudentDAO {
 			String sql = "";
 			String sql1 = "select * from "
 					+ "(select rownum rn,bb.* from "
-					+ "(select a.no,a.kor,a.eng,a.mat,a.sci,a.his,a.regidate,b.name,c.test_name from SJ a "
+					+ "(select a.no,a.kor,a.eng,a.mat,a.sci,a.his,a.regidate,b.year,b.class,b.name,c.test_name from SJ a "
 					+ "join student b on a.student_no = b.no join test c on a.test_no = c.no ";
 			if(search_option == null || search_option =="") {
 				sql = sql1 + " order by no desc) bb) "
@@ -283,6 +289,8 @@ public class StudentDAO {
 				StudentDTO dto = new StudentDTO();
 				dto.setSJ_no(rs.getInt("no"));
 				dto.setName(rs.getString("name"));
+				dto.setYear(rs.getInt("year"));
+				dto.setS_class(rs.getString("class"));
 				dto.setTest_name(rs.getString("test_name"));
 				dto.setKor(rs.getInt("kor"));
 				dto.setEng(rs.getInt("eng"));
@@ -293,10 +301,43 @@ public class StudentDAO {
 				int total = dto.getKor()+dto.getEng()+dto.getMat()+dto.getSci()+dto.getHis();
 				double avg_ = total/5.0;
 				double avg = Math.round(avg_*100)/100.0;
-				System.out.println(avg);
 				dto.setTotal(total);
 				dto.setAvg(avg);
 				list.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<String> select_studentInfo(int Student_year){
+		getConn();
+		ArrayList<String> list = new ArrayList<String>();
+		try {
+			String sql ="select distinct class  from student where year = "+Student_year;
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String S_class = rs.getString("class");
+				list.add(S_class);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public ArrayList<Integer> select_studentInfo(){
+		getConn();
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		try {	
+			String sql = "select distinct year  from student";
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {						
+				int year = rs.getInt("year");		
+				list.add(year);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

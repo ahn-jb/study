@@ -21,9 +21,21 @@
 						<tr>
 							<td>학생번호</td>
 							<td>
+								<select id="student_year" name="student_year" onchange="student_search('year')">
+										<option value="">선택</option>
+									<c:forEach var="student_year"  items="${student_search_year}">
+										<option value="${student_year}">${student_year}학년</option>
+									</c:forEach>
+								</select>
+								<select id="student_class" name="student_class" onchange="student_search('class')">
+										<option value="">선택</option>
+									<c:forEach var="student_class" items="${student_search_class}">
+										<option value="${student_class}">${student_class}반</option>
+									</c:forEach>
+								</select>
 								<select id="student_no" name="student_no">
-									<c:forEach var="dto2" items="${Student_list}">
-										<option value="${dto2.no}">${dto2.name}(${dto2.no})</option>
+									<c:forEach var="dto2" items="${student_list}">
+										<option value="${dto2.no}">${dto2.num}번-${dto2.name}</option>
 									</c:forEach>
 								</select>
 							</td>
@@ -70,6 +82,30 @@
 		</table>
 	</form>
 <script>
+
+	$(document).ready(function(){
+		const yearSelectTag = document.querySelector('#student_year');
+		const year = '${student_year}';
+		if (year) {
+			for (let i = 0; i < yearSelectTag.length; i++) {
+				if (yearSelectTag[i].value === year) {
+					yearSelectTag[i].selected = true;
+				}
+			}
+		}
+		
+		const classSelectTag = document.querySelector('#student_class');
+		const cc = '${student_class}';
+		if (cc) {
+			for (let i = 0; i < classSelectTag.length; i++) {
+				if (classSelectTag[i].value === cc) {
+					classSelectTag[i].selected = true;
+				}
+			}
+		}
+	
+	});
+	
 	function btn5(value1){
 
 		if(value1 == 'SJChugaProc'){
@@ -80,6 +116,18 @@
 			location.href="${path}/student_servlet/SJ.do";
 		}
 	}
+	
+	function student_search(value1){
+		if(value1 == 'year'){					
+			location.href="${path}/student_servlet/SJChuga.do?student_year="+$('#student_year').val();
+
+		}else if(value1 == 'class'){
+			location.href="${path}/student_servlet/SJChuga.do?student_class="+$('#student_class').val()+"&student_year="+$('#student_year').val();
+		}
+		
+		
+	}
+
 </script>
 </body>
 </html>

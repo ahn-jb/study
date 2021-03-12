@@ -26,6 +26,8 @@ public class UtilBoard extends Util {
 			
 		}else if(search_option.equals("s_phone")) {
 			
+		}else if(search_option.equals("test_name")) {
+			
 		}else {
 			search_option="";
 		}

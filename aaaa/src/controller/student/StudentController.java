@@ -251,12 +251,36 @@ public class StudentController extends HttpServlet {
 			rd.forward(request, response);
 		}else if(url.indexOf("SJChuga.do") != -1) {
 			request.setAttribute("menu_gubun", "student_SJChuga");
+			String student_year_ ="";
+			int student_year = 0;
+			if(request.getParameter("student_year") != null && request.getParameter("student_year") != "") {
+				student_year_ = request.getParameter("student_year");
+				student_year = Integer.parseInt(student_year_);
+			}
+
+			String student_class="";
+			if(request.getParameter("student_class") != null && request.getParameter("student_class") != "") {
+				student_class = request.getParameter("student_class");
+			}
 			
-			ArrayList<StudentDTO> Student_list = dao.selectStudent();
+			
+			ArrayList<Integer> student_search_year = dao.select_studentInfo();
+			request.setAttribute("student_search_year", student_search_year);
+		
+			if(student_year !=0) {
+				ArrayList<String> student_search_class = dao.select_studentInfo(student_year);
+				request.setAttribute("student_search_class", student_search_class);
+			}
 			ArrayList<StudentDTO> test_list = dao.selectTest();
 			
-			request.setAttribute("Student_list", Student_list);
+			if(student_year != 0 && student_class != "" ) {
+				ArrayList<StudentDTO> student_list = dao.selectStudent(student_year, student_class);
+				request.setAttribute("student_list", student_list);
+			}
+			
 			request.setAttribute("test_list", test_list);
+			request.setAttribute("student_year", student_year);
+			request.setAttribute("student_class", student_class);
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
 		}else if(url.indexOf("SJChugaProc.do") != -1) {
