@@ -127,7 +127,7 @@ public class MemberDAO {
 //	public String getSelectIdChk(String id) {
 //		String result ="";
 //		try {
-//			String sql="select id from member where id=?";
+//			String sql = "select id from member where id=?";
 //			pstmt = conn.prepareStatement(sql);
 //			pstmt.setString(1, id);
 //			rs = pstmt.executeQuery();
@@ -290,7 +290,7 @@ public class MemberDAO {
 	public String getSelectIdChk(String id) {
 		SqlSession session = MybatisManager.getInstance().openSession();
 		String result = session.selectOne("member.getSelectIdChk",id);
-		System.out.println(result);
+//		System.out.println(result);
 		session.close();
 		return result;
 	}

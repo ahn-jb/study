@@ -21,7 +21,7 @@
 						<button type="button" onclick="id_check_win_open();">아이디확인(새창)</button>
 						<br>
 						<span id="label_id" ></span>
-						<input type="hidden" id="asdqwe" name="result" value="">
+						<input type="hidden" id="asdqwe" name="asdqwe" value="">
 					</td>
 				</tr>
 				<tr>
@@ -91,7 +91,7 @@
 			url: "${path}/member_servlet/id_check.do",
 			success: function(result){
 				$("#asdqwe").val(result);
-				if($("#asdqwe").val().length == 0){
+				if($("#asdqwe").val().trim() == ""){
 					$("#id").val('');
 					$("#label_id").html('사용할 수 없는 아이디입니다.');
 					$("#label_id").css('color','red');
@@ -99,7 +99,7 @@
 				}else{
 					$("#label_id").html('사용할 수 있는 아이디입니다');
 					$("#label_id").css('color','blue');
-					$("#label_id").css('font-size','8px');
+					$("#label_id").css('font-size','8px');					
 				}
 			}
 		});

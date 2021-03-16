@@ -60,7 +60,7 @@ public class MemberController extends HttpServlet {
 			int pageNumber = util.numberCheck(temp,1);
 
 			temp = request.getParameter("no");
-			System.out.println(temp);
+//			System.out.println(temp);
 			int no = util.numberCheck(temp,0);
 			String search_option = request.getParameter("search_option");
 			String search_data = request.getParameter("search_data");
@@ -97,11 +97,12 @@ public class MemberController extends HttpServlet {
 				String id = request.getParameter("id");
 				
 				String result =dao.getSelectIdChk(id);
-//				System.out.println(result);
+				System.out.println(result);
 				if(result == null || result.equals("")) {
 					result = id;
 				}else {
-					result = "";
+//					System.out.println("중복");
+					result ="";
 				}
 				out.println(result);
 				out.flush();
