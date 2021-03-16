@@ -33,11 +33,10 @@
 				<h2>회원 상세정보</h2>
 				<input type="hidden" name="ip" value="<%=Inet4Address.getLocalHost().getHostAddress()%>">
 				 <%
-				 
-				 	MemberDAO dao = new MemberDAO();
-				 	MemberDTO dto = dao.getSelectOneNo(no);
-				 	 
-				 	 MemberDTO dto2 = dao.getSelectOneId(cookId);
+				 	MemberDAO_imsi dao = new MemberDAO_imsi();
+				 		 	MemberDTO dto = dao.getSelectOneNo(no);
+				 		 	 
+				 		 	 MemberDTO dto2 = dao.getSelectOneId(cookId);
 				 %>
 					<table>
 							<tr>

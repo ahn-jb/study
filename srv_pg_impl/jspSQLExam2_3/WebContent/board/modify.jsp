@@ -8,23 +8,22 @@
 
  
  <%
- 	String no_ =request.getParameter("no");
-	int no = Integer.parseInt(no_);
-	
- 	BoardDAO dao = new BoardDAO();
- 	BoardDTO dto = dao.getSelectOne(no);
- 	
- 	MemberDAO dao_member = new MemberDAO();
- 	MemberDTO dto_member = dao_member.getSelectOneId(cookId);
- 	
- 	if(!dto.getWriter().equals(dto_member.getId())){
- 		out.println("<script>");
-		out.println("alert('작성자가 아닙니다.');");
-		out.println("location.href='../board/list.jsp';");
-		out.println("</script>");
- 	}
- 	
- %>
+  	String no_ =request.getParameter("no");
+  	int no = Integer.parseInt(no_);
+  	
+   	BoardDAO dao = new BoardDAO();
+   	BoardDTO dto = dao.getSelectOne(no);
+   	
+   	MemberDAO_imsi dao_member = new MemberDAO_imsi();
+   	MemberDTO dto_member = dao_member.getSelectOneId(cookId);
+   	
+   	if(!dto.getWriter().equals(dto_member.getId())){
+   		out.println("<script>");
+  		out.println("alert('작성자가 아닙니다.');");
+  		out.println("location.href='../board/list.jsp';");
+  		out.println("</script>");
+   	}
+  %>
     
     
 <!DOCTYPE html>

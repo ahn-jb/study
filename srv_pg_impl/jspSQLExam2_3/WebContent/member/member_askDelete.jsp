@@ -6,10 +6,9 @@
 <%@ include file="../include/include_check/include_session_check.jsp" %>
 
 <%
-	
 	int no_ask =Integer.parseInt(request.getParameter("no_ask"));
 	
-	MemberDAO dao2 = new MemberDAO();
+	MemberDAO_imsi dao2 = new MemberDAO_imsi();
 	int result = dao2.setDeleteAnswer(no_ask);
 	
 	int no = Integer.parseInt(request.getParameter("no_member"));

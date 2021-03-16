@@ -9,7 +9,7 @@
 
 <%
 	int no = Integer.parseInt(request.getParameter("no"));
-	 MemberDAO dao2 = new MemberDAO();
+	 MemberDAO_imsi dao2 = new MemberDAO_imsi();
 	ArrayList<MemberDTO> list = dao2.getSelectAll();
 %>    
     

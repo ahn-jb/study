@@ -6,7 +6,7 @@
 <jsp:setProperty property="*" name="dto"/>
 
 <%
-	MemberDAO dao = new MemberDAO();
+	MemberDAO_imsi dao = new MemberDAO_imsi();
 	
 	int result = dao.update(dto);
 	
@@ -22,5 +22,4 @@
 	out.println("location.href='../member/homepage.jsp';");
 	out.println("</script>");
 }
-	
 %>

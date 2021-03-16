@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+
+   <sql id="search">
+      <choose>
+         <when test="search_option == 'id_name_gender' ">
+            and (id like '%' || #{search_data} || '%' or
+            name like '%' || #{search_data} || '%' or
+            gender like '%' ||
+            #{search_data} || '%')
+         </when>
+         <when
+            test="search_option != null and search_option !='' and search_data != null and search_data != '' ">
+            and (${search_option} like '%' || #{search_data} || '%')
+         </when>
+         <otherwise>
+            and no > '0'
+         </otherwise>
+      </choose>
+   </sql>
+
+   <select id="getSelectMember" resultType="member.model.dto.MemberDTO">
+      select * from (select A.*, Rownum rnum from (
+      select * from
+      ${table_1} where 1=1
+      <include refid="search"></include>
+      <![CDATA[order by no desc ) A) where rnum >= #{startRecord} and rnum <= ${lastRecord}]]>
+
+   </select>
+
+   <select id="getTotalRecord" resultType="int">
+      select count(*) from ${table_1} where 1=1
+      <include refid="search"></include>
+   </select>
+   
+   <select id="getSelectIdChk" resultType="String">
+      select id from member where id = #{id}
+   </select>
+
+</mapper>

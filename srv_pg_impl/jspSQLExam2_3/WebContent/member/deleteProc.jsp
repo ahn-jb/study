@@ -6,7 +6,7 @@
 
 <%
 	String id = request.getParameter("id");
-	MemberDAO dao = new MemberDAO();
+	MemberDAO_imsi dao = new MemberDAO_imsi();
 	int result = dao.delete(id);
 	
 	if(result >0){

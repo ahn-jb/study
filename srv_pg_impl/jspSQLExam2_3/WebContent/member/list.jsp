@@ -27,9 +27,9 @@
 		<tr>
 			<td>
 				<form>
-				<h2>마이페이지 -<%=cookId %></h2>
+				<h2>마이페이지 -<%=cookId%></h2>
 				<%
-				MemberDAO dao = new MemberDAO();
+					MemberDAO_imsi dao = new MemberDAO_imsi();
 				%>
 					<table border="1" width="1000" >
 						<tr>

@@ -14,7 +14,7 @@
 	BoardDTO dto = dao.getSelectOne(no);
 
 
-	MemberDAO dao_member = new MemberDAO();
+	MemberDAO_imsi dao_member = new MemberDAO_imsi();
  	MemberDTO dto_member = dao_member.getSelectOneId(cookId);
  	
  	if(dto_member.getGrade() ==1 || dto.getWriter().equals(dto_member.getId())){
@@ -40,7 +40,4 @@
 		out.println("location.href='../board/list.jsp';");
 		out.println("</script>");
  	}
- 	
- 	
- 	
 %>

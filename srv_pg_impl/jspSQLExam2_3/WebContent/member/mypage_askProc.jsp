@@ -6,7 +6,7 @@
 <jsp:setProperty property="*" name="dto"/>
 
 <%
-	MemberDAO dao =new MemberDAO();
+	MemberDAO_imsi dao =new MemberDAO_imsi();
 
 	int result = dao.setInsertAsk(dto);
 	

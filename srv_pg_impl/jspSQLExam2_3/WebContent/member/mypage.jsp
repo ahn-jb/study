@@ -35,7 +35,7 @@
 		<tr>
 			<td style="padding:50px 20px;  ">
 <%
-	MemberDAO dao2 = new MemberDAO();
+	MemberDAO_imsi dao2 = new MemberDAO_imsi();
 	MemberDTO dto2 = dao2.getSelectOneId(cookId);
 %>
 				<table>

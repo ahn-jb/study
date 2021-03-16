@@ -8,7 +8,7 @@
 
 
 <%
-	MemberDAO dao2 = new MemberDAO();
+	MemberDAO_imsi dao2 = new MemberDAO_imsi();
 	int result = dao2.setUpdateAnswer(dto);
 	
 	

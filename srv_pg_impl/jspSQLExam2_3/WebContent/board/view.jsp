@@ -6,29 +6,28 @@
 <%@ include file="../include/include_check/include_session.jsp" %>
   
   <%
-  	String no_ =request.getParameter("no");
- 	int no = Integer.parseInt(no_);
-	
- 	String bunryu = request.getParameter("bunryu"); //검색한 분류
-	String search = request.getParameter("search"); //검색한 단어
-	if(	bunryu == null || bunryu.equals("null")){
-		bunryu = null;
-	}
- 	
-	System.out.println("bunryu = "+bunryu);
-	System.out.println("search = "+search);
-	
- 	BoardDAO dao = new BoardDAO(); 
- 	dao.setUpdateHit(no);
- 	BoardDTO dto = dao.getSelectView(no,search, bunryu);
+    	String no_ =request.getParameter("no");
+     	int no = Integer.parseInt(no_);
+    	
+     	String bunryu = request.getParameter("bunryu"); //검색한 분류
+    	String search = request.getParameter("search"); //검색한 단어
+    	if(	bunryu == null || bunryu.equals("null")){
+    		bunryu = null;
+    	}
+     	
+    	System.out.println("bunryu = "+bunryu);
+    	System.out.println("search = "+search);
+    	
+     	BoardDAO dao = new BoardDAO(); 
+     	dao.setUpdateHit(no);
+     	BoardDTO dto = dao.getSelectView(no,search, bunryu);
 
-	MemberDAO dao_member = new MemberDAO();
- 	MemberDTO dto_member = dao_member.getSelectOneId(cookId);
- 	
- 	int count = 0;
-	count = dao.getCount(search, bunryu);
- 	
-  %>
+    	MemberDAO_imsi dao_member = new MemberDAO_imsi();
+     	MemberDTO dto_member = dao_member.getSelectOneId(cookId);
+     	
+     	int count = 0;
+    	count = dao.getCount(search, bunryu);
+    %>
   
 <!DOCTYPE html>
 <html>

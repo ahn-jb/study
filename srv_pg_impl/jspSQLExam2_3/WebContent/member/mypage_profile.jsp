@@ -6,10 +6,9 @@
 <%@ include file="../include/include_check/include_session_check.jsp" %>
 
 <%
-	
 	int no = Integer.parseInt(request.getParameter("no"));//여기서 실행시키면 받아오는 no가 없기때문에 오류가 생김
-														  //이렇게 된 이유는 세션이 cookId인데 고치기 귀찮아서 냅두어서 이렇게 됨
-	MemberDAO dao2 = new MemberDAO();
+												  //이렇게 된 이유는 세션이 cookId인데 고치기 귀찮아서 냅두어서 이렇게 됨
+	MemberDAO_imsi dao2 = new MemberDAO_imsi();
 	MemberDTO dto2 = dao2.getSelectOneNo(no);
 %>
 

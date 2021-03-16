@@ -9,7 +9,7 @@
 	int no = Integer.parseInt(request.getParameter("no_member"));
 	int no_ask =Integer.parseInt(request.getParameter("no_ask"));
 	System.out.println(no_ask);
-	MemberDAO dao2 = new MemberDAO();
+	MemberDAO_imsi dao2 = new MemberDAO_imsi();
 	MemberDTO dto2 = dao2.getSelectAsk(no_ask);
 	
 	MemberDTO dto2_answer = dao2.getSelectAnswer(no_ask);

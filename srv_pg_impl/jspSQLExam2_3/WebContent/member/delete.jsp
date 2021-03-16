@@ -32,8 +32,8 @@
 				<h2>회원 탈퇴</h2>
 				<input type="hidden" name="ip" value="<%=Inet4Address.getLocalHost().getHostAddress()%>">
 			 <%
-			 	MemberDAO dao = new MemberDAO();
-			 	MemberDTO dto = dao.getSelectOneNo(no);
+			 	MemberDAO_imsi dao = new MemberDAO_imsi();
+			 	 	MemberDTO dto = dao.getSelectOneNo(no);
 			 %>
 					<table>
 							<tr>

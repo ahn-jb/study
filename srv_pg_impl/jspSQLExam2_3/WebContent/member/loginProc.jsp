@@ -11,7 +11,7 @@
 <%
 	String cookId = null;
 	
-	MemberDAO dao = new MemberDAO();
+	MemberDAO_imsi dao = new MemberDAO_imsi();
 	int result = dao.Login(dto);
 	
 	

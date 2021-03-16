@@ -1,4 +1,4 @@
-<%@page import="model.dao.member.MemberDAO"%>
+<%@page import="member.model.dao.MemberDAO_imsi"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/inc_header.jsp" %>

@@ -6,23 +6,21 @@
 
     
  <%
-	 MemberDAO	dao4 = new MemberDAO();
-	 MemberDTO dto4 =dao4.getSelectOneId(cookId); //오류 아님
-	 
-// 	System.out.println(cookId);
-// 	System.out.println(dto.getId());
-	 
- 	if(dto4.getId() == null ){
- 		session.invalidate();
- 		
-		out.println("<script>");
-		out.println("location.href='../member/login.jsp';");
-		out.println("</script>");
-		
-	}else if(session.getAttribute("cookId") != null){
-	
-	
- %>
+     	MemberDAO_imsi	dao4 = new MemberDAO_imsi();
+     	 MemberDTO dto4 =dao4.getSelectOneId(cookId); //오류 아님
+     	 
+     // 	System.out.println(cookId);
+     // 	System.out.println(dto.getId());
+     	 
+      	if(dto4.getId() == null ){
+      		session.invalidate();
+      		
+     		out.println("<script>");
+     		out.println("location.href='../member/login.jsp';");
+     		out.println("</script>");
+     		
+     	}else if(session.getAttribute("cookId") != null){
+     %>
  <table border="1" width="450" align="center">
 	<tr>
 		<td colspan="6" height="50" align="right" >

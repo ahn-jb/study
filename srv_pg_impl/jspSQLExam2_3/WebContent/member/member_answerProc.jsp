@@ -7,7 +7,7 @@
 <jsp:setProperty property="*" name="dto"/>
 
 <%
-	MemberDAO dao2 = new MemberDAO();
+	MemberDAO_imsi dao2 = new MemberDAO_imsi();
 	int result = dao2.setInsertAnswer(dto);
 	
 	

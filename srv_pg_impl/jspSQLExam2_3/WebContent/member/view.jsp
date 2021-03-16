@@ -31,10 +31,9 @@
 			<input type="hidden" name="ip" value="<%=Inet4Address.getLocalHost().getHostAddress()%>">
 	
 			 <%
-			 	
-			 	MemberDAO dao = new MemberDAO();
-			 	MemberDTO dto = dao.getSelectOneNo(no);
-			 %>
+				 	MemberDAO_imsi dao = new MemberDAO_imsi();
+				 	 	MemberDTO dto = dao.getSelectOneNo(no);
+				 %>
 				<table>
 					<tr>
 						<td>등급:</td>
