@@ -31,6 +31,16 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
       <![CDATA[order by no desc ) A) where rnum >= #{startRecord} and rnum <= ${lastRecord}]]>
 
    </select>
+   
+   <select id="Login"  resultType="member.model.dto.MemberDTO">
+   		select*from member where id = #{dto.id} and pw = #{dto.pw}
+   </select>
+   
+   <select id="getSelectOneNo"  resultType="member.model.dto.MemberDTO">
+   		select * from member where no = #{no}
+   </select>
+   
+   
 
    <select id="getTotalRecord" resultType="int">
       select count(*) from ${table_1} where 1=1
@@ -40,5 +50,37 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
    <select id="getSelectIdChk" resultType="String">
       select id from member where id = #{id}
    </select>
-
+   
+   <select id="getSelectId" resultType="int">
+      select count(*) from member where id= #{id}
+   </select>
+	
+	<insert id="setInsert">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+				select seq_member.nextval from dual
+		</selectKey>
+		insert into member (no,id,pw,name,gender,bornYear,grade,loginCounter,postNum,street_addr,parcel_addr,detail_addr,reference,regidate) 
+		values
+		(#{no},#{dto.id},#{dto.pw},#{dto.name},#{dto.gender},#{dto.bornYear},4,0,
+		#{dto.postNum},#{dto.street_addr},#{dto.parcel_addr},#{dto.detail_addr},#{dto.reference},current_timestamp)
+	</insert>
+	
+	<insert id="update">
+		update member set 
+		pw = #{dto.pw}, grade= #{dto.grade}, name = #{dto.name}, 
+		postNum = #{dto.postNum}, street_addr = #{dto.street_addr}, 
+		parcel_addr=#{dto.parcel_addr}, detail_addr=#{dto.detail_addr}, reference=#{dto.reference} where id=#{dto.id}
+	</insert>
+	
+	<insert id="loginCounterSucsess">
+		update member set loginCounter=0 where id = #{dto.id}
+	</insert>
+	
+	<insert id="loginCounterfail">
+		update member set loginCounter=(loginCounter+1) where id = #{dto.id}
+	</insert>
+	
+	<insert id="delete">
+		delete from member where no = #{no}
+	</insert>
 </mapper>

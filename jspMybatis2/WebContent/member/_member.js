@@ -52,7 +52,7 @@ function GoPage(value1){
 				"no" : $("#span_no").text()
 			}
 		}else if(value1 == 'chugaProc' || value1 == 'modifyProc'){
-			alert("asd");
+//			alert("asd");
 			param = {
 				"no" : $("#span_no").text(),
 				"id" : $("#id").val(),

@@ -97,7 +97,7 @@ public class MemberController extends HttpServlet {
 				String id = request.getParameter("id");
 				
 				String result =dao.getSelectIdChk(id);
-				System.out.println(result);
+//				System.out.println(result);
 				if(result == null || result.equals("")) {
 					result = id;
 				}else {
@@ -214,25 +214,27 @@ public class MemberController extends HttpServlet {
 				pw = replace(pw);
 				String newId = id.replace(" ","");
 				String newPw = pw.replace(" ","");
-				
-				MemberDTO dto =new MemberDTO(); //DTO set
-				dto.setId(id);
-				dto.setPw(pw);
-				MemberDTO resultDTO = dao.Login(dto);
-				temp="";
-				response.setContentType("text/html; charset=utf-8");
 				if(!id.equals(newId)) {
 					out.println("<script>");
 					out.println("alert('아이디 빈칸 오류');");
 					out.println("location.href='"+path+"/member_servlet/chuga.do';");
 					out.println("</script>");
+					return;
 				}else if(!pw.equals(newPw)) {
-						out.println("<script>");
-						out.println("alert('비밀번호 빈칸 오류');");
-						out.println("location.href='"+path+"/member_servlet/chuga.do';");
-						out.println("</script>");
-						
-				 }else if(resultDTO.getNo() >0){ 
+					out.println("<script>");
+					out.println("alert('비밀번호 빈칸 오류');");
+					out.println("location.href='"+path+"/member_servlet/chuga.do';");
+					out.println("</script>");
+					return;	
+				}
+				
+				MemberDTO dto =new MemberDTO(); //DTO set
+				dto.setId(id);
+				dto.setPw(pw);
+				MemberDTO resultDTO = dao.Login(dto);
+				
+				response.setContentType("text/html; charset=utf-8");
+				if(resultDTO != null ){ 
 					HttpSession session = request.getSession(); //세션등록
 					session.setAttribute("cookNo", resultDTO.getNo());
 					session.setAttribute("cookId", resultDTO.getId());

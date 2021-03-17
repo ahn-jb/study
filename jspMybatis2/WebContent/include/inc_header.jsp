@@ -15,9 +15,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
-	response.setHeader("Cache-Control", "no-cache");
-	response.setHeader("Pragma", "no-cache");
-	response.setDateHeader("Expires",0);
+// 	response.setHeader("Cache-Control", "no-store");
+// 	response.setHeader("Pragma", "no-cache");
+// 	response.setDateHeader("Expires",0);
 %>
 <!-- <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 

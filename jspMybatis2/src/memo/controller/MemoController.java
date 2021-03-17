@@ -3,6 +3,7 @@ package memo.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,10 +49,10 @@ public class MemoController extends HttpServlet {
 			rd.forward(request, response);
 			
 		}else if(url.indexOf("writeProc.do") != -1) {
-			MemoDAO dao = new MemoDAO();
 			String writer = request.getParameter("writer");
 			String content = request.getParameter("content");
 			
+			MemoDAO dao = new MemoDAO();
 			MemoDTO dto = new MemoDTO();
 			dto.setWriter(writer);
 			dto.setContent(content);
@@ -82,7 +83,7 @@ public class MemoController extends HttpServlet {
 					lastPage = totalPage;
 				}
 			}
-			ArrayList<MemoDTO> list = dao.getSelectMemo(startRecord, lastRecord);
+			List<MemoDTO> list = dao.getSelectMemo(startRecord, lastRecord);
 			String temp = "/memo/list.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pageNumber",pageNumber);
@@ -98,6 +99,36 @@ public class MemoController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher(temp);
 			rd.forward(request, response);
 			
+		}else if(url.indexOf("sakje.do") != -1) {
+			String no_ = request.getParameter("no");
+			int no = 0;
+			if(no_ != null && no_ !="") {
+				no = Integer.parseInt(no_);
+			}
+
+			MemoDAO dao = new MemoDAO();
+			MemoDTO dto = new MemoDTO();
+			int result = dao.sakje(no);
+			
+			String temp = path+"/memo_servlet/write.do";
+			response.sendRedirect(temp);
+		}else if(url.indexOf("sujeong.do") != -1) {
+			String no_ = request.getParameter("no");
+			int no = Integer.parseInt(no_);
+			String writer = request.getParameter("writer");
+			String content = request.getParameter("content");
+			
+			MemoDAO dao = new MemoDAO();
+			MemoDTO dto = new MemoDTO();
+			
+			dto.setNo(no);
+			dto.setWriter(writer);
+			dto.setContent(content);
+			
+			int result = dao.sujeong(dto);
+			
+			String temp = path+"/memo_servlet/write.do";
+			response.sendRedirect(temp);
 		}
 		
 		
