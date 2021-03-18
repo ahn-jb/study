@@ -67,9 +67,9 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 	
 	<insert id="update">
 		update member set 
-		pw = #{dto.pw}, grade= #{dto.grade}, name = #{dto.name}, 
+		pw = #{dto.pw}, grade = #{dto.grade}, name = #{dto.name}, 
 		postNum = #{dto.postNum}, street_addr = #{dto.street_addr}, 
-		parcel_addr=#{dto.parcel_addr}, detail_addr=#{dto.detail_addr}, reference=#{dto.reference} where id=#{dto.id}
+		parcel_addr= #{dto.parcel_addr}, detail_addr = #{dto.detail_addr}, reference = #{dto.reference} where id=#{dto.id}
 	</insert>
 	
 	<insert id="loginCounterSucsess">
