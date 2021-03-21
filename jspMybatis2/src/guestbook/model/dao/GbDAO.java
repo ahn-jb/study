@@ -1,25 +1,17 @@
 package guestbook.model.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-
-import db.DbExample;
 import guestbook.model.dto.GbDTO;
-import memo.model.dto.MemoDTO;
 import sqlmap.MybatisManager;
 
 public class GbDAO {
 	
-	Connection conn= DbExample.dbConn();
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
+	
 	
 	String table_1 = "guestbook";
 	public int setInsert(GbDTO dto) {

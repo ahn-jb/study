@@ -76,7 +76,7 @@ function remove(value1,value2){
 		alert('비밀번호가 다릅니다.')
 		
 	}else if(confirm('삭제페이지로 가시겠습니까?')){
-		sunteak_proc('delete','',value2);
+		sunteak_proc('sakje','',value2);
 	}
 }
 </script>

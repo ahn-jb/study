@@ -45,6 +45,29 @@
 					<c:when test="${menu_gubun == 'guestbook_sakje'}">
 						<jsp:include page="../guestbook/sakje.jsp" />
 					</c:when>
+					<c:when test="${menu_gubun == 'survey_index'}">
+						<jsp:include page="../survey/index.jsp" />
+					</c:when>
+					
+					
+					<c:when test="${menu_gubun == 'test_list'}">
+						<jsp:include page="../survey_test/list.jsp" />
+					</c:when>
+					<c:when test="${menu_gubun == 'test_list_2'}">
+						<jsp:include page="../survey_test/list_2.jsp" />
+					</c:when>
+					<c:when test="${menu_gubun == 'test_chuga'}">
+						<jsp:include page="../survey_test/chuga.jsp" />
+					</c:when>
+					<c:when test="${menu_gubun == 'test_modify'}">
+						<jsp:include page="../survey_test/modify.jsp" />
+					</c:when>
+					<c:when test="${menu_gubun == 'test_send'}">
+						<jsp:include page="../survey_test/send2.jsp" />
+					</c:when>
+					<c:when test="${menu_gubun == 'test_view'}">
+						<jsp:include page="../survey_test/view.jsp" />
+					</c:when>
 					<c:otherwise>
 					</c:otherwise>
 				</c:choose>
