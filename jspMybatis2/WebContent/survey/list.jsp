@@ -101,7 +101,7 @@
 			<button type="button" onclick="sunteak_proc('startList','1','');">진행중인 설문목록</button>
 			<button type="button" onclick="sunteak_proc('endList','1','');">종료된 설문목록</button>
 			<button type="button" onclick="sunteak_proc('chuga','','');">등록하기</button>
-			<button type="button" onclick="sunteak_proc('munje','','');">문제풀이</button>
+<!-- 			<button type="button" onclick="sunteak_proc('munje','','');">문제풀이</button> -->
 		</td>
 	</tr>
 </table>

@@ -44,6 +44,9 @@
 			<td style="padding:0px 20px;" id="survey">
 				<a href="${path}/test_servlet/list.do">설문조사</a>
 			</td>
+			<td style="padding:0px 20px;" id="munje">
+				<a href="${path}/test_servlet/list_2.do">문제은행</a>
+			</td>
 			<td style="padding:0px 20px;" id="boardAjax">
 				<a href="${path}/board_servlet/index.do">게시판(ajax)</a>
 			</td>
@@ -91,6 +94,9 @@
 			</c:when>
 			<c:when test="${menu_str02 == 'test' }">
 				<script>$("#survey").css("background-color","silver");</script>
+			</c:when>
+			<c:when test="${menu_str02 == 'munje' }">
+				<script>$("#munje").css("background-color","silver");</script>
 			</c:when>
 			<c:when test="${menu_str02 == 'board' }">
 				<script>$("#boardAjax").css("background-color","silver");</script>

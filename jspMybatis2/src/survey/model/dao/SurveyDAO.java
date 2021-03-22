@@ -1,10 +1,8 @@
 package survey.model.dao;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,46 +15,9 @@ import survey.model.dto.SurveyDTO;
 
 
 public class SurveyDAO {
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
+
 	String tableName01 = "survey";
-	String tableName02 = "survey_answer";
-	
-	public void getConn() {
-		try {
-			String driver = "oracle.jdbc.driver.OracleDriver";
-			String dbUrl = "jdbc:oracle:thin:@localhost:1521/xe";
-			String dbId = "jspStudy";
-			String dbPasswd = "1234";
-
-			Class.forName(driver);
-			conn = DriverManager.getConnection(dbUrl, dbId, dbPasswd);
-			System.out.println("--오라클 접속 성공--");
-
-		} catch (Exception e) {
-			System.out.println("--오라클 접속 실패--");
-			e.printStackTrace();
-		}
-	}
-
-	public void getConnClose() {
-		try {
-			if (rs != null) {
-				rs.close();
-			}
-			if (pstmt != null) {
-				pstmt.close();
-			}
-			if (conn != null) {
-				conn.close();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+	String tableName02 = "survey_answer";	
 	
 	public int setInsert(SurveyDTO dto) {
 		Map<String,Object> map = new HashMap<>();
@@ -316,28 +277,27 @@ public class SurveyDAO {
 		return result;
 	}
 	
-	public int[] getCountAnwer(int no) {
-		getConn();
-		int[] count =new int[4];
+	public SurveyAnswerDTO getCountAnwer(int no) {
+		SurveyAnswerDTO dto = new SurveyAnswerDTO();
 		
-//		SqlSession session = MybatisManager.getInstance().openSession();
-//		count = session.selectOne("survey.getCountAnwer",no);
-//		session.close();
-		try {
-			for(int i=0; i<count.length; i++ ) {
-				String sql = "select count(*) from survey_answer where no = ? and answer = ?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, no);
-				pstmt.setInt(2, i+1);
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					count[i] = rs.getInt(1);
-				}
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return count;
+		SqlSession session = MybatisManager.getInstance().openSession();
+		dto = session.selectOne("survey.getCountAnwer",no);
+		session.close();
+//		try {
+//			for(int i=0; i<count.length; i++ ) {
+//				String sql = "select count(*) from survey_answer where no = ? and answer = ?";
+//				pstmt = conn.prepareStatement(sql);
+//				pstmt.setInt(1, no);
+//				pstmt.setInt(2, i+1);
+//				rs = pstmt.executeQuery();
+//				if(rs.next()) {
+//					count[i] = rs.getInt(1);
+//				}
+//			}
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+		return dto;
 	}
 	
 	public int getTotalCount(int no) {

@@ -48,12 +48,16 @@
 					<c:when test="${menu_gubun == 'survey_index'}">
 						<jsp:include page="../survey/index.jsp" />
 					</c:when>
+					<c:when test="${menu_gubun == 'board_index'}">
+						<jsp:include page="../board/index.jsp" />
+					</c:when>
+					
 					
 					
 					<c:when test="${menu_gubun == 'test_list'}">
 						<jsp:include page="../survey_test/list.jsp" />
 					</c:when>
-					<c:when test="${menu_gubun == 'test_list_2'}">
+					<c:when test="${menu_gubun == 'munje_list_2'}">
 						<jsp:include page="../survey_test/list_2.jsp" />
 					</c:when>
 					<c:when test="${menu_gubun == 'test_chuga'}">
@@ -67,6 +71,21 @@
 					</c:when>
 					<c:when test="${menu_gubun == 'test_view'}">
 						<jsp:include page="../survey_test/view.jsp" />
+					</c:when>
+					<c:when test="${menu_gubun == 'board2_list'}">
+						<jsp:include page="../board_nomal/list.jsp" />
+					</c:when>
+					<c:when test="${menu_gubun == 'board2_write'}">
+						<jsp:include page="../board_nomal/write.jsp" />
+					</c:when>
+					<c:when test="${menu_gubun == 'board2_view'}">
+						<jsp:include page="../board_nomal/view.jsp" />
+					</c:when>
+					<c:when test="${menu_gubun == 'board2_sujeong'}">
+						<jsp:include page="../board_nomal/sujeong.jsp" />
+					</c:when>
+					<c:when test="${menu_gubun == 'board2_sakje'}">
+						<jsp:include page="../board_nomal/sakje.jsp" />
 					</c:when>
 					<c:otherwise>
 					</c:otherwise>

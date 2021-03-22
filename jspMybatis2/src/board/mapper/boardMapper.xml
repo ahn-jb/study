@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	<sql id="search">
+      <choose>
+         <when test="search_option == 'writer_subject_content' ">
+            and (subject like '%' || #{search_data} || '%' or
+           		 content like '%' || #{search_data} || '%' or
+          		  writer like '%' || #{search_data} || '%')
+         </when>
+         <when test="search_option != null and search_option != '' and search_data != null and search_data != '' ">
+           	and ${search_option} like '%' || #{search_data} || '%' order by refNo desc, levelNo asc ) where no = #{no} 
+         </when>
+         <otherwise>
+         </otherwise>
+      </choose>
+   </sql>
+	
+
+	<insert id="setInsert">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+				select seq_board.nextval from dual
+		</selectKey>
+		insert into board
+		values
+		(#{no},#{dto.num},#{dto.tbl},#{dto.writer},#{dto.subject},#{dto.content},
+		#{dto.email},#{dto.passwd},#{dto.refNo},#{dto.stepNo},#{dto.levelNo},#{dto.p_no},#{dto.hit},#{dto.ip},
+		#{dto.memberNo},#{dto.noticeNo},#{dto.secretGubun},sysdate)
+	</insert>
+	
+	<select id="getMaxNum" resultType="int">
+		select nvl(max(num),0)  from board
+	</select>
+	
+	<select id="getMaxRefNo" resultType="int">
+		select nvl(max(refNo),0)  from board
+	</select>
+	
+	<update id="setUpdateHit">
+		update board set hit = (hit+1) where no = #{no}
+	</update>
+	
+	<select id="getMaxNoticeNo" resultType="int">
+		select nvl(max(noticeNo),0) from board where tbl = #{tbl}
+	</select>
+	
+	<update id="setUpdateReLevel">
+		update board set levelNo=(levelNo+1) where refNo=#{dto.refNo} and levelNo > #{dto.levelNo}
+	</update>
+	
+	<select id="getSelectOne" resultType="board.model.dto.BoardDTO">
+		select*from board where no = #{no}
+	</select>
+	
+	<select id="getView" resultType="board.model.dto.BoardDTO">
+		select*from(select b.*,(select count(*) from board where refNo =b.refNo and stepNo = (b.stepNo+1) and levelNo =(b.levelNo+1))child_counter,
+		LAG(no) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) preNo, 
+		LAG(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc)preSubject,
+		LEAD(no) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) nextNo,
+		LEAD(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNO asc) nextSubject from board b where 1=1
+		<choose>
+			<when test="search_option != null and search_option != '' and search_data != null and search_data != '' ">
+				 and ${search_option} like '%' || #{search_data} || '%' order by refNo desc, levelNo asc ) where no = #{no} 
+			</when>
+			<when test="search_option == 'writer_subject_content' ">
+				and (subject like '%' || #{search_data} || '%' or
+	            content like '%' || #{search_data} || '%' or
+	            writer like '%' || #{search_data} || '%')
+				order by refNo desc, levelNo asc ) where no = #{no}
+			</when>
+			<otherwise>
+				order by refNo desc, levelNo asc ) where no = #{no}
+			</otherwise>
+		</choose>
+	</select>
+	
+	<update id="setUpdate">
+		update board set writer = #{dto.writer}, subject = #{dto.subject}, content = #{dto.content}, email = #{dto.email},
+		passwd=#{dto.passwd}, noticeNo=#{dto.noticeNo}, secretGubun=#{dto.secretGubun} where no = #{dto.no}
+	</update>
+	
+	<delete id="Delete">
+		delete from board where no = #{no}
+	</delete>
+	
+	<select id="search" resultType="board.model.dto.BoardDTO">
+		select*from (select ROWNUM rn,bb.* from (select b.*,(select count(*) from board where p_no=b.no) child_counter from
+		board b where tbl= #{tbl}
+		<include refid="search"></include>
+	 	order by noticeNo desc, refNo desc, levelNo asc) bb) where rn between #{startRecord} and #{lastRecord}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from board where tbl = #{tbl}
+		<include refid="search"></include>
+	</select>
+	
+	
+	<insert id="CommentInsert">
+		insert into board_comment 
+		values (seq_board_comment.nextval,#{dto.board_no},#{dto.comment_writer},
+		#{dto.comment_content},#{dto.comment_passwd},#{dto.memberNo},#{dto.ip},sysdate)
+	</insert>
+	
+	<select id="getTotalRecord" resultType="int">
+		select count(*) from board_comment where board_no = #{no}
+	</select>
+	
+	<select id="getComment" resultType="board.model.dto.BoardDTO">
+		select*from (select rownum rn,a.* from (select * from board_comment where board_no = #{no} order by comment_no desc) a)
+		where rn between #{startRecord} and #{lastRecord}
+	</select>
+	
+	<select id="tblchk" resultType="int">
+		select count(*) from boardChk where tbl = #{temp} and serviceGubun = 'T'
+
+	</select>
+</mapper>

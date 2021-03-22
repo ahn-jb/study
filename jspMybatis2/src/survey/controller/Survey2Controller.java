@@ -148,7 +148,7 @@ public class Survey2Controller extends HttpServlet {
 				request.setAttribute("menu_gubun", "test_list");
 			}else {
 				pageSize = totalRecord;
-				request.setAttribute("menu_gubun", "test_list_2");
+				request.setAttribute("menu_gubun", "munje_list_2");
 			}
 			
 			int number =totalRecord - pageSize * (pageNumber-1);
@@ -274,13 +274,18 @@ public class Survey2Controller extends HttpServlet {
 			
 		}else if(url.indexOf("view.do") != -1) {
 			SurveyDAO dao = new SurveyDAO();
-			int[] count = dao.getCountAnwer(no);
+			SurveyAnswerDTO dto_answer = new SurveyAnswerDTO();
+			dto_answer = dao.getCountAnwer(no);
 			
+//			System.out.println("1: "+dto_answer.getAnswer_count1());
+//			System.out.println("2: "+dto_answer.getAnswer_count2());
+//			System.out.println("3: "+dto_answer.getAnswer_count3());
+//			System.out.println("4: "+dto_answer.getAnswer_count4());
 			int total = dao.getTotalCount(no);
-			int ans1_c =  count[0];
-			int ans2_c =  count[1];
-			int ans3_c =  count[2];
-			int ans4_c =  count[3];
+			int ans1_c =  dto_answer.getAnswer_count1();
+			int ans2_c =  dto_answer.getAnswer_count2();
+			int ans3_c =  dto_answer.getAnswer_count3();
+			int ans4_c =  dto_answer.getAnswer_count4();
 			Double persent1 = Double.parseDouble(String.format("%.1f", ans1_c*100.0/total));
 			Double persent2 = Double.parseDouble(String.format("%.1f", ans2_c*100.0/total));
 			Double persent3 = Double.parseDouble(String.format("%.1f", ans3_c*100.0/total));

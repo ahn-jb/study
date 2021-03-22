@@ -13,15 +13,16 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		 	<when test=" list_gubun =='end' ">
 		 		and current_timestamp > last_date
 		 	</when>
+	 	</choose>
+	 	<choose>
 		 	<when test=" search_option != null and search_option != '' and search_data != null and search_data != '' ">
 		 		and ${search_option} like '%' || #{search_data} || '%'
 		 	</when>
+	 	</choose>
+	 	<choose>
 		 	<when test=" search_date_check !='' and search_date_s != null and search_date_s !='' and search_date_e != null and search_date_e != '' ">
 				 <![CDATA[and (start_date >= to_timestamp(#{search_date_s}) and last_date <= to_timestamp(#{search_date_e}))]]>
 		 	</when>
-		 	 <otherwise>
-
-        	 </otherwise>
 		 </choose>
 	</sql>
 
@@ -68,7 +69,12 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		insert into survey_answer values(#{no},#{dto.no},#{dto.answer},current_timestamp)
 	</insert>
 	
-	<select id="getCountAnwer">
+	<select id="getCountAnwer" resultType="survey.model.dto.SurveyAnswerDTO">
+		select DISTINCT
+		(select count(*) from survey_answer where no = #{no} and answer = 1)as answer_count1,
+		(select count(*) from survey_answer where no = #{no} and answer = 2)as answer_count2,
+		(select count(*) from survey_answer where no = #{no} and answer = 3)as answer_count3,
+		(select count(*) from survey_answer where no = #{no} and answer = 4)as answer_count4 from survey_answer
 		
 	</select>
 	
