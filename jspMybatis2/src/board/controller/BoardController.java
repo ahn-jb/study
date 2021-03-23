@@ -327,9 +327,9 @@ public class BoardController extends HttpServlet {
 			dto.setIp(ip);
 			int result = dao.CommentInsert(dto);
 			if(result >0) {
-				System.out.println("등록되었습니다.");
+//				System.out.println("등록되었습니다.");
 			}else {
-				System.out.println("결과코드: " +result);
+//				System.out.println("결과코드: " +result);
 			}
 			
 			
@@ -376,8 +376,7 @@ public class BoardController extends HttpServlet {
 			String temp2 = "/board/comment_list.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(temp2);
 			rd.forward(request, response);
-		}else if(url.indexOf("comment_sakje.do") != -1) {
-			System.out.println("1234");
+		}else if(url.indexOf("commentSakje.do") != -1) {
 			String comment_no_ = request.getParameter("comment_no");
 			int comment_no = Integer.parseInt(comment_no_);
 			int result = dao.comment_sakje(comment_no);

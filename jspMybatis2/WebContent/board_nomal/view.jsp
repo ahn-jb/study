@@ -113,7 +113,9 @@
 							<c:forEach var="list" items="${list}">
 							<tr>
 								<td style="padding:0 0 10 0;">
-									${list.comment_writer}  (${list.regiDate})  <button type="button" onclick=";">삭제</button><br>
+									${list.comment_writer}  (${list.regiDate})
+									&nbsp;&nbsp;비밀번호:<input type="text" id="pwchk" value="" style="width:60px;">
+									<button type="button" onclick="comment_sakje('${list.comment_passwd}','${list.comment_no}');">삭제</button><br>
 									${list.comment_content}<br>
 									---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 								</td>
@@ -175,12 +177,23 @@
 		commentForm.submit();
 		
 	});
+	function comment_sakje(value1,value2){
+		var pwchk = $('#pwchk').val();
+		if(value1 != pwchk){
+			alert('비밀번호가 다릅니다.');
+		}else{
+			commentForm.method="post";
+			commentForm.action="${path}/board2_servlet/commentSakje.do?comment_no="+value2;
+			commentForm.submit();
+		}
+	}
+	
 	function gogo(value1,value2){
 		if(value1 =='board_list'){
 			location.href="${path}/board2_servlet/view.do?no="+${dto.no}+"&pageNumber="+value2+"&search_option=${search_option}&search_data=${search_data}";
 		}
 	}
-
+	
 </script>
 </body>
 </html>

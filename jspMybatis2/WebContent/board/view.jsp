@@ -113,14 +113,13 @@
 </c:choose>
 
 
-<script>
+<script>	
 	$(document).ready(function(){
+		
 		$("#btnViewPasswd").click(function(){
 			suntaek_proc('view','',$("#span_no").text());
 		});
-	});
-	
-	$(document).ready(function(){
+		
 		suntaek_proc2('comment_result','','');
 		
 		$("#btnComment").click(function(){
@@ -147,14 +146,14 @@
 				"comment_passwd" : $("#comment_passwd").val(),
 				"comment_content" : $("#comment_content").val()
 			}
-		}else if(value1 == 'comment_result' || value1 == 'comment_sakje'){
+		}else if(value1 == 'comment_result' || value1 == 'commentSakje'){
 			param = {
 				"pageNumber" : $("#span_pageNumber").text(),
 				"comment_no" : $("#comment_no").text(),
 				"no" : $('#span_no').text()
 			}
 		}
-		
+		console.log(url);
 		$.ajax({
 			type:"post",
 			data: param,
@@ -175,8 +174,8 @@
 					$("#comment_passwd").val("");
 					$("#comment_content").val("");
 					suntaek_proc2('comment_result','1','');
-				}else if(value1 == 'comment_sakje'){
-					suntaek_proc('list','1','');
+				}else if(value1 == 'commentSakje'){
+					suntaek_proc2('comment_result','1','');
 				}
 			}
 		});
@@ -184,8 +183,9 @@
 	}
 	
 	function suntaek_proc2(value1,value2,value3){
-		alert(value1);
-		alert(value3);
+		console.log("value1:"+value1);
+		console.log("value3:"+value3);
+
 		if(value1 != ''){
 			$("#span_proc").text(value1);
 		}

@@ -14,7 +14,9 @@
 	<c:forEach var="list" items="${list}">
 	<tr>
 		<td style="padding:0 0 10 0;">
-			${list.comment_writer}  (${list.regiDate}) <input type="text" id="pwchk" value="" style="width:60px;"> <button type="button" onclick="comment_sakje('${list.comment_passwd}','${list.comment_no}');">삭제</button><br>
+			${list.comment_writer}  (${list.regiDate})
+			&nbsp;&nbsp;비밀번호:<input type="text" id="pwchk" value="" style="width:60px;">
+			<button type="button" onclick="comment_sakje('${list.comment_passwd}','${list.comment_no}');">삭제</button><br>
 			${list.comment_content}<br>
 			---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		</td>
@@ -50,8 +52,7 @@
 		if(value1 != pwchk){
 			alert('비밀번호가 다릅니다.');
 		}else{
-			alert("qqqq");
-			suntaek_proc2('comment_sakje','',value2);
+			suntaek_proc2('commentSakje','',value2);
 		}
 	}
 	

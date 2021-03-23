@@ -359,51 +359,20 @@ public class Board2Controller extends HttpServlet {
 			}
 			response.sendRedirect(temp);
 			
+		}else if(url.indexOf("commentSakje.do") != -1) {
+			String comment_no_ = request.getParameter("comment_no");
+			int comment_no = Integer.parseInt(comment_no_);
+			int result = dao.comment_sakje(comment_no);
+			if(result >0) {
+				System.out.println("등록되었습니다.");
+				temp=path+"/board2_servlet/view.do?no="+no+"&search_option="+search_option+"&search_data="+search_data;
+			}else {
+				System.out.println("결과코드: " +result);
+				temp=path+"/board2_servlet/list.do";
+			}
+			response.sendRedirect(temp);
 		}
-//		else if(url.indexOf("comment_result.do") != -1) {
-//			int pageSize = 5;
-//			int blockSize= 10;
-//			int totalRecord = dao.getTotalRecord(no);
-//			int number =totalRecord - pageSize * (pageNumber-1);
-//			int startRecord = pageSize * (pageNumber -1) +1;
-//			int lastRecord = pageSize * pageNumber;
-//			int totalPage =0;
-//			int startPage =1;
-//			int lastPage = 1;
-//			if(totalRecord>0) {
-//				totalPage = totalRecord / pageSize +(totalRecord%pageSize == 0? 0:1);
-//				startPage = (pageNumber/blockSize - (pageNumber % blockSize !=0 ? 0:1))*blockSize +1 ;
-//				lastPage = startPage + blockSize - 1;
-//				if(lastPage > totalPage) {	
-//					lastPage = totalPage;
-//				}
-//			}
-//			int[] pagerArray = util.pager(pageSize, blockSize, totalRecord, pageNumber);
-//			int number = pagerArray[0];
-//			int startRecord = pagerArray[1];
-//			int lastRecord = pagerArray[2];
-//			int totalPage = pagerArray[3];
-//			int startPage = pagerArray[4];
-//			int lastPage =  pagerArray[5];
-//			ArrayList<BoardDTO> list = dao.getComment(no, startRecord, lastRecord);
-//			int list_size = list.size();
-//			request.setAttribute("list_size", list_size);
-//			request.setAttribute("list",list);
-//			request.setAttribute("count",totalRecord);
-//			request.setAttribute("pageNumber",pageNumber);
-//			request.setAttribute("pageSize",pageSize);
-//			request.setAttribute("blockSize",blockSize);
-//			request.setAttribute("totalRecord",totalRecord);
-//			request.setAttribute("number",number);
-//			request.setAttribute("startRecord",startRecord);
-//			request.setAttribute("lastRecord",lastRecord);
-//			request.setAttribute("totalPage",totalPage);
-//			request.setAttribute("startPage",startPage);
-//			request.setAttribute("lastPage",lastPage);
-//			
-//			temp=path+"/board2_servlet/view.do?no="+no+"&search_option="+search_option+"&search_data="+search_data;
-//			response.sendRedirect(temp);
-//		}
+
 		
 		
 	}

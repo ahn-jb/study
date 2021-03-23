@@ -582,11 +582,10 @@ public class BoardDAO {
 	}
 	
 	public int comment_sakje(int no) {
-		System.out.println("qwer");
 		SqlSession session = MybatisManager.getInstance().openSession();
 		int result = session.delete("board.comment_sakje",no);
+		session.commit();
 		session.close();
-		System.out.println(result);
 		return result;
 	}
 }
