@@ -16,13 +16,12 @@ search_data : <span id="span_search_data">${search_data}</span><br>
 <script>
 $(document).ready(function(){
 <c:if test="${menu_gubun == 'board_index'}">
-	GoPage('list','');
-// 	GoPage('write','');
+	suntaek_proc('list','1','');
 </c:if>
 });
 
 
-function GoPage(value1,value2){
+function GoPage(value1){
 	var url = "${path}/board_servlet/"+value1+".do";
 	
 	if(value1 == "write"){
@@ -30,28 +29,26 @@ function GoPage(value1,value2){
 		var param = {}
 	}else if(value1 == "writeProc" || value1 == "sujeongProc" || value1 == "sakjeProc"){
 		var param = {
-				"tbl" : $("#span_tbl").text(),
-				"no" : $("#span_no").text(),
-				"writer" : $("#writer").val(),
-				"email" : $("#email").val(),
-				"passwd": $("#passwd").val(),
-				"subject": $("#subject").val(),
-				"content": $("#content").val(),
-				"noticeGubun": $("#noticeGubun").val(),
-				"secretGubun": $("#secretGubun").val()
-			}	
+			"tbl" : $("#span_tbl").text(),
+			"no" : $("#span_no").text(),
+			"writer" : $("#writer").val(),
+			"email" : $("#email").val(),
+			"passwd": $("#passwd").val(),
+			"subject": $("#subject").val(),
+			"content": $("#content").val(),
+			"noticeGubun": $("#noticeGubun").val(),
+			"secretGubun": $("#secretGubun").val()
+		}	
 	}else if(value1 =="list"){
 		var param = {
 			"tbl" : $("#span_tbl").text(),
 			"pageNumber" : $("#span_pageNumber").text(),
 			"pageSize" : $("#span_pageSize").text(),
 			"search_option" : $("#span_search_option").text(),
-			"search_data" : $("#span_search_data").text()
-			
+			"search_data" : $("#span_search_data").text()			
 		}
 	}else if(value1 == "view"){
 			result.style.height = "800px";
-		$("#span_no").text(value2);
 		var param ={
 			"no" : $("#span_no").text(),
 			"tbl" : $("#span_tbl").text(),
@@ -62,18 +59,18 @@ function GoPage(value1,value2){
 		}
 	}else if(value1 == "reply" || value1 == "sujeong" || value1 == "sakje"){
 		var param ={
-				"no" : $("#span_no").text(),
-				"tbl" : $("#span_tbl").text(),
-				"pageNumber" : $("#span_pageNumber").text(),
-				"search_option" : $("#span_search_option").text(),
-				"search_data" : $("#span_search_data").text(),
-				"writer" : $("#writer").val(),
-				"email" : $("#email").val(),
-				"passwd": $("#passwd").val(),
-				"subject": $("#subject").val(),
-				"content": $("#content").val(),
-				"noticeGubun": $("#noticeGubun").val(),
-				"secretGubun": $("#secretGubun").val()
+			"no" : $("#span_no").text(),
+			"tbl" : $("#span_tbl").text(),
+			"pageNumber" : $("#span_pageNumber").text(),
+			"search_option" : $("#span_search_option").text(),
+			"search_data" : $("#span_search_data").text(),
+			"writer" : $("#writer").val(),
+			"email" : $("#email").val(),
+			"passwd": $("#passwd").val(),
+			"subject": $("#subject").val(),
+			"content": $("#content").val(),
+			"noticeGubun": $("#noticeGubun").val(),
+			"secretGubun": $("#secretGubun").val()
 		}
 	}
 		$.ajax({
@@ -82,7 +79,7 @@ function GoPage(value1,value2){
 			url  : url,
 			success: function(data){
 				if(value1 =='writeProc' || value1 =='sakjeProc'){
-					suntaek_page('1');
+					suntaek_proc('list','1','');
 				}else if(value1 == 'sujeongProc'){
 // 					GoPage('view',$("#span_no").text());
 					$("#result").html(data);
@@ -93,10 +90,25 @@ function GoPage(value1,value2){
 		});
 }
 
-function suntaek_page(value1){
-	$("#span_pageNumber").text(value1);
-	$("#span_no").text("");
-	GoPage('list','');
+function suntaek_proc(value1,value2,value3){
+// 	alert("aaaa");
+// 	alert(value1);
+	if(value1 == 'resetList'){
+		$("#span_search_option").text('');
+		$("#span_search_data").text('');	
+		suntaek_proc('list','1','');
+	}
+	
+	if(value1 != ''){
+		$("#span_proc").text(value1);
+	}
+	if(value2 != ''){
+		$("#span_pageNumber").text(value2);		
+	}
+	if(value3 != ''){
+		$("#span_no").text(value3);	
+	}
+	GoPage(value1);
 }
 
 </script>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cart">
+	
+	<insert id="setInsert">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+				select seq_cart.nextval from dual
+		</selectKey>
+		insert into cart values(#{no},#{dto.memberNo},#{dto.productNo},#{dto.amount},current_timestamp)
+	</insert>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from cart where memberNo = #{memberNo}
+	</select>
+	
+	<select id="getCartlist" resultType="shop.mall.model.dto.CartDTO">
+		select *from
+		(select ROWNUM rn, a.*, bb.name as product_name, bb.price as product_price, bb.product_img , bb.description as product_description from cart a join product bb on a.productNo = bb.no
+		where memberNo= #{memberNo} order by a.regi_date desc) where rn BETWEEN #{startRecord} and #{lastRecord}
+	</select>
+	
+	<delete id="CartDelete">
+		delete from cart where memberNo = #{memberNo} and no = #{cartNo}
+	</delete>
+	
+	<select id="getListCartProductGroup" resultType="shop.mall.model.dto.CartDTO">
+		select p.name product_name, sum(c.amount * p.price) buy_money
+		from cart c inner join product p on c.productNo = p.no
+		group by p.name order by name asc
+	</select>
+	
+</mapper>

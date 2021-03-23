@@ -259,17 +259,17 @@ public class BoardDAO {
 //					+ " LEAD(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNO asc) nextSubject"
 //					+ " from board b ";
 //			String sql ="";
-//			if(bunryu == null || bunryu =="") {
+//			if(search_option == null || search_option =="") {
 //				sql = sql1 +" order by refNo desc, levelNo asc ) where no =? ";
-//			}else if(bunryu.equals("subject") || bunryu.equals("content") || bunryu.equals("writer")) {
-//				sql = sql1 +" where "+bunryu+" like '%"+search+"%' order by refNo desc, levelNo asc ) where no =? ";
-//			}else if(bunryu.equals("writer_subject_content")) {
-//				sql = sql1 + "where subject like '%"+search+"%'"
-//						+ " or content like '%"+search+"%'  or writer like '%"+ search +"%' order by refNo desc, levelNo asc ) where no =? ";
+//			}else if(search_option.equals("subject") || search_option.equals("content") || search_option.equals("writer")) {
+//				sql = sql1 +" where "+search_option+" like '%"+search_data+"%' order by refNo desc, levelNo asc ) where no =? ";
+//			}else if(search_option.equals("writer_subject_content")) {
+//				sql = sql1 + "where subject like '%"+search_data+"%'"
+//						+ " or content like '%"+search_data+"%'  or writer like '%"+ search_data +"%' order by refNo desc, levelNo asc ) where no =? ";
 //			}else {
 //				sql = sql1 +" order by refNo desc, levelNo asc ) where no =? ";
 //			}
-////			System.out.println(sql);
+//			System.out.println(sql);
 //			pstmt = conn.prepareStatement(sql);
 //			pstmt.setInt(1, no);
 //			rs = pstmt.executeQuery();
@@ -578,10 +578,17 @@ public class BoardDAO {
 //		}catch(Exception e) {
 //			e.printStackTrace();
 //		}
-		System.out.println(result_tbl);
 		return result_tbl;
 	}
-
+	
+	public int comment_sakje(int no) {
+		System.out.println("qwer");
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.delete("board.comment_sakje",no);
+		session.close();
+		System.out.println(result);
+		return result;
+	}
 }
 
 

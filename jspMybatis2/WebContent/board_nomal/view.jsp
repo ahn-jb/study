@@ -113,7 +113,7 @@
 							<c:forEach var="list" items="${list}">
 							<tr>
 								<td style="padding:0 0 10 0;">
-									${list.comment_writer}  (${list.regiDate})<br>
+									${list.comment_writer}  (${list.regiDate})  <button type="button" onclick=";">삭제</button><br>
 									${list.comment_content}<br>
 									---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 								</td>

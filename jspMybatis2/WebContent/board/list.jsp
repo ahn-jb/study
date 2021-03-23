@@ -53,7 +53,7 @@
 					<tr>
 						<td>${dto.getNum()}</td>
 						<td width="650">
-							<%=Re %><a href="#" onclick="GoPage('view','${dto.getNo()}');" >${dto.getSubject()}</a>
+							<%=Re %><a href="#" onclick="suntaek_proc('view','','${dto.getNo()}');" >${dto.getSubject()}</a>
 						</td>
 						<td align="center">${dto.getWriter()}</td>
 						<td align="center">${dto.getRegiDate()}</td>
@@ -77,7 +77,7 @@
 					</c:if>
 					<tr>
 						<td colspan="20" align="left">
-							<button type = "button" onclick="go('board_reset','1');">전체글</button>&nbsp;&nbsp;
+							<button type = "button" onclick="suntaek_proc('resetList','1');">전체글</button>&nbsp;&nbsp;
 							<button type = "button" id="btnWrite">글쓰기</button>&nbsp;&nbsp;&nbsp;
 							
 							<select name="search_option" id="search_option">
@@ -115,24 +115,24 @@
 							</c:choose>
 							</select>
 							<input type="text" name="search_data" id="search_data" style="width:400px" value="${search_data}">
-							<button type="button" onclick="go('board_search','1');">검색</button>&nbsp;&nbsp;&nbsp; 	
+							<button type="button" onclick="search();">검색</button>&nbsp;&nbsp;&nbsp; 	
 							
-							<a href="#" onclick="go('board_list','1');">[첫페이지]</a>&nbsp;&nbsp;
+							<a href="#" onclick="suntaek_proc('list','1','');">[첫페이지]</a>&nbsp;&nbsp;
 							<c:if test="${startPage > blockSize }">
-								<a href="#" onclick="go('board_list','${lastPage -blockSize}','');">[이전 10개]</a>
+								<a href="#" onclick="suntaek_proc('list','${lastPage -blockSize}','');">[이전 10개]</a>
 							</c:if>
 							<c:if test="${startPage <=blockSize }"> [이전10개] </c:if>&nbsp;&nbsp;
 							<c:forEach var="i" begin="${startPage}" end="${lastPage}" step="1">
 							<c:if test="${i == pageNumber}"> [${i}]</c:if>
 							<c:if test="${i != pageNumber}">
-								<a href="#" onclick="go('board_list','${i}')">${i}</a>
+								<a href="#" onclick="suntaek_proc('list','${i}','')">${i}</a>
 							</c:if>
 							</c:forEach>&nbsp;&nbsp;
 							<c:if test="${lastPage < totalPage }">
-								<a href="#" onclick="go('board_list','${startPage + blockSize}');">[다음 10개]</a>
+								<a href="#" onclick="suntaek_proc('list','${startPage + blockSize}','');">[다음 10개]</a>
 							</c:if>
 							<c:if test="${lastPage >= totalPage }"> [다음10개] </c:if>&nbsp;&nbsp;
-							<a href="#" onclick="go('board_list','${totalPage}');">[끝페이지]</a> 						
+							<a href="#" onclick="suntaek_proc('list','${totalPage}','');">[끝페이지]</a> 						
 						</td>
 					</tr>
 				</table>
@@ -166,29 +166,19 @@ $("#pageSize").change(function(){
 	}else if(pageSize == 30){
 		result.style.height = "1000px";
 	}
-	GoPage('list','');
+	suntaek_proc('list','1','');
 	
 });
 
 $("#btnWrite").click(function(){
-	GoPage('write','');
+	suntaek_proc('write','1','');
 });
-	function go(value1,value2){
-		if(value1 =="board_search"){
-			$("#span_search_option").text($("#search_option").val());
-			$("#span_search_data").text($("#search_data").val());
-			suntaek_page(value2);
-			GoPage('list','');
-		}else if(value1 =='board_list'){
-			suntaek_page(value2);
-			GoPage('list','');
-		}else if(value1 =='board_reset'){
-			$("#span_search_option").text('');
-			$("#span_search_data").text('');
-			suntaek_page(value2);
-			GoPage('list','');
-		}
-	}
+
+function search(value1,value2){
+	$("#span_search_option").text($("#search_option").val());
+	$("#span_search_data").text($("#search_data").val());
+	suntaek_proc('list','1','');
+}
 
 </script>
 </body>

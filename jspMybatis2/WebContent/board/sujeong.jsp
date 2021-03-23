@@ -49,7 +49,7 @@
 				<td colspan="3">
 					<button type="button" id="btnSujeong">저장하기</button>
 <!-- 					<button type="button" id="btnList">목록</button> -->
-					<button type="button" onclick="GoPage('list','')">취소</button>
+					<button type="button" onclick="suntaek_proc('list','1','');">취소</button>
 				</td>						
 			</tr>
 		</table>
@@ -76,14 +76,10 @@ $(document).ready(function(){
 			document.writeForm.content.focus();
 			return false;	
 		}else if(confirm('수정하시겠습니까?')){
-			GoPage('sujeongProc','');
+			suntaek_proc('sujeongProc','1','');
 		}
 
 	});
-});
-
-$("#btnList").click(function(){
-	GoPage('list','');	
 });
 
 

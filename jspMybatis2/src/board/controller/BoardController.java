@@ -65,7 +65,6 @@ public class BoardController extends HttpServlet {
 		int pageNumber = util.numberCheck(temp,1);
 		
 		temp = request.getParameter("tbl");
-		System.out.println("tbl: "+temp);
 		int result_tbl = dao.tblchk(temp);
 		if(result_tbl == 0) {
 			temp ="";
@@ -377,6 +376,17 @@ public class BoardController extends HttpServlet {
 			String temp2 = "/board/comment_list.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(temp2);
 			rd.forward(request, response);
+		}else if(url.indexOf("comment_sakje.do") != -1) {
+			System.out.println("1234");
+			String comment_no_ = request.getParameter("comment_no");
+			int comment_no = Integer.parseInt(comment_no_);
+			int result = dao.comment_sakje(comment_no);
+			if(result >0) {
+				
+				String temp2 = "/board/comment_list.jsp";
+				RequestDispatcher rd = request.getRequestDispatcher(temp2);
+				rd.forward(request, response);
+			}
 		}
 		
 		

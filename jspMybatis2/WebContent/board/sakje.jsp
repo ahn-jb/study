@@ -50,7 +50,7 @@
 				<td colspan="3">
 					<button type="button" id="btnSakje">삭제하기</button>
 <!-- 					<button type="button" id="btnList">목록</button> -->
-					<button type="button" onclick="GoPage('list','')">취소</button>
+					<button type="button" onclick="suntaek_proc('list','1','');">취소</button>
 				</td>						
 			</tr>
 		</table>
@@ -67,16 +67,11 @@ $(document).ready(function(){
 			document.writeForm.passwd.focus();
 			return false;
 		}else if(confirm('삭제하시겠습니까?')){
-			GoPage('sakjeProc','');
+			suntaek_proc('sakjeProc','',$('#span_no').text());
 		}
 
 	});
 });
-
-$("#btnList").click(function(){
-	GoPage('list','');	
-});
-
 
 function clickChk(value1){
 	if(value1 == 'noticeGubun'){

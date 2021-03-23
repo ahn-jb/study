@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="product">
+	<sql id="search">
+		<choose>
+         <when test="search_option == 'total' ">
+            and (name like '%' || #{search_data} || '%' or
+           		 discription like '%' || #{search_data} || '%')
+         </when>
+         <when test="search_option != null and search_option != '' and search_data != null and search_data != '' ">
+           	and ${search_option} like '%' || #{search_data} || '%' 
+         </when>
+         <otherwise>
+         </otherwise>
+      </choose>
+	</sql>
+	
+	<insert id="setInsert">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+				select seq_product.nextval from dual
+		</selectKey>	
+		insert into product values(#{no},#{dto.name},#{dto.price},#{dto.description},#{dto.product_img},current_timestamp)
+	</insert>
+	
+	<select id="getView" resultType="shop.product.model.dto.ProductDTO">
+		select * from product where no = #{no}
+	</select>
+	
+	<update id="Update">
+		update product set name= #{dto.name}, price= #{dto.price}, description= #{dto.description}, product_img= #{dto.product_img} 
+		where no=#{dto.no}
+	</update>
+	
+	<delete id="Delete">
+		delete from product where no = #{no}
+	</delete>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from product where 1=1
+		<include refid="search"></include>
+	</select>
+	
+	<select id="search" resultType="shop.product.model.dto.ProductDTO">
+		select*from (select ROWNUM rn,bb.* from 
+		(select b.*,(select count(*)  from cart c group by productno having b.no=c.productno)as buy_count from product b where 1=1
+		<include refid="search"></include>
+		order by no desc) bb) where rn between #{startRecord} and #{lastRecord}
+	</select>
+</mapper>

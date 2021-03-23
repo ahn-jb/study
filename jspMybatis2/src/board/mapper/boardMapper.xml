@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
           		  writer like '%' || #{search_data} || '%')
          </when>
          <when test="search_option != null and search_option != '' and search_data != null and search_data != '' ">
-           	and ${search_option} like '%' || #{search_data} || '%' order by refNo desc, levelNo asc ) where no = #{no} 
+           	and ${search_option} like '%' || #{search_data} || '%' 
          </when>
          <otherwise>
          </otherwise>
@@ -58,23 +58,22 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 	<select id="getView" resultType="board.model.dto.BoardDTO">
 		select*from(select b.*,(select count(*) from board where refNo =b.refNo and stepNo = (b.stepNo+1) and levelNo =(b.levelNo+1))child_counter,
 		LAG(no) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) preNo, 
-		LAG(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc)preSubject,
+		LAG(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) preSubject,
 		LEAD(no) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) nextNo,
 		LEAD(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNO asc) nextSubject from board b where 1=1
 		<choose>
-			<when test="search_option != null and search_option != '' and search_data != null and search_data != '' ">
-				 and ${search_option} like '%' || #{search_data} || '%' order by refNo desc, levelNo asc ) where no = #{no} 
-			</when>
 			<when test="search_option == 'writer_subject_content' ">
 				and (subject like '%' || #{search_data} || '%' or
 	            content like '%' || #{search_data} || '%' or
-	            writer like '%' || #{search_data} || '%')
-				order by refNo desc, levelNo asc ) where no = #{no}
+	            writer like '%' || #{search_data} || '%')				
+			</when>
+			<when test="search_option != null and search_option != '' and search_data != null and search_data != '' ">
+				 and ${search_option} like '%' || #{search_data} || '%' 
 			</when>
 			<otherwise>
-				order by refNo desc, levelNo asc ) where no = #{no}
 			</otherwise>
 		</choose>
+		order by noticeNo desc, refNo desc, levelNo asc ) where no = #{no} 
 	</select>
 	
 	<update id="setUpdate">
@@ -110,7 +109,7 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 	</select>
 	
 	<select id="getComment" resultType="board.model.dto.BoardDTO">
-		select*from (select rownum rn,a.* from (select * from board_comment where board_no = #{no} order by comment_no desc) a)
+		select*from (select rownum rn, a.* from (select * from board_comment where board_no = #{no} order by comment_no desc) a)
 		where rn between #{startRecord} and #{lastRecord}
 	</select>
 	
@@ -118,4 +117,8 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		select count(*) from boardChk where tbl = #{temp} and serviceGubun = 'T'
 
 	</select>
+	
+	<delete id="comment_sakje">
+		delete from board_comment where comment_no = #{no}
+	</delete>
 </mapper>

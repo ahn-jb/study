@@ -48,7 +48,7 @@
 			<tr>
 				<td colspan="3">
 					<button type="button" id="btnchuga">저장하기</button>
-					<button type="button" onclick="GoPage('list','')">취소</button>
+					<button type="button" onclick="suntaek_proc('list','1','');">취소</button>
 				</td>						
 			</tr>
 		</table>
@@ -74,15 +74,10 @@ $(document).ready(function(){
 			document.writeForm.content.focus();
 			return false;	
 		}else if(confirm('등록하시겠습니까?')){
-			GoPage('writeProc','');
+			suntaek_proc('writeProc','','');
 		}
 	});
 });
-
-$("#btnList").click(function(){
-	GoPage('list','');	
-});
-
 
 function clickChk(value1){
 	if(value1 == 'noticeGubun'){

@@ -9,6 +9,7 @@
 </head>
 <body>
 
+<span id="comment_no" style="display:;">${comment_no}</span>
 <c:choose>
 	<c:when test="${imsiPage == 'viewPasswdPage'}">
 		<table border="1" align="center" width="80%">
@@ -59,30 +60,30 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button type="button" onclick="GoPage('write','')">글쓰기</button>
+					<button type="button" onclick="suntaek_proc('write','','')">글쓰기</button>
 					
 					<c:if test="${dto.noticeNo == 0}">
 					&nbsp;&nbsp;
-					<button type="button" onclick="GoPage('reply','${dto.no}')">답변하기</button>
+					<button type="button" onclick="suntaek_proc('reply','','${dto.no}')">답변하기</button>
 					</c:if>
 					&nbsp;&nbsp;
 					
-					<button type="button" onclick="GoPage('sujeong','${dto.no}')">수정하기</button>
+					<button type="button" onclick="suntaek_proc('sujeong','','${dto.no}')">수정하기</button>
 					&nbsp;&nbsp;
 					
 <!-- 					관리자거나 본인 일 때 삭제 버튼 생김 -->
 					<c:if test="${dto.child_counter == 0 }">
-					<button type="button" onclick="GoPage('sakje','${dto.no}')">삭제하기</button>
+					<button type="button" onclick="suntaek_proc('sakje','','${dto.no}')">삭제하기</button>
 					&nbsp;&nbsp;
 					</c:if>
-					<button type="button" onclick="suntaek_page('1');">게시판</button>
+					<button type="button" onclick="suntaek_proc('list','1','');">게시판</button>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
 					다음글: 
 				<c:if test="${dto.getPreNo()>0}">	
-					<a href="#" onclick="GoPage('view','${dto.preNo}');">${dto.getPreSubject()}</a> <br>
+					<a href="#" onclick="suntaek_proc('view','','${dto.preNo}');">${dto.getPreSubject()}</a> <br>
 				</c:if>
 				<c:if test="${dto.getPreNo()==0}">	
 					(다음 글이 없습니다) <br>
@@ -90,7 +91,7 @@
 			
 					이전글: 
 				<c:if test="${dto.getNextNo()>0}">	
-					<a href="#" onclick="GoPage('view','${dto.nextNo}');">${dto.getNextSubject()}</a>
+					<a href="#" onclick="suntaek_proc('view','','${dto.nextNo}');">${dto.getNextSubject()}</a>
 				</c:if>
 				<c:if test="${dto.getNextNo() ==0}">	
 					(이전 글이 없습니다) 
@@ -115,67 +116,86 @@
 <script>
 	$(document).ready(function(){
 		$("#btnViewPasswd").click(function(){
-			GoPage('view',$("#span_no").text());
+			suntaek_proc('view','',$("#span_no").text());
 		});
 	});
 	
 	$(document).ready(function(){
-		comment_list();
+		suntaek_proc2('comment_result','','');
 		
 		$("#btnComment").click(function(){
-			insert();
-			
+			if($("#comment_writer").val().trim() ==''){
+				alert("이름을 입력하세요.");			
+			}else if($("#comment_passwd").val().trim() ==''){
+				alert('비밀번호를 입력하세요.')
+			}else if($("#comment_content").val().trim()==''){
+				alert('댓글을 입력하세요.')
+			}else{
+				suntaek_proc2('comment_up','','');
+			}
 		});
 	});
-	function insert(){
-		if($("#comment_writer").val().trim() ==''){
-			alert("이름을 입력하세요.");
-			
-		}else if($("#comment_passwd").val().trim() ==''){
-			alert('비밀번호를 입력하세요.')
-		}else if($("#comment_content").val().trim()==''){
-			alert('댓글을 입력하세요.')
-		}else{
-		var param = {
-			"no" : $("#span_no").text(),
-			"comment_writer" : $("#comment_writer").val(),
-			"comment_passwd" : $("#comment_passwd").val(),
-			"comment_content" : $("#comment_content").val()
+	
+	function GoPage2(value1){
+		var param = {}
+		var url = "${path}/board_servlet/"+value1+".do";
+		
+		if(value1 =='comment_up'){
+			param={
+				"no" : $("#span_no").text(),
+				"comment_writer" : $("#comment_writer").val(),
+				"comment_passwd" : $("#comment_passwd").val(),
+				"comment_content" : $("#comment_content").val()
+			}
+		}else if(value1 == 'comment_result' || value1 == 'comment_sakje'){
+			param = {
+				"pageNumber" : $("#span_pageNumber").text(),
+				"comment_no" : $("#comment_no").text(),
+				"no" : $('#span_no').text()
+			}
 		}
-			$.ajax({
-				type:"post",
-				data: param,
-				url: "${path}/board_servlet/comment_up.do",
-				success: function(){
-					comment_list();
+		
+		$.ajax({
+			type:"post",
+			data: param,
+			url: url,
+			success: function(data){
+				if(value1 =='comment_result'){
+					$("#result2").html(data);
+					
+					if($("#list_size").text() >= 4){
+						result.style.height = "1100px";
+					}else if($("#list_size").text() >= 2){
+						result.style.height = "950px";
+					}else{
+						result.style.height = "800px";
+					}
+				}else if(value1 =='comment_up'){
 					$("#comment_writer").val("");
 					$("#comment_passwd").val("");
 					$("#comment_content").val("");
-				}
-			});
-		}
-	}
-	function comment_list(value1){	
-		var param = {
-				"pageNumber" : value1,
-				"no" : $("#span_no").text()
-		}
-		$.ajax({
-			type: "post",
-			data: param,
-			url: "${path}/board_servlet/comment_result.do",
-			success: function(data){
-				$("#result2").html(data);
-				
-				if($("#list_size").text() >= 4){
-					result.style.height = "1100px";
-				}else if($("#list_size").text() >= 2){
-					result.style.height = "950px";
-				}else{
-					result.style.height = "800px";
+					suntaek_proc2('comment_result','1','');
+				}else if(value1 == 'comment_sakje'){
+					suntaek_proc('list','1','');
 				}
 			}
 		});
+		
+	}
+	
+	function suntaek_proc2(value1,value2,value3){
+		alert(value1);
+		alert(value3);
+		if(value1 != ''){
+			$("#span_proc").text(value1);
+		}
+		if(value2 != ''){
+			$("#span_pageNumber").text(value2);		
+		}
+		if(value3 != ''){
+			$("#comment_no").text(value3);	
+		}
+		GoPage2(value1);
 	}
 </script>
 </body>
