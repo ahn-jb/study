@@ -125,4 +125,9 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 	<select id="comment_selectOne" resultType="board.model.dto.BoardDTO">
 		select * from board_comment where  comment_no = #{no}
 	</select>
+	
+	<update id="comment_update">
+		update board_comment set comment_writer=#{dto.comment_writer}, comment_content=#{dto.comment_content} where comment_no = #{dto.comment_no}
+	</update>
+	
 </mapper>

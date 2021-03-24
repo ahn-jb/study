@@ -70,7 +70,7 @@ public class Board2Controller extends HttpServlet {
 			temp ="";
 		}
 		String tbl = util.tblCheck(temp,"freeboard");
-		System.out.println("tbl: "+tbl);
+//		System.out.println("tbl: "+tbl);
 				
 		temp = request.getParameter("no");
 		int no = util.numberCheck(temp,0);
@@ -367,7 +367,6 @@ public class Board2Controller extends HttpServlet {
 			int comment_no = Integer.parseInt(comment_no_);
 			String pwchk = request.getParameter("pwchk");
 			System.out.println("pwchk:"+pwchk);
-			String qwer = "F";
 			int result = 0;
 			dto = dao.comment_selectOne(comment_no);
 			System.out.println("pw:"+dto.getComment_passwd());
@@ -376,7 +375,7 @@ public class Board2Controller extends HttpServlet {
 				temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data;
 			}else {
 				System.out.println("실패");
-				temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data+"&qwer="+qwer;
+				temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data+"&qwer=F";
 //				out.println("<script>");					
 //				out.println("location.href='"+path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data+"&P_C=F';");						
 //				out.println("</script>");
@@ -384,7 +383,24 @@ public class Board2Controller extends HttpServlet {
 			response.sendRedirect(temp);
 			
 		}else if(url.indexOf("commentSujeong.do") != -1) {
+			String comment_no_ = request.getParameter("comment_no");
+			int comment_no = Integer.parseInt(comment_no_);
+			String comment_writer = request.getParameter("comment_writer");
+			String pwchk = request.getParameter("comment_passwd");
+			String comment_content = request.getParameter("comment_content");
+			dto = dao.comment_selectOne(comment_no);
 			
+			int result = 0;
+			if(pwchk.equals(dto.getComment_passwd())) {
+				dto.setComment_no(comment_no);
+				dto.setComment_writer(comment_writer);
+				dto.setComment_content(comment_content);
+				result = dao.comment_update(dto);
+				temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data;
+			}else {
+				temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data+"&qwer=F";
+			}
+			response.sendRedirect(temp);
 		}
 
 		

@@ -11,7 +11,6 @@
 
 <input type="text" value="${tbl}"><br>
 <span id="comment_no"></span><br>
-<span id="comment_pw"></span>
 <span id="qwer">${qwer}</span>
 <c:choose>
 	<c:when test="${imsiPage == 'viewPasswdPage'}">
@@ -192,18 +191,31 @@ $(document).ready(function(){
 		}
 	}
 	
-	$("#btnComment").click(function(){		
-		commentForm.method="post";
-		commentForm.action="${path}/board2_servlet/comment_up.do?tbl=${tbl}";
-		commentForm.submit();
-		
+	$("#btnComment").click(function(){
+		var num = $('#comment_no').text();
+		if(num == ''){
+			commentForm.method="post";
+			commentForm.action="${path}/board2_servlet/comment_up.do?tbl=${tbl}";
+			commentForm.submit();
+		}else{
+			commentForm.method="post";
+			commentForm.action="${path}/board2_servlet/commentSujeong.do?tbl=${tbl}&comment_no="+num;
+			commentForm.submit();
+		}
 	});
 	
-	function comment_U(value1,value2,value3,value4){
+	$('#btnCensle').click(function(){
+		$('#comment_no').text("");
+		$('#comment_writer').val("");
+		$('#comment_content').val("");
+		var censle = document.getElementById("btnCensle");
+		censle.style.display = "none";
+	});
+	
+	function comment_U(value1,value2,value3){
 		$('#comment_no').text(value1);
 		$('#comment_writer').val(value2);
 		$('#comment_content').val(value3);
-		$('#comment_pw').text(value4);
 		var censle = document.getElementById("btnCensle");
 		censle.style.display = "";
 		

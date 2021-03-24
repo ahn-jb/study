@@ -597,6 +597,16 @@ public class BoardDAO {
 		session.close();
 		return dto;
 	}
+	
+	public int comment_update(BoardDTO dto) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("dto", dto);
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.update("board.comment_update",map);
+		session.commit();
+		session.close();
+		return result;
+	}
 }
 
 

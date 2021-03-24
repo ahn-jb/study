@@ -104,7 +104,8 @@
 					 이름 : <input type="text" name="comment_writer" id="comment_writer" size="10">
 					 비밀번호 : <input type="text" name="comment_passwd" id="comment_passwd" size="10"> <br>&nbsp;&nbsp;&nbsp;
 					 댓글 : <input type="text" name="comment_content" id="comment_content" size="40">
-					 <button type="button" id="btnComment">확인</button><br><br>
+					 <button type="button" id="btnComment">확인</button>
+					 <button type="button" id="btnCensle" style="display:none;">취소</button><br><br>
 					<div id="result2"></div>
 				</td>
 			</tr>
@@ -113,7 +114,17 @@
 </c:choose>
 
 
-<script>	
+<script>
+	function comment_U(value1,value2,value3){
+		$('#comment_no').text(value1);
+		$('#comment_writer').val(value2);
+		$('#comment_content').val(value3);
+		var censle = document.getElementById("btnCensle");
+		censle.style.display = "";
+		
+	}
+	
+
 	$(document).ready(function(){
 		
 		$("#btnViewPasswd").click(function(){
@@ -130,8 +141,21 @@
 			}else if($("#comment_content").val().trim()==''){
 				alert('댓글을 입력하세요.')
 			}else{
-				suntaek_proc2('comment_up','','');
+				var num = $('#comment_no').text();
+				if(num == ''){
+					suntaek_proc2('comment_up','','');
+				}else{
+					suntaek_proc2('commentSujeong','','');
+				}
 			}
+		});
+		
+		$('#btnCensle').click(function(){
+			$('#comment_no').text("");
+			$('#comment_writer').val("");
+			$('#comment_content').val("");
+			var censle = document.getElementById("btnCensle");
+			censle.style.display = "none";
 		});
 	});
 	
@@ -139,9 +163,10 @@
 		var param = {}
 		var url = "${path}/board_servlet/"+value1+".do";
 		
-		if(value1 =='comment_up'){
+		if(value1 =='comment_up' ||value1 == 'commentSujeong'){
 			param={
 				"no" : $("#span_no").text(),
+				"comment_no" : $("#comment_no").text(),
 				"comment_writer" : $("#comment_writer").val(),
 				"comment_passwd" : $("#comment_passwd").val(),
 				"comment_content" : $("#comment_content").val()
@@ -150,7 +175,8 @@
 			param = {
 				"pageNumber" : $("#span_pageNumber").text(),
 				"comment_no" : $("#comment_no").text(),
-				"no" : $('#span_no').text()
+				"no" : $('#span_no').text(),
+				"pwchk": $('#pwchk').val()
 			}
 		}
 		console.log(url);
@@ -169,12 +195,13 @@
 					}else{
 						result.style.height = "800px";
 					}
-				}else if(value1 =='comment_up'){
+				}else if(value1 =='comment_up' || value1 == "commentSujeong"){
 					$("#comment_writer").val("");
 					$("#comment_passwd").val("");
 					$("#comment_content").val("");
 					suntaek_proc2('comment_result','1','');
-				}else if(value1 == 'commentSakje'){
+				}
+				else if(value1 == 'commentSakje' ){
 					suntaek_proc2('comment_result','1','');
 				}
 			}
@@ -197,6 +224,7 @@
 		}
 		GoPage2(value1);
 	}
+	
 </script>
 </body>
 </html>
