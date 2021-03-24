@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		LAG(no) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) preNo, 
 		LAG(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) preSubject,
 		LEAD(no) OVER (ORDER BY noticeNo desc, refNo desc, levelNo asc) nextNo,
-		LEAD(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNO asc) nextSubject from board b where 1=1
+		LEAD(subject) OVER (ORDER BY noticeNo desc, refNo desc, levelNO asc) nextSubject from board b where tbl = #{tbl}
 		<choose>
 			<when test="search_option == 'writer_subject_content' ">
 				and (subject like '%' || #{search_data} || '%' or
@@ -121,4 +121,8 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 	<delete id="comment_sakje">
 		delete from board_comment where comment_no = #{no}
 	</delete>
+	
+	<select id="comment_selectOne" resultType="board.model.dto.BoardDTO">
+		select * from board_comment where  comment_no = #{no}
+	</select>
 </mapper>

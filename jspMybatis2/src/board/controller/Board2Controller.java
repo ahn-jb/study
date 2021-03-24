@@ -68,8 +68,9 @@ public class Board2Controller extends HttpServlet {
 		int result_tbl = dao.tblchk(temp);
 		if(result_tbl == 0) {
 			temp ="";
-		}		
+		}
 		String tbl = util.tblCheck(temp,"freeboard");
+		System.out.println("tbl: "+tbl);
 				
 		temp = request.getParameter("no");
 		int no = util.numberCheck(temp,0);
@@ -143,7 +144,7 @@ public class Board2Controller extends HttpServlet {
 		}else if(url.indexOf("write.do") != -1  || url.indexOf("reply.do") != -1) {
 			request.setAttribute("menu_gubun", "board2_write");
 			if(no>0) {//답변 일 때
-				dto = dao.getView(no,search_data,search_option);
+				dto = dao.getView(no,tbl,search_data,search_option);
 				String content = "["+dto.getWriter()+"]님이 작성한 글입니다. \n";
 					   content += dto.getContent();
 					   content = content.replace("\n","\n> ");
@@ -182,7 +183,7 @@ public class Board2Controller extends HttpServlet {
 		 	int hit = 0;
 		 	
 		 	if(no>0) {
-		 		BoardDTO dto2 = dao.getView(no,search_data,search_option);
+		 		BoardDTO dto2 = dao.getView(no,tbl,search_data,search_option);
 		 		dao.setUpdateReLevel(dto2);
 		 		refNo= dto2.getRefNo();
 				stepNo =dto2.getStepNo()+1;
@@ -208,13 +209,14 @@ public class Board2Controller extends HttpServlet {
 		 	dto.setSecretGubun(secretGubun);
 		 	int result = dao.setInsert(dto);
 		 	if(result >0){
-		 		temp=path+"/board2_servlet/list.do";
+		 		temp=path+"/board2_servlet/list.do?tbl="+tbl;
 			}else {
-				temp=path+"/board2_servlet/write.do";
+				temp=path+"/board2_servlet/write.do?tbl="+tbl;
 			}
 			response.sendRedirect(temp);
 		}else if(url.indexOf("view.do") != -1 ) {
 			request.setAttribute("menu_gubun","board2_view" );
+			String qwer = request.getParameter("qwer");
 			
 			int pageSize = 5;
 			int blockSize= 10;
@@ -249,9 +251,10 @@ public class Board2Controller extends HttpServlet {
 			request.setAttribute("totalPage",totalPage);
 			request.setAttribute("startPage",startPage);
 			request.setAttribute("lastPage",lastPage);
+			request.setAttribute("qwer",qwer);
 			
 			dao.setUpdateHit(no);
-			dto = dao.getView(no,search_data,search_option);
+			dto = dao.getView(no,tbl,search_data,search_option);
 			
 			String content = dto.getContent();
 			content = content.replace("\n", "<br>");
@@ -273,7 +276,7 @@ public class Board2Controller extends HttpServlet {
 		}else if(url.indexOf("sujeong.do") != -1) {
 			request.setAttribute("menu_gubun", "board2_sujeong");
 			
-			dto = dao.getView(no,search_data,search_option);
+			dto = dao.getView(no,tbl,search_data,search_option);
 			request.setAttribute("dto",dto);
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
@@ -311,16 +314,16 @@ public class Board2Controller extends HttpServlet {
 		 	String dbPasswd = dto2.getPasswd();
 		 	if(passwd.equals(dbPasswd)) {
 		 		int result = dao.setUpdate(dto);
-		 		temp=path+"/board2_servlet/view.do?no="+no+"&search_option="+search_option+"&search_data="+search_data;
+		 		temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data;
 		 	}else {
-		 		temp=path+"/board2_servlet/view.do?no="+no+"&search_option="+search_option+"&search_data="+search_data;
+		 		temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data;
 		 	}
 		 	
 		 	response.sendRedirect(temp);
 		}else if(url.indexOf("sakje.do") != -1) {
 			request.setAttribute("menu_gubun", "board2_sakje");
 			
-			dto = dao.getView(no,search_data,search_option);
+			dto = dao.getView(no,tbl,search_data,search_option);
 			request.setAttribute("dto", dto);
 			
 			RequestDispatcher rd = request.getRequestDispatcher(page);
@@ -333,9 +336,9 @@ public class Board2Controller extends HttpServlet {
 		 	String dbPasswd = dto2.getPasswd();
 		 	if(passwd.equals(dbPasswd)) {
 		 		int result = dao.Delete(no);
-		 		temp=path+"/board2_servlet/list.do";
+		 		temp=path+"/board2_servlet/list.do?tbl="+tbl;
 		 	}else {
-		 		temp=path+"/board2_servlet/sakje.do?no="+no;
+		 		temp=path+"/board2_servlet/sakje.do?tbl="+tbl+"&no="+no;
 		 	}
 			response.sendRedirect(temp);
 		}else if(url.indexOf("comment_up.do") != -1) {
@@ -352,25 +355,36 @@ public class Board2Controller extends HttpServlet {
 			int result = dao.CommentInsert(dto);
 			if(result >0) {
 				System.out.println("등록되었습니다.");
-				temp=path+"/board2_servlet/view.do?no="+no+"&search_option="+search_option+"&search_data="+search_data;
+				temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data;
 			}else {
 				System.out.println("결과코드: " +result);
-				temp=path+"/board2_servlet/list.do";
+				temp=path+"/board2_servlet/list.do?tbl="+tbl;
 			}
 			response.sendRedirect(temp);
 			
 		}else if(url.indexOf("commentSakje.do") != -1) {
 			String comment_no_ = request.getParameter("comment_no");
 			int comment_no = Integer.parseInt(comment_no_);
-			int result = dao.comment_sakje(comment_no);
-			if(result >0) {
-				System.out.println("등록되었습니다.");
-				temp=path+"/board2_servlet/view.do?no="+no+"&search_option="+search_option+"&search_data="+search_data;
+			String pwchk = request.getParameter("pwchk");
+			System.out.println("pwchk:"+pwchk);
+			String qwer = "F";
+			int result = 0;
+			dto = dao.comment_selectOne(comment_no);
+			System.out.println("pw:"+dto.getComment_passwd());
+			if(pwchk.equals(dto.getComment_passwd())) {
+				result = dao.comment_sakje(comment_no);
+				temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data;
 			}else {
-				System.out.println("결과코드: " +result);
-				temp=path+"/board2_servlet/list.do";
+				System.out.println("실패");
+				temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data+"&qwer="+qwer;
+//				out.println("<script>");					
+//				out.println("location.href='"+path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data+"&P_C=F';");						
+//				out.println("</script>");
 			}
 			response.sendRedirect(temp);
+			
+		}else if(url.indexOf("commentSujeong.do") != -1) {
+			
 		}
 
 		

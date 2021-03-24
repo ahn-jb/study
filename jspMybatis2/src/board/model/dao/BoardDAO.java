@@ -240,10 +240,11 @@ public class BoardDAO {
 		return dto;
 	}
 	
-	public BoardDTO getView(int no, String search_data , String search_option) {//상세보기 출력
+	public BoardDTO getView(int no,String tbl, String search_data , String search_option) {//상세보기 출력
 //		getConn();
 		Map<String,Object> map = new HashMap<>();
 		map.put("no", no);
+		map.put("tbl", tbl);
 		map.put("search_option",search_option);
 		map.put("search_data", search_data);
 		SqlSession session = MybatisManager.getInstance().openSession();
@@ -587,6 +588,14 @@ public class BoardDAO {
 		session.commit();
 		session.close();
 		return result;
+	}
+	
+	public BoardDTO comment_selectOne(int no) {
+		SqlSession session = MybatisManager.getInstance().openSession();
+		BoardDTO dto = session.selectOne("board.comment_selectOne",no);
+		session.commit();
+		session.close();
+		return dto;
 	}
 }
 

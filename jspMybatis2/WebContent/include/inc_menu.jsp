@@ -51,7 +51,10 @@
 				<a href="${path}/board_servlet/index.do">게시판(ajax)</a>
 			</td>
 			<td style="padding:0px 20px;" id="board">
-				<a href="${path}/board2_servlet/list.do">게시판</a>
+				<a href="${path}/board2_servlet/list.do">자유게시판</a>
+			</td>
+			<td style="padding:0px 20px;" id="java">
+				<a href="${path}/board2_servlet/list.do?tbl=javaboard">자바게시판</a>
 			</td>
 			<td style="padding:0px 20px;" id="productAjax">
 				<a href="${path}/product_servlet/index.do">쇼핑몰[관리자](ajax)</a>
@@ -68,61 +71,58 @@
 			<td style="padding:0px 20px;" id="calculator">
 				<a href="${path}/calculator_servlet/index.do">계산기</a>
 			</td>
-			<td style="padding:0px 20px;">
-				<a href="#">관리자</a>
-			</td>
 			
 		</tr>	
 	</table>
-	<c:set var="menu_str01" value="${fn:indexOf(menu_gubun,'_')}"/>
-	<c:set var="menu_str02" value="${fn:substring(menu_gubun,0,menu_str01)}"/>
-		<c:choose>
-			<c:when test="${menu_str02 == 'index' }">
-				<script>$("#home").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'member' }">
-				<script>$("#member").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'memo' }">
-				<script>$("#memo").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'guestbook' }">
-				<script>$("#guestbook").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'survey' }">
-				<script>$("#surveyAjax").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'test' }">
-				<script>$("#survey").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'munje' }">
-				<script>$("#munje").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'board' }">
-				<script>$("#boardAjax").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'board2' }">
-				<script>$("#board").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'calculator' }">
-				<script>$("#calculator").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'product' }">
-				<script>$("#productAjax").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'mall' }">
-				<script>$("#mallAjax").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'chart' }">
-				<script>$("#chart").css("background-color","silver");</script>
-			</c:when>
-			<c:when test="${menu_str02 == 'email' }">
-				<script>$("#smtpEmail").css("background-color","silver");</script>
-			</c:when>
-	</c:choose>
-				${menu_gubun}/
-				${menu_str01}/
-				${menu_str02 } 
+<%-- 	<c:set var="menu_str01" value="${fn:indexOf(menu_gubun,'_')}"/> --%>
+<%-- 	<c:set var="menu_str02" value="${fn:substring(menu_gubun,0,menu_str01)}"/> --%>
+<%-- 		<c:choose> --%>
+<%-- 			<c:when test="${menu_str02 == 'index' }"> --%>
+<!-- 				<script>$("#home").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${menu_str02 == 'member' }"> --%>
+<!-- 				<script>$("#member").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${menu_str02 == 'memo' }"> --%>
+<!-- 				<script>$("#memo").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${menu_str02 == 'guestbook' }"> --%>
+<!-- 				<script>$("#guestbook").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${menu_str02 == 'survey' }"> --%>
+<!-- 				<script>$("#surveyAjax").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${menu_str02 == 'test' }"> --%>
+<!-- 				<script>$("#survey").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${menu_str02 == 'munje' }"> --%>
+<!-- 				<script>$("#munje").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${menu_str02 == 'board' }"> --%>
+<!-- 				<script>$("#boardAjax").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${menu_str02 == 'board2' }"> --%>
+<!-- 				<script>$("#board").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${menu_str02 == 'calculator' }"> --%>
+<!-- 				<script>$("#calculator").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${menu_str02 == 'product' }"> --%>
+<!-- 				<script>$("#productAjax").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${menu_str02 == 'mall' }"> --%>
+<!-- 				<script>$("#mallAjax").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${menu_str02 == 'chart' }"> --%>
+<!-- 				<script>$("#chart").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${menu_str02 == 'email' }"> --%>
+<!-- 				<script>$("#smtpEmail").css("background-color","silver");</script> -->
+<%-- 			</c:when> --%>
+<%-- 	</c:choose> --%>
+<%-- 				${menu_gubun}/ --%>
+<%-- 				${menu_str01}/ --%>
+<%-- 				${menu_str02 }  --%>
 </body>
 </html>
 

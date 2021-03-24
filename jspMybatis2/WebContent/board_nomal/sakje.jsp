@@ -8,6 +8,7 @@
 <title>글쓰기</title>
 </head>
 <body>
+	<input type="text" value="${tbl}">
 	<span id="passwd_check" style="display :;">${dto.passwd}</span>
 	<h2>게시글 쓰기</h2>
 	<form name="sakjeForm" action="">
@@ -69,7 +70,7 @@ $(document).ready(function(){
 			return false;
 		}else if(confirm('삭제하시겠습니까?')){
 			sakjeForm.method="post";
-			sakjeForm.action="${path}/board2_servlet/sakjeProc.do?";
+			sakjeForm.action="${path}/board2_servlet/sakjeProc.do?tbl=${tbl}";
 			sakjeForm.submit();
 		}
 
@@ -77,7 +78,7 @@ $(document).ready(function(){
 });
 
 $("#btnList").click(function(){
-	location.href="${path}/board2_servlet/list.do";
+	location.href="${path}/board2_servlet/list.do?tbl=${tbl}";
 });
 
 

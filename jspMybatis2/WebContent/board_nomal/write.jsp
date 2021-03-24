@@ -8,6 +8,7 @@
 <title>글쓰기</title>
 </head>
 <body>
+	<input type="text" value="${tbl}">
 	<h2>게시글 쓰기</h2>
 	<form name="writeForm" action="">
 		<table border="1" width ="800" align="center">
@@ -90,7 +91,7 @@ $(document).ready(function(){
 			return false;	
 		}else if(confirm('등록하시겠습니까?')){
 			writeForm.method='post';
-			writeForm.action='${path}/board2_servlet/writeProc.do?no=${no}';
+			writeForm.action='${path}/board2_servlet/writeProc.do?tbl=${tbl}&no=${no}';
 			writeForm.submit();
 		}
 	});

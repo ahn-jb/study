@@ -146,7 +146,7 @@ public class BoardController extends HttpServlet {
 		}else if(url.indexOf("write.do") != -1  || url.indexOf("reply.do") != -1) {
 			request.setAttribute("menu_gubun", "board_write");
 			if(no>0) {//답변 일 때
-				dto = dao.getView(no,search_data,search_option);
+				dto = dao.getView(no,tbl,search_data,search_option);
 				String content = "["+dto.getWriter()+"]님이 작성한 글입니다. \n";
 					   content += dto.getContent();
 					   content = content.replace("\n","\n> ");
@@ -186,7 +186,7 @@ public class BoardController extends HttpServlet {
 		 	int hit = 0;
 		 	
 		 	if(no>0) {
-		 		BoardDTO dto2 = dao.getView(no,search_data,search_option);
+		 		BoardDTO dto2 = dao.getView(no,tbl,search_data,search_option);
 		 		dao.setUpdateReLevel(dto2);
 		 		refNo= dto2.getRefNo();
 				stepNo =dto2.getStepNo()+1;
@@ -221,7 +221,7 @@ public class BoardController extends HttpServlet {
 			request.setAttribute("menu_gubun","board_view" );
 			
 			dao.setUpdateHit(no);
-			dto = dao.getView(no,search_data,search_option);
+			dto = dao.getView(no,tbl,search_data,search_option);
 			
 			String content = dto.getContent();
 			content = content.replace("\n", "<br>");
@@ -244,7 +244,7 @@ public class BoardController extends HttpServlet {
 		}else if(url.indexOf("sujeong.do") != -1) {
 			request.setAttribute("menu_gubun", "board_sujeong");
 			
-			dto = dao.getView(no,search_data,search_option);
+			dto = dao.getView(no,tbl,search_data,search_option);
 			request.setAttribute("dto", dto);
 			
 			page ="/board/sujeong.jsp";
@@ -294,7 +294,7 @@ public class BoardController extends HttpServlet {
 		}else if(url.indexOf("sakje.do") != -1) {
 			request.setAttribute("menu_gubun", "board_sakje");
 			
-			dto = dao.getView(no,search_data,search_option);
+			dto = dao.getView(no,tbl,search_data,search_option);
 			request.setAttribute("dto", dto);
 			
 			page ="/board/sakje.jsp";

@@ -9,6 +9,10 @@
 </head>
 <body>
 
+<input type="text" value="${tbl}"><br>
+<span id="comment_no"></span><br>
+<span id="comment_pw"></span>
+<span id="qwer">${qwer}</span>
 <c:choose>
 	<c:when test="${imsiPage == 'viewPasswdPage'}">
 		<form name="passwdForm">
@@ -107,19 +111,28 @@
 						 이름 : <input type="text" name="comment_writer" id="comment_writer" size="10">
 						 비밀번호 : <input type="text" name="comment_passwd" id="comment_passwd" size="10"> <br>&nbsp;&nbsp;&nbsp;
 						 댓글 : <input type="text" name="comment_content" id="comment_content" size="40">
-						 <button type="button" id="btnComment">확인</button><br><br>
+						 <button type="button" id="btnComment">확인</button>
+						 <button type="button" id="btnCensle" style="display:none;">취소</button>
+						 <br><br>
 						 
 						 <table border="0"  align="center" width="90%">
 							<c:forEach var="list" items="${list}">
-							<tr>
-								<td style="padding:0 0 10 0;">
-									${list.comment_writer}  (${list.regiDate})
-									&nbsp;&nbsp;비밀번호:<input type="text" id="pwchk" value="" style="width:60px;">
-									<button type="button" onclick="comment_sakje('${list.comment_passwd}','${list.comment_no}');">삭제</button><br>
-									${list.comment_content}<br>
-									---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-								</td>
-							</tr>
+								<c:set var="i" value="${i=i+1}" />
+								<tr>
+									<td style="padding:0 0 10 0;">
+										${list.comment_writer}  (${list.regiDate})
+										<button type="button" onclick="comment_D('${i}');" style="float:right;">삭제</button>&nbsp;
+										<button type="button" onclick="comment_U('${list.comment_no}','${list.comment_writer}','${list.comment_content}');" style="float:right;">수정</button>
+										<br>
+										<br>
+										${list.comment_content}
+										<button type="button" id="comment_censle${i}" onclick="comment_censle('${i}');" style=" height:24px; float:right; display:none;">취소</button>
+										<button type="button" id="comment_chk${i}" onclick="comment_sakje('${list.comment_no}');" style=" height:24px; float:right; display:none;">확인</button>
+										<input type="hidden" name="pwchk" id="pwchk${i}" value="" style="width:70px; height:15px; float:right;" placeholder="비밀번호">
+										<br>
+										---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+									</td>
+								</tr>
 							</c:forEach>
 								<tr>
 									<td colspan="4" align="center"> 
@@ -151,46 +164,79 @@
 </c:choose>
 
 <script>
+
+$(document).ready(function(){	
+	if($('#qwer').text() == 'F'){
+		alert('비밀번호 다름');
+	}
+});
+
+	
 	function GoPage(value1,value2){
 		if(value1 == 'write'){
-			location.href="${path}/board2_servlet/write.do";
+			location.href="${path}/board2_servlet/write.do?tbl=${tbl}";
 		}else if(value1 == 'reply'){
-			location.href="${path}/board2_servlet/reply.do?no="+value2;
+			location.href="${path}/board2_servlet/reply.do?tbl=${tbl}&no="+value2;
 		}else if(value1 == 'sujeong'){
-			location.href="${path}/board2_servlet/sujeong.do?no="+value2+"&search_option=${search_option}&search_data=${search_data}";
+			location.href="${path}/board2_servlet/sujeong.do?tbl=${tbl}&no="+value2+"&search_option=${search_option}&search_data=${search_data}";
 		}else if(value1 == 'sakje'){
-			location.href="${path}/board2_servlet/sakje.do?no="+value2;
+			location.href="${path}/board2_servlet/sakje.do?tbl=${tbl}&no="+value2;
 		}else if(value1 == 'view'){
-			location.href="${path}/board2_servlet/view.do?no="+value2+"&search_option=${search_option}&search_data=${search_data}";
+			location.href="${path}/board2_servlet/view.do?tbl=${tbl}&no="+value2+"&search_option=${search_option}&search_data=${search_data}";
 		}else if(value1 == 'list'){
-			location.href="${path}/board2_servlet/list.do";
+			location.href="${path}/board2_servlet/list.do?tbl=${tbl}";
 		}else if(value1 == 'ViewPasswd'){
 			passwdForm.method="post";
-			passwdForm.action="${path}/board2_servlet/view.do?no="+value2+"&search_option=${search_option}&search_data=${search_data}";
+			passwdForm.action="${path}/board2_servlet/view.do?tbl=${tbl}&no="+value2+"&search_option=${search_option}&search_data=${search_data}";
 			passwdForm.submit();
 		}
 	}
 	
-	$("#btnComment").click(function(){
+	$("#btnComment").click(function(){		
 		commentForm.method="post";
-		commentForm.action="${path}/board2_servlet/comment_up.do";
+		commentForm.action="${path}/board2_servlet/comment_up.do?tbl=${tbl}";
 		commentForm.submit();
 		
 	});
-	function comment_sakje(value1,value2){
-		var pwchk = $('#pwchk').val();
-		if(value1 != pwchk){
-			alert('비밀번호가 다릅니다.');
-		}else{
+	
+	function comment_U(value1,value2,value3,value4){
+		$('#comment_no').text(value1);
+		$('#comment_writer').val(value2);
+		$('#comment_content').val(value3);
+		$('#comment_pw').text(value4);
+		var censle = document.getElementById("btnCensle");
+		censle.style.display = "";
+		
+	}
+	
+	function comment_D(value1){
+		var passwd = document.getElementById("pwchk"+value1);
+		passwd.type= "text";
+		var check = document.getElementById("comment_chk"+value1);
+		check.style.display = "";
+		var cencle = document.getElementById("comment_censle"+value1);
+		cencle.style.display = "";
+	}
+	
+	function comment_censle(value1){
+		var passwd = document.getElementById("pwchk"+value1);
+		passwd.type= "hidden";
+		var check = document.getElementById("comment_chk"+value1);
+		check.style.display = "none";
+		var cencle = document.getElementById("comment_censle"+value1);
+		cencle.style.display = "none";
+		$('#pwchk'+value1).val("");
+	}
+	
+	function comment_sakje(value1,value2){	
 			commentForm.method="post";
-			commentForm.action="${path}/board2_servlet/commentSakje.do?comment_no="+value2;
+			commentForm.action="${path}/board2_servlet/commentSakje.do?tbl=${tbl}&comment_no="+value1;
 			commentForm.submit();
-		}
 	}
 	
 	function gogo(value1,value2){
 		if(value1 =='board_list'){
-			location.href="${path}/board2_servlet/view.do?no="+${dto.no}+"&pageNumber="+value2+"&search_option=${search_option}&search_data=${search_data}";
+			location.href="${path}/board2_servlet/view.do?${tbl}&no="+${dto.no}+"&pageNumber="+value2+"&search_option=${search_option}&search_data=${search_data}";
 		}
 	}
 	

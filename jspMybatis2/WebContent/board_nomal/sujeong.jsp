@@ -8,6 +8,7 @@
 <title>글쓰기</title>
 </head>
 <body>
+	<input type="text" value="${tbl}">
 	<h2>게시글 쓰기</h2>
 	<form name="sujeongForm" action="">
 		<input type="hidden" name="no" id ="no" value="${dto.getNo()}" style="width:40%;" >
@@ -79,7 +80,7 @@ $(document).ready(function(){
 			return false;	
 		}else if(confirm('수정하시겠습니까?')){
 			sujeongForm.method="post";
-			sujeongForm.action="${path}/board2_servlet/sujeongProc.do";
+			sujeongForm.action="${path}/board2_servlet/sujeongProc.do?tbl=${tbl}";
 			sujeongForm.submit();
 		}
 
@@ -87,7 +88,7 @@ $(document).ready(function(){
 });
 
 $("#btnList").click(function(){
-	location.href="${path}/board2_servlet/list.do";
+	location.href="${path}/board2_servlet/list.do?tbl=${tbl}";
 });
 
 
@@ -108,7 +109,7 @@ function clickChk(value1){
 }
 function GoPage(value1,value2){
 	if(value1 == 'list'){
-		location.href="${path}/board2_servlet/list.do";
+		location.href="${path}/board2_servlet/list.do?tbl=${tbl}";
 	}	
 }
 </script>

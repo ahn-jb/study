@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<input type="text" value="${tbl}">
 <table border="0" width="100%">
 	<tr>
 		<td>
@@ -143,17 +144,17 @@
 <script>
 function go(value1,value2){
 	if(value1 =="board_write"){
-		location.href="${path}/board2_servlet/write.do";
+		location.href="${path}/board2_servlet/write.do?tbl=${tbl}";
 	}else if(value1 =='board_list'){
 		location.href="${path}/board2_servlet/list.do?tbl=${tbl}&pageSize=${pageSize}&pageNumber="+value2+"&search_option=${search_option}&search_data=${search_data}";
 	}else if(value1 =='board_search'){
 		searchForm.method="post";
-		searchForm.action="${path}/board2_servlet/list.do";
+		searchForm.action="${path}/board2_servlet/list.do?tbl=${tbl}";
 		searchForm.submit();
 	}else if(value1 == 'board_view'){
-		location.href="${path}/board2_servlet/view.do?no="+value2+"&search_option=${search_option}&search_data=${search_data}";
+		location.href="${path}/board2_servlet/view.do?tbl=${tbl}&no="+value2+"&search_option=${search_option}&search_data=${search_data}";
 	}else if(value1 == 'board_reset'){
-		location.href="${path}/board2_servlet/list.do";
+		location.href="${path}/board2_servlet/list.do?tbl=${tbl}";
 	}
 }
 $("#pageSize").change(function(){
