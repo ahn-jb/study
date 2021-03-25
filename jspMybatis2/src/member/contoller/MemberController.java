@@ -92,6 +92,12 @@ public class MemberController extends HttpServlet {
 				page = "/member/chuga.jsp";
 				RequestDispatcher rd = request.getRequestDispatcher(page);
 				rd.forward(request, response);
+			}else if(url.indexOf("chuga2.do") != -1) {//가입 페이지
+				request.setAttribute("menu_gubun", "member_chuga2");
+				
+//				page = "/member/chuga.jsp";
+				RequestDispatcher rd = request.getRequestDispatcher(page);
+				rd.forward(request, response);
 			}else if(url.indexOf("id_check.do") != -1) {
 				
 				String id = request.getParameter("id");
@@ -134,6 +140,8 @@ public class MemberController extends HttpServlet {
 				rd.forward(request, response);
 				
 			}else if(url.indexOf("chugaProc.do") != -1) {//회원가입  처리
+				System.out.println("chugaProc");
+				System.out.println("cookNo:"+cookNo);
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
 				id = replace(id);
@@ -143,12 +151,14 @@ public class MemberController extends HttpServlet {
 				if(!id.equals(newId)) {
 					out.println("<script>");
 					out.println("alert('아이디 빈칸 오류');");
-					out.println("location.href='"+path+"/member_servlet/chuga.do';");
+					out.println(" sunteak_proc('chuga','1',''); ");
+//					out.println("location.href='"+path+"/member_servlet/chuga.do';");
 					out.println("</script>");
 				}else if(!pw.equals(newPw)) {
 					out.println("<script>");
 					out.println("alert('비밀번호 빈칸 오류');");
-					out.println("location.href='"+path+"/member_servlet/chuga.do';");
+					out.println(" sunteak_proc('chuga','1',''); ");
+//					out.println("location.href='"+path+"/member_servlet/chuga.do';");
 					out.println("</script>");
 					
 				}else {
@@ -181,29 +191,48 @@ public class MemberController extends HttpServlet {
 				if(result >0) {
 					out.println("<script>");
 					out.println("alert('잘못된 아이디.');");
-					out.println("location.href='"+path+"/member_servlet/chuga.do';");
+					out.println(" sunteak_proc('chuga','1',''); ");
+//					out.println("location.href='"+path+"/member_servlet/chuga.do';");
 					out.println("</script>");
 				}else {
 					result = dao.setInsert(dto);
 	//				String temp="";
 					if(result >0){
-						out.println("<script>");
-						out.println("alert('가입 완료.\\n로그인 해주세요.');");
-						out.println("location.href='"+path+"/member_servlet/login.do';");
-						out.println("</script>");
-	//					 temp=path+"/member_servlet/login.do";
+						System.out.println("qwer");
+						if(cookNo >0 ) {
+							System.out.println("asdf");
+							out.println("<script>");
+							out.println("alert('등록완료');");
+							out.println(" sunteak_proc('resetList','1',''); ");
+							out.println("</script>");
+						}else {
+							System.out.println("zxcv");
+							out.println("<script>");
+							out.println("alert('등록완료');");
+							out.println(" sunteak_proc('login','1',''); ");
+							out.println("</script>");
+						}
+//						page = "/member/list.jsp";
 					}else {
 						out.println("<script>");
 						out.println("alert('오류 발생.');");
-						out.println("location.href='"+path+"/member_servlet/login.do';");
+						out.println(" sunteak_proc('chuga','1',''); ");
 						out.println("</script>");
-	//					temp=path+"/member_servlet/chuga.do";
+
+//						page = "/member/chuga.jsp";
 					}
-	//				response.sendRedirect(temp);
+//					RequestDispatcher rd = request.getRequestDispatcher(page);
+//					rd.forward(request, response);
 					}
 				}
 			}else if(url.indexOf("login.do") != -1) {//로그인 페이지
 				request.setAttribute("menu_gubun", "member_login");
+				
+				page = "/member/login.jsp";
+				RequestDispatcher rd = request.getRequestDispatcher(page);
+				rd.forward(request, response);
+			}else if(url.indexOf("login2.do") != -1) {//로그인 페이지
+				request.setAttribute("menu_gubun", "member_login2");
 				RequestDispatcher rd = request.getRequestDispatcher(page);
 				rd.forward(request, response);
 				

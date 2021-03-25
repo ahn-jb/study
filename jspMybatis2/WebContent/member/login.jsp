@@ -43,7 +43,7 @@
 	}
 	function join(){
 		if(confirm('가입페이지로 가시겠습니까?')){
-			location.href="${path}/member_servlet/chuga.do";
+			location.href="${path}/member_servlet/chuga2.do";
 		}
 }
 </script>

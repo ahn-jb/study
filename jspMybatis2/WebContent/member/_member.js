@@ -1,8 +1,14 @@
 var path=$("#span_path").text();
 
 $(document).ready(function(){
-	sunteak_proc('list','1','');
-	
+	var menu_gubun = $('#menu_gubun').text();
+	if(menu_gubun == 'member_chuga2'){
+		sunteak_proc('chuga','','');
+	}else if(menu_gubun == 'member_login2'){
+		sunteak_proc('login','','');
+	}else{	
+		sunteak_proc('list','1','');
+	}
 });
 
 
@@ -32,8 +38,8 @@ function sunteak_proc(value1,value2,value3){
 function GoPage(value1){
 //	alert('wwww');
 	var param = {};
-//	var url = "${path}/member_servlet/" + value1 + ".do";
-	var url = path+"/member_servlet/" + value1 + ".do";
+	var url = "${path}/member_servlet/" + value1 + ".do";
+//	var url = path+"/member_servlet/" + value1 + ".do";
 	
 	if(value1 == "list"){
 		param={

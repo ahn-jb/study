@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<span id="comment_no" style="display:;">${comment_no}</span>
+<span id="comment_no" style="display:none;">${comment_no}</span>
 <c:choose>
 	<c:when test="${imsiPage == 'viewPasswdPage'}">
 		<table border="1" align="center" width="80%">
@@ -115,14 +115,6 @@
 
 
 <script>
-	function comment_U(value1,value2,value3){
-		$('#comment_no').text(value1);
-		$('#comment_writer').val(value2);
-		$('#comment_content').val(value3);
-		var censle = document.getElementById("btnCensle");
-		censle.style.display = "";
-		
-	}
 	
 
 	$(document).ready(function(){
@@ -146,6 +138,7 @@
 					suntaek_proc2('comment_up','','');
 				}else{
 					suntaek_proc2('commentSujeong','','');
+					
 				}
 			}
 		});
@@ -172,14 +165,16 @@
 				"comment_content" : $("#comment_content").val()
 			}
 		}else if(value1 == 'comment_result' || value1 == 'commentSakje'){
+			var i = $('#span_i').text();
+// 			console.log("i:"+i);
 			param = {
 				"pageNumber" : $("#span_pageNumber").text(),
 				"comment_no" : $("#comment_no").text(),
 				"no" : $('#span_no').text(),
-				"pwchk": $('#pwchk').val()
+				"pwchk": $('#pwchk'+i).val()
 			}
 		}
-		console.log(url);
+// 		console.log(url);
 		$.ajax({
 			type:"post",
 			data: param,
@@ -187,22 +182,25 @@
 			success: function(data){
 				if(value1 =='comment_result'){
 					$("#result2").html(data);
-					
 					if($("#list_size").text() >= 4){
-						result.style.height = "1100px";
+						result.style.height = "1200px";
 					}else if($("#list_size").text() >= 2){
-						result.style.height = "950px";
+						result.style.height = "1000px";
 					}else{
 						result.style.height = "800px";
 					}
 				}else if(value1 =='comment_up' || value1 == "commentSujeong"){
+					$("#comment_no").text("");
 					$("#comment_writer").val("");
 					$("#comment_passwd").val("");
 					$("#comment_content").val("");
-					suntaek_proc2('comment_result','1','');
+					$("#result2").html(data);
+					var censle = document.getElementById("btnCensle");
+					censle.style.display = "none";
 				}
 				else if(value1 == 'commentSakje' ){
-					suntaek_proc2('comment_result','1','');
+					$("#comment_no").text("");
+					$("#result2").html(data);
 				}
 			}
 		});
@@ -210,8 +208,8 @@
 	}
 	
 	function suntaek_proc2(value1,value2,value3){
-		console.log("value1:"+value1);
-		console.log("value3:"+value3);
+// 		console.log("value1:"+value1);
+// 		console.log("value3:"+value3);
 
 		if(value1 != ''){
 			$("#span_proc").text(value1);

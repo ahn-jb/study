@@ -24,11 +24,11 @@
 					<c:when test="${menu_gubun == 'member_index'}">
 						<jsp:include page="../member/index.jsp" />
 					</c:when>
-<%-- 					<c:when test="${menu_gubun == 'member_chuga'}"> --%>
-<%-- 						<jsp:include page="../member/chuga.jsp" /> --%>
-<%-- 					</c:when> --%>
-					<c:when test="${menu_gubun == 'member_login'}">
-						<jsp:include page="../member/login.jsp" />
+					<c:when test="${menu_gubun == 'member_chuga2'}">
+						<jsp:include page="../member/index.jsp" />
+					</c:when>
+					<c:when test="${menu_gubun == 'member_login2'}">
+						<jsp:include page="../member/index.jsp" />
 					</c:when>
 					<c:when test="${menu_gubun == 'memo_write'}">
 						<jsp:include page="../memo/write.jsp" />

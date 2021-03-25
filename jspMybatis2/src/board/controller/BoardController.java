@@ -327,6 +327,7 @@ public class BoardController extends HttpServlet {
 			dto.setIp(ip);
 			int result = dao.CommentInsert(dto);
 			if(result >0) {
+				out.print("<script> suntaek_proc2('comment_result','1',''); </script>");
 //				System.out.println("등록되었습니다.");
 			}else {
 //				System.out.println("결과코드: " +result);
@@ -382,34 +383,34 @@ public class BoardController extends HttpServlet {
 		}else if(url.indexOf("commentSakje.do") != -1) {
 			String comment_no_ = request.getParameter("comment_no");
 			int comment_no = Integer.parseInt(comment_no_);
-			int result = dao.comment_sakje(comment_no);
-			if(result >0) {
-//				temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data;
-//				String temp2 = "/board/comment_list.jsp";
-//				RequestDispatcher rd = request.getRequestDispatcher(temp2);
-//				rd.forward(request, response);
+			String pwchk = request.getParameter("pwchk");
+			dto = dao.comment_selectOne(comment_no);
+
+			int result =0;
+			if(pwchk.equals(dto.getComment_passwd())) {
+				result = dao.comment_sakje(comment_no);
+				out.print("<script> suntaek_proc2('comment_result','1',''); </script>");
 			}else {
-				System.out.println("실패");
-//				temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data+"&qwer=F";
 				out.println("<script>alert('비밀번호 다름.'); suntaek_proc2('comment_result','','');</script>");
 			}
-//			response.sendRedirect(temp);
 		}else if(url.indexOf("commentSujeong.do") != -1) {
 			String comment_no_ = request.getParameter("comment_no");
 			int comment_no = Integer.parseInt(comment_no_);
 			String comment_writer = request.getParameter("comment_writer");
-			String pwchk = request.getParameter("comment_passwd");
 			String comment_content = request.getParameter("comment_content");
-			dto = dao.comment_selectOne(comment_no);
 			
+			String pwchk = request.getParameter("comment_passwd");
+			dto = dao.comment_selectOne(comment_no);
+
 			int result = 0;
 			if(pwchk.equals(dto.getComment_passwd())) {
 				dto.setComment_no(comment_no);
 				dto.setComment_writer(comment_writer);
 				dto.setComment_content(comment_content);
 				result = dao.comment_update(dto);
+				out.print("<script> suntaek_proc2('comment_result','1',''); </script>");
 			}else {
-				out.println("<script>alert('비밀번호 다름.'); suntaek_proc2('comment_result','','');</script>");
+				out.print("<script>alert('비밀번호 다름.'); suntaek_proc2('comment_result','','');</script>");
 			}
 			
 		}

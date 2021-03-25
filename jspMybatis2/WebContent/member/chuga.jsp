@@ -21,7 +21,7 @@
 						<button type="button" onclick="id_check_win_open();">아이디확인(새창)</button>
 						<br>
 						<span id="label_id" ></span>
-						<input type="hidden" id="asdqwe" name="asdqwe" value="">
+						<input type="hidden" id="asdqwe" name="asdqwe" value="hong">
 					</td>
 				</tr>
 				<tr>

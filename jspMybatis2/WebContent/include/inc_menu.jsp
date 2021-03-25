@@ -12,8 +12,8 @@
 		<tr>
 			<td colspan="15" align="right" style="padding:5px 20px 10px;">
 			<c:if test="${sessionScope.cookNo == null || sessionScope.cookNo == 0}">
-				<a href="${path}/member_servlet/login.do">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
-				<a href="${path}/member_servlet/chuga.do">회원가입</a>
+				<a href="${path}/member_servlet/login2.do">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="${path}/member_servlet/chuga2.do">회원가입</a>
 			</c:if>
 			
 			<c:if test="${sessionScope.cookNo != null && sessionScope.cookNo != 0}">
