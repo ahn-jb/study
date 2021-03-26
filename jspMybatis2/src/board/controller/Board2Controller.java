@@ -366,15 +366,12 @@ public class Board2Controller extends HttpServlet {
 			String comment_no_ = request.getParameter("comment_no");
 			int comment_no = Integer.parseInt(comment_no_);
 			String pwchk = request.getParameter("pwchk");
-			System.out.println("pwchk:"+pwchk);
 			int result = 0;
 			dto = dao.comment_selectOne(comment_no);
-			System.out.println("pw:"+dto.getComment_passwd());
 			if(pwchk.equals(dto.getComment_passwd())) {
 				result = dao.comment_sakje(comment_no);
 				temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data;
 			}else {
-				System.out.println("실패");
 				temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data+"&qwer=F";
 //				out.println("<script>");					
 //				out.println("location.href='"+path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data+"&P_C=F';");						

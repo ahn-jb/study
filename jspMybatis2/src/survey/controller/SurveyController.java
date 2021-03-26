@@ -112,8 +112,8 @@ public class SurveyController extends HttpServlet {
 			String last_date_ = lyear + "-" + lmonth+ "-" + lday;
 			last_date_ =last_date_+ " 23:59:59.9";
 //			System.out.println(last_date_ );
-			
 			java.sql.Timestamp last_date = java.sql.Timestamp.valueOf(last_date_);
+			
 			SurveyDTO dto = new SurveyDTO();
 			dto.setQuestion(question);
 			dto.setAns1(ans1);

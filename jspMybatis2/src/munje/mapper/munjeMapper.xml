@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="munje">
+	<insert id="setInsert_sihum">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+				select seq_sihum.nextval from dual
+		</selectKey>
+		insert into sihum values (#{no},#{dto.testName},#{dto.start_date},#{dto.last_date},current_timestamp)
+	</insert>
+	
+	<insert id="setInsert_munje">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+				select seq_munje.nextval from dual
+		</selectKey>
+		insert into munje values (#{no},#{dto.testNo},#{dto.testType},#{dto.question},#{dto.ans1},#{dto.ans2},#{dto.ans3},#{dto.ans4},#{dto.status},current_timestamp)
+	</insert>
+	
+	<select id="getList" resultType="munje.model.dto.MunjeDTO">
+		select * from sihum order by no asc
+	</select>
+</mapper>

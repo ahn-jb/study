@@ -246,13 +246,13 @@ public class MemberController extends HttpServlet {
 				if(!id.equals(newId)) {
 					out.println("<script>");
 					out.println("alert('아이디 빈칸 오류');");
-					out.println("location.href='"+path+"/member_servlet/chuga.do';");
+					out.println(" sunteak_proc('login','1',''); ");
 					out.println("</script>");
 					return;
 				}else if(!pw.equals(newPw)) {
 					out.println("<script>");
 					out.println("alert('비밀번호 빈칸 오류');");
-					out.println("location.href='"+path+"/member_servlet/chuga.do';");
+					out.println(" sunteak_proc('login','1',''); ");
 					out.println("</script>");
 					return;	
 				}
@@ -274,8 +274,10 @@ public class MemberController extends HttpServlet {
 					response.sendRedirect(temp);
 				}else {
 					dao.loginCounterfail(dto);
-					temp=path+"/member_servlet/login.do";
-					response.sendRedirect(temp);
+					out.println("<script>");
+					out.println("alert('비밀번호 다름.');");
+					out.println("location.href='"+path+"/member_servlet/login2.do';");
+					out.println("</script>");
 				}
 				
 				
@@ -435,7 +437,7 @@ public class MemberController extends HttpServlet {
 			 if(!pw.equals(newPw)) {
 					out.println("<script>");
 					out.println("alert('비밀번호 빈칸 오류');");
-					out.println("location.href='"+path+"/member_servlet/chuga.do';");
+					out.println("location.href='"+path+"/member_servlet/modify.do?no='"+no+";");
 					out.println("</script>");
 				}else if(cookNo == 0) {
 					out.println("<script>");
@@ -468,7 +470,7 @@ public class MemberController extends HttpServlet {
 				}
 		 		response.sendRedirect(temp);
 			}else if(url.indexOf("delete.do") != -1){//// 삭제 처리 ////
-				
+				System.out.println("123456789");
 				if(cookNo == 0) {
 					out.println("<script>");
 					out.println("alert('권한 제한.');");

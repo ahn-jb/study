@@ -45,7 +45,7 @@
 				<a href="${path}/test_servlet/list.do">설문조사</a>
 			</td>
 			<td style="padding:0px 20px;" id="munje">
-				<a href="${path}/test_servlet/list_2.do">문제은행</a>
+				<a href="${path}/munje_servlet/index.do">문제은행</a>
 			</td>
 			<td style="padding:0px 20px;" id="boardAjax">
 				<a href="${path}/board_servlet/index.do">게시판(ajax)</a>
