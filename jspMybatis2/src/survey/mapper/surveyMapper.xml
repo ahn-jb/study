@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 <mapper namespace="survey">
 
 	<sql id="search">
-		 <choose>
+		<choose>
 		 	<when test=" list_gubun =='ing' ">
 		 		and current_timestamp between start_date and last_date
 		 	</when>
@@ -23,10 +23,8 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		 	<when test=" search_date_check !='' and search_date_s != null and search_date_s !='' and search_date_e != null and search_date_e != '' ">
 				 <![CDATA[and (start_date >= to_timestamp(#{search_date_s}) and last_date <= to_timestamp(#{search_date_e}))]]>
 		 	</when>
-		 </choose>
+		</choose>
 	</sql>
-
-
 
 	<insert	id="setInsert">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
@@ -74,8 +72,7 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		(select count(*) from survey_answer where no = #{no} and answer = 1)as answer_count1,
 		(select count(*) from survey_answer where no = #{no} and answer = 2)as answer_count2,
 		(select count(*) from survey_answer where no = #{no} and answer = 3)as answer_count3,
-		(select count(*) from survey_answer where no = #{no} and answer = 4)as answer_count4 from survey_answer
-		
+		(select count(*) from survey_answer where no = #{no} and answer = 4)as answer_count4 from survey_answer		
 	</select>
 	
 	<select id="getTotalCount" resultType="int">

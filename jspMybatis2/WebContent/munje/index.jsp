@@ -25,8 +25,9 @@ function GoPage(value1){
 	var param = {};
 	var url = "${path}/munje_servlet/" + value1 + ".do";
 	
-	if(value1 == 'sihum_chugaProc' || value1 == 'munje_chugaProc'){
+	if(value1 == 'sihum_chugaProc' || value1 == 'munje_sujeongProc' || value1 == 'munje_chugaProc' || value1 == 'sihum_sujeongProc'){
 		param={
+				"no" : $("#span_no").text(),
 				"testName" : $('#testName').val(),
 				"testNo" : $('#testNo').val(),
 				"testType" : $('#testType').val(),
@@ -50,11 +51,14 @@ function GoPage(value1){
 			"search_option" : $("#span_search_option").text(),
 			"search_data" : $("#span_search_data").text()
 		}
-	}else if(value1 == 'modify' || value1 =='sakje' || value1 == 'view' || value1 == 'send'){
+	}else if(value1 == 'sihum_sujeong' || value1 =='sihum_sakje' || value1 == 'sihum_view' || value1 == 'munje_view' || value1 == 'munje_sujeong' || value1 =='munje_sakje'){
 		param={
+				"testNo" : $('#testNo').val(),
+				"testName" : $('#testName').val(),
+				"testType" : $('#testType').val(),
 				"no" : $("#span_no").text()
 		}
-	}else if(value1 == 'sendProc'){
+	}else if(value1 == ''){
 		param = {
 				"no" : $("#span_no").text(),
 				"answer" : $('#answer').val()
@@ -83,11 +87,25 @@ function GoPage(value1){
 }
  
  function suntaek_proc(value1,value2,value3){
-// 		alert("qqqqq");
+// 		alert(value1 +": "+ value3);
+		$("#span_no").text("");
+		
 		if(value1 == "resetList"){
 			$("#span_search_option").text("");
 			$("#span_search_data").text("");
 			suntaek_proc('list','1','');
+		}else if(value1 == "sihum_sakje"){
+			if(confirm('정말 삭제 하시겠습니까?')){
+				
+			}else{
+				suntaek_proc('sihum_view','',value3);
+			}
+		}else if(value1 == "munje_sakje"){
+			if(confirm('정말 삭제 하시겠습니까?')){
+				
+			}else{
+				suntaek_proc('munje_view','',value3);
+			}
 		}
 
 		$("#span_proc").text(value1);

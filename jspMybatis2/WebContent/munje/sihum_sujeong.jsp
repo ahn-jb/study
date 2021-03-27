@@ -11,7 +11,7 @@
 	<table border="0" width="60%">
 		<tr>
 			<td colspan="20">
-				<h2>시험 추가</h2>
+				<h2>시험 수정</h2>
 			</td>
 		</tr>
 		<tr>
@@ -30,7 +30,7 @@
 							<input type="radio"  name="testType" value="B" onclick="Type('B');">B
 							<input type="radio"  name="testType" value="C" onclick="Type('C');">C
 							<input type="radio"  name="testType" value="D" onclick="Type('D');">D
-							<input type="hidden" id="testType" value="">
+							<input type="hidden" id="testType" value="${dto.testType}">
 						</td>
 					</tr>
 					<tr>
@@ -96,13 +96,14 @@
 		 			<tr>
 						<td>Status:</td>
 						<td>
-							<input type="radio" id="status" name="status" value="1">ON
-							<input type="radio" id="status" name="status" value="0">OFF
+							<input type="radio"  name="status" value="1">ON
+							<input type="radio"  name="status" value="0">OFF
+							<input type="hidden" id ="status"  value="${dto.status }">
 						</td>
 					</tr>
 		 			<tr>
 		 				<td colspan="10" align="center">
-		 					<button type="button" id="" onclick="suntaek_proc('sihum_chugaProc','1','');">추가</button>
+		 					<button type="button" id="" onclick="suntaek_proc('sihum_sujeongProc','1','${dto.no}');">시험수정</button>
 		 					<button type="button" id="" onclick="suntaek_proc('resetList','1','');">목록</button>
 		 				</td>
 		 			</tr>
@@ -110,5 +111,19 @@
 			</td>
 		</tr>
 	</table>
+<script>
+function Type(value1){
+	$('#testType').val(value1);
+}
+
+$(document).ready(function(){
+	var testType = $('#testType').val();
+	$("input[name=testType][value=" + testType + "]").attr("checked", true);
+	
+	var status = $('#status').val();
+	$("input[name=status][value=" + status + "]").attr("checked", true);
+});
+
+</script>
 </body>
 </html>

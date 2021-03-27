@@ -37,7 +37,7 @@
 					<c:forEach var="dto" items="${list}">
 					<tr>
 						<td>${dto.no}</td>
-						<td width="200"><a href="#" onclick="suntaek_proc('view','','${dto.no}');">${dto.testName}</a></td>
+						<td width="200"><a href="#" onclick="suntaek_proc('sihum_view','','${dto.no}');">${dto.testName}</a></td>
 						<td>${dto.testType}</td>
 						<td align="center">${dto.start_date} ~ ${dto.last_date}</td>
 						<td>${dto.regi_date}</td>
@@ -54,22 +54,22 @@
 		<c:if test="${totalRecord > 0 }">
 			<tr>
 				<td colspan="7" height="50" align="center">
-					<a href="#" onclick="sunteak_proc('list','1','');">[첫페이지]</a>&nbsp;&nbsp;
+					<a href="#" onclick="suntaek_proc('list','1','');">[첫페이지]</a>&nbsp;&nbsp;
 					<c:if test="${startPage > blockSize }">
-						<a href="#" onclick="sunteak_proc('list','${startPage -blockSize}','');">[이전 10개]</a>
+						<a href="#" onclick="suntaek_proc('list','${startPage -blockSize}','');">[이전 10개]</a>
 					</c:if>
 					<c:if test="${startPage <=blockSize }"> [이전10개] </c:if>&nbsp;&nbsp;
 					<c:forEach var="i" begin="${startPage}" end="${lastPage}" step="1">
 					<c:if test="${i == pageNumber}"> [${i}]</c:if>
 					<c:if test="${i != pageNumber}">
-						<a href="#" onclick="sunteak_proc('list','${i}','');">${i}</a>
+						<a href="#" onclick="suntaek_proc('list','${i}','');">${i}</a>
 					</c:if>
 					</c:forEach>&nbsp;&nbsp;
 					<c:if test="${lastPage < totalPage }">
-						<a href="#" onclick="sunteak_proc('list','${startPage + blockSize}','');">[다음 10개]</a>
+						<a href="#" onclick="suntaek_proc('list','${startPage + blockSize}','');">[다음 10개]</a>
 					</c:if>
 					<c:if test="${lastPage >= totalPage }"> [다음10개] </c:if>&nbsp;&nbsp;
-					<a href="#" onclick="sunteak_proc('list','${totalPage}','');">[끝페이지]</a> 
+					<a href="#" onclick="suntaek_proc('list','${totalPage}','');">[끝페이지]</a> 
 				</td>
 			</tr>
 		</c:if>	
@@ -77,6 +77,7 @@
 			<td colspan="20" align="right">
 				<button type="button" onclick="suntaek_proc('sihum_chuga','','')">시험추가</button>
 				<button type="button" onclick="suntaek_proc('munje_chuga','','')">문제추가</button>
+				<button type="button" onclick="suntaek_proc('test_suntaek','','')">시험보기</button>
 				<button type="button" onclick="suntaek_proc('resetList','','')">전체목록</button>
 			</td>
 		</tr>

@@ -75,4 +75,55 @@ public class MunjeDAO {
 		session.close();
 		return list;
 	}
+	
+	public int sihum_update(MunjeDTO dto) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("dto", dto);
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.update("munje.sihum_update",map);
+		session.commit();
+		session.close();
+		return result;
+	}
+	public int sihum_delete(int no) {
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.delete("munje.sihum_delete",no);
+		session.commit();
+		session.close();
+		return result;
+	}
+	public int munje_delete(int testNo) {
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.delete("munje.munje_delete",testNo);
+		session.commit();
+		session.close();
+		return result;
+	}
+	public int munje_delete2(int no) {
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.delete("munje.munje_delete2",no);
+		session.commit();
+		session.close();
+		return result;
+	}
+	
+	public MunjeDTO getView_munje(int no) {
+		SqlSession session = MybatisManager.getInstance().openSession();
+		MunjeDTO dto = session.selectOne("munje.getView_munje",no);
+		session.close();
+		return dto;
+	}
+	
+	public int munje_update(MunjeDTO dto) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("dto", dto);
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.update("munje.munje_update",map);
+		session.commit();
+		session.close();
+		return result;
+	}
+	
+
+	
 }

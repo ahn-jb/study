@@ -8,10 +8,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<input type="hidden" id="testNo" value="${dto.no}">
+	<input type="hidden" id="testName" value="${dto.testName}">
+	<input type="hidden" id="testType" value="${dto.testType}">
 	<table border="0" width="80%">
 		<tr>
 			<td>
-				<h2>상세보기</h2>
+				<h2>시험 상세보기</h2>
 			</td>
 		</tr>
 		<tr>
@@ -33,14 +37,14 @@
 						<td>문제</td>
 						<td>
 						<c:forEach var="dto1" items="${list}" >
-							<a href="#" onclick="suntaek_proc('munjeView','','${dto1.no}')">Q.${dto1.testNumber}</a><br>
+							<a href="#" onclick="suntaek_proc('munje_view','','${dto1.munjeNo}')">Q.${dto1.testNumber} - ${dto1.question}</a><br>
 						</c:forEach>
 						</td>
 					</tr>
 					<tr>	
 						<td colspan="4">
-							<button type="button" onclick="suntaek_proc('sujeong','','${dto.no}')">수정</button>
-							<button type="button" onclick="suntaek_proc('sakje','','${dto.no}')">삭제</button>
+							<button type="button" onclick="suntaek_proc('sihum_sujeong','','${dto.no}')">수정</button>
+							<button type="button" onclick="suntaek_proc('sihum_sakje','','${dto.no}')">삭제</button>
 							<button type="button" onclick="suntaek_proc('resetList','','')">목록</button>
 						</td>
 					</tr>
