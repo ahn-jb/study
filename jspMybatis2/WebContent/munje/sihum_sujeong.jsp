@@ -20,7 +20,7 @@
 					<tr>
 						<td>시험명</td>
 						<td>
-							<input type="text" id="testName" name="testName" value="">
+							<input type="text" id="testName" name="testName" value="${dto.testName}">
 						</td>						
 					</tr>
 					<tr>
@@ -110,10 +110,5 @@
 			</td>
 		</tr>
 	</table>
-<script type="text/javascript">
-	function Type(value1){
-		$('#testType').val(value1);
-	}
-</script>	
 </body>
 </html>

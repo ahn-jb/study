@@ -116,7 +116,6 @@
 
 <script>
 	
-
 	$(document).ready(function(){
 		
 		$("#btnViewPasswd").click(function(){

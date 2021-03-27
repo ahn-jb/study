@@ -8,17 +8,44 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 				select seq_sihum.nextval from dual
 		</selectKey>
-		insert into sihum values (#{no},#{dto.testName},#{dto.start_date},#{dto.last_date},current_timestamp)
+		insert into sihum values (#{no},#{dto.testName},#{dto.testType},#{dto.start_date},#{dto.last_date},#{dto.status},current_timestamp)
 	</insert>
 	
 	<insert id="setInsert_munje">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 				select seq_munje.nextval from dual
 		</selectKey>
-		insert into munje values (#{no},#{dto.testNo},#{dto.testType},#{dto.question},#{dto.ans1},#{dto.ans2},#{dto.ans3},#{dto.ans4},#{dto.status},current_timestamp)
+		insert into munje values (#{no},#{dto.testNo},#{dto.testNumber},#{dto.question},#{dto.ans1},#{dto.ans2},#{dto.ans3},#{dto.ans4},current_timestamp)
 	</insert>
 	
-	<select id="getList" resultType="munje.model.dto.MunjeDTO">
+	<select id="getSihumName" resultType="munje.model.dto.MunjeDTO">
 		select * from sihum order by no asc
+	</select>
+	
+	<select id="getTotalRecord_sihum" resultType="int">
+		select count(*) from sihum  where 1=1
+		<choose>
+		 	<when test=" search_option != null and search_option != '' and search_data != null and search_data != '' ">
+		 		and ${search_option} like '%' || #{search_data} || '%'
+		 	</when>
+		</choose>	
+	</select>
+	
+	<select id="getList_sihum" resultType="munje.model.dto.MunjeDTO">
+		select * from (select A.*, Rownum Rnum from (select* from sihum  where 1=1  
+		<choose>
+		 	<when test=" search_option != null and search_option != '' and search_data != null and search_data != '' ">
+		 		and ${search_option} like '%' || #{search_data} || '%'
+		 	</when>
+		</choose>
+		<![CDATA[ order by no desc) A) where Rnum >= #{startRecord} and Rnum<= #{lastRecord}]]>
+	</select>
+	
+	<select id="getView_sihum" resultType="munje.model.dto.MunjeDTO">
+		select * from sihum where no = #{no}
+	</select>
+	
+	<select id="getView_Munje" resultType="munje.model.dto.MunjeDTO">
+		select no munjeNo,testNo,testNumber,question,ans1,ans2,ans3,ans4 from munje where testNo = #{no} order by testNumber asc
 	</select>
 </mapper>

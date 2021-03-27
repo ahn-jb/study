@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import common.Util;
 import munje.model.dao.MunjeDAO;
 import munje.model.dto.MunjeDTO;
+import survey.model.dto.SurveyDTO;
 
 /**
  * Servlet implementation class MunjeController
@@ -92,7 +93,7 @@ public class MunjeController extends HttpServlet {
 			rd.forward(request, response);
 		}else if(url.indexOf("munje_chuga.do") != -1) {
 			request.setAttribute("menu_gubun", "munje_chuga");
-			List<MunjeDTO> list = dao.getList();
+			List<MunjeDTO> list = dao.getSihumName();
 			request.setAttribute("list", list );
 			
 			page = "/munje/munje_chuga.jsp";
@@ -100,6 +101,7 @@ public class MunjeController extends HttpServlet {
 			rd.forward(request, response);
 		}else if(url.indexOf("sihum_chugaProc.do") != -1) {
 			String testName = request.getParameter("testName");
+			String testType = request.getParameter("testType");
 			
 			String syear = request.getParameter("syear");
 			String smonth = request.getParameter("smonth");
@@ -108,6 +110,7 @@ public class MunjeController extends HttpServlet {
 			String lyear = request.getParameter("lyear");  
 			String lmonth = request.getParameter("lmonth");
 			String lday = request.getParameter("lday");
+			String status = request.getParameter("status");
 			
 			String start_date_ = syear + "-" + smonth+ "-" + sday;
 			start_date_ = start_date_+ " 00:00:00.0";
@@ -118,14 +121,16 @@ public class MunjeController extends HttpServlet {
 			java.sql.Timestamp last_date = java.sql.Timestamp.valueOf(last_date_);
 			
 			dto.setTestName(testName);
+			dto.setTestType(testType);
 			dto.setStart_date(start_date);
 			dto.setLast_date(last_date);
+			dto.setStatus(status);
 			
 			int result = dao.setInsert_sihum(dto);
 			if(result>0) {
 				out.println("<script>");
 				out.println("alert('추가 완료.');");
-				out.println("suntaek_proc('munje_chuga','','')");
+				out.println("suntaek_proc('resetList','','')");
 				out.println("</script>");
 			}else {
 				out.println("<script>");
@@ -134,7 +139,83 @@ public class MunjeController extends HttpServlet {
 				out.println("</script>");
 			}
 		}else if(url.indexOf("munje_chugaProc.do") != -1) {
+			String testNo_ = request.getParameter("testNo");
+			int testNo = Integer.parseInt(testNo_);
+			String testNumber_ = request.getParameter("testNumber");
+			int testNumber = Integer.parseInt(testNumber_);
+			String question = request.getParameter("question");
+			String ans1 = request.getParameter("ans1");
+			String ans2 = request.getParameter("ans2");
+			String ans3 = request.getParameter("ans3");
+			String ans4 = request.getParameter("ans4");
 			
+			dto.setTestNo(testNo);
+			dto.setTestNumber(testNumber);
+			dto.setQuestion(question);
+			dto.setAns1(ans1);
+			dto.setAns2(ans2);
+			dto.setAns3(ans3);
+			dto.setAns4(ans4);
+			
+			int result = dao.setInsert_munje(dto);
+			if(result>0) {
+				out.println("<script>");
+				out.println("alert('추가 완료.');");
+				out.println("suntaek_proc('resetList','','')");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('오류.');");
+				out.println(" suntaek_proc('munje_chuga','','')");
+				out.println("</script>");
+			}
+			
+		}else if(url.indexOf("list.do") != -1) {
+			int pageSize = 5;
+			int blockSize= 10;
+			int totalRecord = dao.getTotalRecord_sihum(search_option,search_data);
+			int number =totalRecord - pageSize * (pageNumber-1);
+			int startRecord = pageSize * (pageNumber -1) +1;
+			int lastRecord = pageSize * pageNumber;
+			int totalPage =0;
+			int startPage =1;
+			int lastPage = 1;
+			if(totalRecord>0) {
+				totalPage = totalRecord / pageSize +(totalRecord%pageSize == 0? 0:1);
+				startPage = (pageNumber/blockSize - (pageNumber % blockSize !=0 ? 0:1))*blockSize +1 ;
+				lastPage = startPage + blockSize - 1;
+				if(lastPage > totalPage) {	
+					lastPage = totalPage;
+				}
+			}
+			List<MunjeDTO> list = dao.getList_sihum(startRecord,lastRecord,search_option,search_data);
+			request.setAttribute("menu_gubun", "survey_list");
+			request.setAttribute("list", list);
+			request.setAttribute("pageNumber",pageNumber);
+			request.setAttribute("blockSize",blockSize);
+			request.setAttribute("totalRecord",totalRecord);
+			request.setAttribute("number",number);
+			request.setAttribute("startRecord",startRecord);
+			request.setAttribute("lastRecord",lastRecord);
+			request.setAttribute("totalPage",totalPage);
+			request.setAttribute("startPage",startPage);
+			request.setAttribute("lastPage",lastPage);
+			request.setAttribute("pageSize",pageSize);
+			
+			page = "/munje/list.jsp";		
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
+		}else if(url.indexOf("view.do") != -1) {
+			
+			dto = dao.getView_sihum(no);
+			request.setAttribute("dto", dto);
+			
+			List<MunjeDTO> list = dao.getView_Munje(no);
+			request.setAttribute("list", list);
+			
+			page = "/munje/view.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
 		}
 		
 		

@@ -6,20 +6,20 @@ public class MunjeDTO {
 	
 	private int no;
 	private String testName;
+	private String testType;
 	private Timestamp start_date;
 	private Timestamp last_date;
 	private Timestamp regi_date;
+	private String status;
 	
-	
+	private int munjeNo;
 	private int testNo;
-	private String testNumber;
-	private String testType;
+	private int testNumber;
 	private String question;
 	private String ans1;
 	private String ans2;
 	private String ans3;
 	private String ans4;
-	private String status;
 	
 	
 	
@@ -29,9 +29,15 @@ public class MunjeDTO {
 	public void setNo(int no) {
 		this.no = no;
 	}
+	public int getMunjeNo() {
+		return munjeNo;
+	}
+	public void setMunjeNo(int munjeNo) {
+		this.munjeNo = munjeNo;
+	}
 	public int getTestNo() {
 		return testNo;
-	}
+	}	
 	public void setTestNo(int testNo) {
 		this.testNo = testNo;
 	}
@@ -43,10 +49,10 @@ public class MunjeDTO {
 		this.testName = testName;
 	}
 	
-	public String getTestNumber() {
+	public int getTestNumber() {
 		return testNumber;
 	}
-	public void setTestNumber(String testNumber) {
+	public void setTestNumber(int testNumber) {
 		this.testNumber = testNumber;
 	}
 	public String getTestType() {

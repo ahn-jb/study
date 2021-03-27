@@ -20,20 +20,11 @@
 					<tr>
 						<td>TestName:</td>
 						<td>
-							<select id="testNumber">
+							<select id="testNo">
 								<c:forEach var="dto" items="${list}" >
-									<option value ="${dto.no}">${dto.testName}</option>
+									<option value ="${dto.no}">${dto.testName}(${dto.testType})</option>
 								</c:forEach>
 							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>Type:</td>
-						<td>
-							<input type="radio" id="testType" name="testType" value="A">A
-							<input type="radio" id="testType" name="testType" value="B">B
-							<input type="radio" id="testType" name="testType" value="C">C
-							<input type="radio" id="testType" name="testType" value="D">D
 						</td>
 					</tr>
 					<tr>
@@ -70,13 +61,6 @@
 						<td>Ans4:</td>
 						<td>
 							<input type="text" id="ans4" name="ans4"  style="width:80%;">
-						</td>
-					</tr>
-					<tr>
-						<td>Status:</td>
-						<td>
-							<input type="radio" id="status" name="status" value="0">ON
-							<input type="radio" id="status" name="status" value="1">OFF
 						</td>
 					</tr>
 					<tr>

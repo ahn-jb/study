@@ -10,15 +10,13 @@ pageNumber : <span id="span_pageNumber">${pageNumber}</span><br>
 no : <span id="span_no">${no}</span><br>
 search_option : <span id="span_search_option">${search_option}</span><br>
 search_data : <span id="span_search_data">${search_data}</span><br>
-search_date_check : <span id="span_search_date_check">${search_date_check}</span><br>
-
 
 <div id="result" style="border: 1px solid red; height: 500px; "></div>
 
 <script>
 $(document).ready(function(){
 // 	alert("ready");
-	suntaek_proc('munje_chuga','1','');
+	suntaek_proc('list','1','');
 
 });
 
@@ -30,6 +28,7 @@ function GoPage(value1){
 	if(value1 == 'sihum_chugaProc' || value1 == 'munje_chugaProc'){
 		param={
 				"testName" : $('#testName').val(),
+				"testNo" : $('#testNo').val(),
 				"testType" : $('#testType').val(),
 				"question" : $('#question').val(),
 				"testNumber" : $('#testNumber').val(),
@@ -42,16 +41,14 @@ function GoPage(value1){
 				"sday" : $('#sday').val(),
 				"lyear" : $('#lyear').val(),
 				"lmonth" : $('#lmonth').val(),
-				"lday" : $('#lday').val()
+				"lday" : $('#lday').val(),
+				"status" : $('#status').val()
 		}
 	}else if(value1 == 'list'){
 		param = {
 			"pageNumber" : $("#span_pageNumber").text(),
 			"search_option" : $("#span_search_option").text(),
-			"search_data" : $("#span_search_data").text(),
-			"search_date_s" : $("#span_search_date_s").text(),
-			"search_date_e" : $("#span_search_date_e").text(),
-			"search_date_check" : $("#span_search_date_check").text()
+			"search_data" : $("#span_search_data").text()
 		}
 	}else if(value1 == 'modify' || value1 =='sakje' || value1 == 'view' || value1 == 'send'){
 		param={
@@ -75,11 +72,6 @@ function GoPage(value1){
 		success: function(data){
 			if(value1 == "list"){
 				$("#result").html(data);
-				if($("#span_search_date_check").text()=="O"){
-					 $("input[id=search_date_check]:checkbox").prop("checked",true);
-				 }else{
-					 $("input[id=search_date_check]:checkbox").prop("checked",false);
-				 }
 			}else if(value1 == 'modifyProc' || value1 =='sendProc' || value1 =='sakje'){
 				suntaek_proc('list','1','');
 			}else{
