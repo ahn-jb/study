@@ -320,12 +320,73 @@ public class MunjeController extends HttpServlet {
 			}
 		}else if(url.indexOf("test_suntaek.do") != -1) {
 			request.setAttribute("menu_gubun", "munje_test_suntaek");
+			
 			List<MunjeDTO> list = dao.getSihumName();
 			request.setAttribute("list", list );
 			
 			page = "/munje/test_suntaek.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
+		}else if(url.indexOf("test.do") != -1) {
+			request.setAttribute("menu_gubun", "munje_test");
+			
+			int totalRecord = dao.getTotalRecord_munje(no);
+			int number =totalRecord;
+			dto = dao.getView_sihum(no);
+			List<MunjeDTO> list = dao.getView_Munje(no);
+			
+			request.setAttribute("dto", dto);
+			request.setAttribute("totalRecord", totalRecord);	
+			request.setAttribute("number", number);	
+			request.setAttribute("list", list);
+			
+			page = "/munje/test.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
+		}else if(url.indexOf("answer_chuga.do") != -1) {
+			request.setAttribute("menu_gubun", "munje_answer_chuga");
+			
+			List<MunjeDTO> list = dao.getSihumName();
+			request.setAttribute("list", list );
+			
+			page = "/munje/answer_chuga.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
+		}else if(url.indexOf("jeongdab.do") != -1) {
+			request.setAttribute("menu_gubun", "munje_test");
+			
+			int totalRecord = dao.getTotalRecord_munje(no);
+			int number =totalRecord;
+			dto = dao.getView_sihum(no);
+			List<MunjeDTO> list = dao.getView_Munje(no);
+			
+			request.setAttribute("dto", dto);
+			request.setAttribute("totalRecord", totalRecord);	
+			request.setAttribute("number", number);	
+			request.setAttribute("list", list);
+			
+			page = "/munje/jeongdab.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
+		}else if(url.indexOf("jeongdabProc.do") != -1) {
+			System.out.println("no:"+no);
+			String testNo_ = request.getParameter("no");
+			int testNo = Integer.parseInt(testNo_);
+			String answer_total = request.getParameter("answer_total");
+			
+			int result = dao.setInsert_test_answer(testNo, answer_total);
+			if(result>0) {
+				out.println("<script>");
+				out.println("alert('저장 완료.');");
+				out.println("suntaek_proc('resetList','1','')");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('오류.');");
+				out.println("suntaek_proc('jeongdab','','"+testNo+"')");
+				out.println("</script>");
+			}
+			
 		}
 		
 		

@@ -30,7 +30,8 @@
 					</tr>
 					<tr>
 						<td colspan="10">
-							<button type="button" onclick="test();">시험치기</button>
+							<button type="button" onclick="test('jeongdab');">정답작성</button>
+							<button type="button" onclick="test('jd_sujeong');">정답수정</button>
 							<button type="button" onclick="suntaek_proc('resetList','1','')">취소</button>
 						</td>
 					</tr>
@@ -39,10 +40,13 @@
 		</tr>
 	</table>
 <script>
-function test(){
+function test(value1){
 	var testNo = $('#testNo').val();
-	
-	suntaek_proc('test','',testNo);
+	if(value1 == 'jeongdab'){
+		suntaek_proc('jeongdab','',testNo);
+	}else if(value1 == 'jd_sujeong'){
+		suntaek_proc('jd_sujeong','',testNo);
+	}
 }
 </script>
 </body>

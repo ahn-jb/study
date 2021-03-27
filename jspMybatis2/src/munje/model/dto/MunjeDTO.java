@@ -21,7 +21,7 @@ public class MunjeDTO {
 	private String ans3;
 	private String ans4;
 	
-	
+	private String answer;
 	
 	public int getNo() {
 		return no;
@@ -114,6 +114,12 @@ public class MunjeDTO {
 	}
 	public void setRegi_date(Timestamp regi_date) {
 		this.regi_date = regi_date;
+	}
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 	
 	

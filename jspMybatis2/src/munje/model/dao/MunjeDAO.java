@@ -123,7 +123,21 @@ public class MunjeDAO {
 		session.close();
 		return result;
 	}
-	
-
+	public int getTotalRecord_munje(int testNo) {
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int count = session.selectOne("munje.getTotalRecord_munje",testNo);
+		session.close();
+		return count;
+	}
+	public int setInsert_test_answer(int testNo,String answer_total) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("testNo", testNo);
+		map.put("answer_total", answer_total);
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.insert("munje.setInsert_test_answer",map);
+		session.commit();
+		session.close();
+		return result;
+	}
 	
 }

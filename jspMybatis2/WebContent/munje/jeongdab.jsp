@@ -13,10 +13,11 @@
 	<h2>시험: ${dto.testName}(${dto.testType})</h2>
 	<input type="hidden" id="testName" value="${dto.testName}">
 	<input type="hidden" id="testType" value="${dto.testType}">
+	<input type="text" id="testNo" value="${dto.no}">
 	span_list_size : <span id="span_list_size" style="display:;">${totalRecord}</span><br>
 	span_answer_total : <span id = "span_answer_total" style="display:;"></span><br>
 	<c:forEach var="dto" items="${list}">
-	<a named="a_${dto.no}"></a>
+	<a named="a_${dto.testNumber}"></a>
 	q_${number}: <span id="q_${number}">${dto.testNumber}</span><br>
 	span_answer_${number}: <span id="span_answer_${number}" style="display:;"></span><br>
 	<table border="1">
@@ -62,10 +63,11 @@
 <script type="text/javascript">
 	function goSaveProc(){
 		var answer_total = $("#span_answer_total").text();
+		var testNo = $('#testNo').val();
 		if(answer_total == ''){
 			alert('정답을 입력해주세요.');
 		}else if(confirm('저장하시겠습니까?')){
-			suntaek_proc('saveProc','','');
+			suntaek_proc('jeongdabProc','',testNo);
 		}
 	}
 	function check_answer(value1,value2){

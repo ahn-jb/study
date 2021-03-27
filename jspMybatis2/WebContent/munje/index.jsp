@@ -10,7 +10,6 @@ pageNumber : <span id="span_pageNumber">${pageNumber}</span><br>
 no : <span id="span_no">${no}</span><br>
 search_option : <span id="span_search_option">${search_option}</span><br>
 search_data : <span id="span_search_data">${search_data}</span><br>
-
 <div id="result" style="border: 1px solid red; height: 500px; "></div>
 
 <script>
@@ -51,20 +50,18 @@ function GoPage(value1){
 			"search_option" : $("#span_search_option").text(),
 			"search_data" : $("#span_search_data").text()
 		}
-	}else if(value1 == 'sihum_sujeong' || value1 =='sihum_sakje' || value1 == 'sihum_view' || value1 == 'munje_view' || value1 == 'munje_sujeong' || value1 =='munje_sakje'){
+	}else if(value1 == 'sihum_sujeong' || value1 =='sihum_sakje' || value1 == 'sihum_view'
+			|| value1 == 'munje_view' || value1 == 'munje_sujeong' || value1 =='munje_sakje' || value1 == 'test' ||value1 == 'jeongdab'){
+		
 		param={
 				"testNo" : $('#testNo').val(),
 				"testName" : $('#testName').val(),
 				"testType" : $('#testType').val(),
 				"no" : $("#span_no").text()
 		}
-	}else if(value1 == ''){
+	}else if(value1 =='jeongdabProc'){
 		param = {
 				"no" : $("#span_no").text(),
-				"answer" : $('#answer').val()
-		}
-	}else if(value1 =='saveProc'){
-		param = {
 				"answer_total" : $("#span_answer_total").text()
 		}
 	}
@@ -86,35 +83,35 @@ function GoPage(value1){
 	
 }
  
- function suntaek_proc(value1,value2,value3){
+function suntaek_proc(value1,value2,value3){
 // 		alert(value1 +": "+ value3);
-		$("#span_no").text("");
-		
-		if(value1 == "resetList"){
-			$("#span_search_option").text("");
-			$("#span_search_data").text("");
-			suntaek_proc('list','1','');
-		}else if(value1 == "sihum_sakje"){
-			if(confirm('정말 삭제 하시겠습니까?')){
-				
-			}else{
-				suntaek_proc('sihum_view','',value3);
-			}
-		}else if(value1 == "munje_sakje"){
-			if(confirm('정말 삭제 하시겠습니까?')){
-				
-			}else{
-				suntaek_proc('munje_view','',value3);
-			}
+	$("#span_no").text("");
+	
+	if(value1 == "resetList"){
+		$("#span_search_option").text("");
+		$("#span_search_data").text("");
+		suntaek_proc('list','1','');
+	}else if(value1 == "sihum_sakje"){
+		if(confirm('정말 삭제 하시겠습니까?')){
+			
+		}else{
+			suntaek_proc('sihum_view','',value3);
 		}
+	}else if(value1 == "munje_sakje"){
+		if(confirm('정말 삭제 하시겠습니까?')){
+			
+		}else{
+			suntaek_proc('munje_view','',value3);
+		}
+	}
 
-		$("#span_proc").text(value1);
-		if(value2 != "0"){
-			$("#span_pageNumber").text(value2);
-		}
-		if(value3 != "0"){
-			$("#span_no").text(value3);
-		}
-		GoPage(value1);
- }
+	$("#span_proc").text(value1);
+	if(value2 != "0"){
+		$("#span_pageNumber").text(value2);
+	}
+	if(value3 != "0"){
+		$("#span_no").text(value3);
+	}
+	GoPage(value1);
+}
 </script>

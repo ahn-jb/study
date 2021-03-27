@@ -74,4 +74,15 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 	<delete id="munje_delete2">
 		delete from munje where no = #{no}
 	</delete>
+	
+	<select id="getTotalRecord_munje" resultType="int">
+		select count(*) from munje where testNo = #{testNo}
+	</select>
+	
+	<insert id="setInsert_test_answer">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+				select seq_test_answer.nextval from dual
+		</selectKey>
+		insert into test_answer values(#{no},#{testNo},#{answer_total},current_timestamp)
+	</insert>
 </mapper>
