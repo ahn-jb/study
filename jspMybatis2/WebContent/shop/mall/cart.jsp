@@ -67,6 +67,8 @@
 						<tr>
 							<td colspan="10" align="center">
 								<h4>합계금액 :<fmt:formatNumber type="number" maxFractionDigits="3" value="${total_price}" />원</h4> 
+								<input type="hidden" id="total_price" value="${total_price}"><br>
+								
 							</td>
 						</tr>
 					</c:if>
@@ -79,7 +81,7 @@
 				<button type="button" onclick="cartSakje();">장바구니 비우기</button>
 				<button type="button" onclick="suntaek_proc('mall_list_all','1','');">쇼핑하기</button>
 				<button type="button" onclick="suntaek_proc('cart_list2','1','');">장바구니</button>
-				<button type="button" onclick="suntaek_proc('buy','1','');">주문하기</button>
+				<button type="button" onclick="jumun();">주문하기</button>
 			</td>
 		</tr>
 		<c:if test="${totalRecord >0 }">
@@ -134,6 +136,12 @@ function cartSakje(){
 		$("#span_index").text(index+1);
 	});
 	suntaek_proc('cart_sakje','','')
+}
+function jumun(){
+	var count = ${totalRecord};
+	if(confirm('"'+count+'" 개의 상품을 주문하시겠습니까?')){
+		suntaek_proc('jumun','','');
+	}
 }
 </script>
 </body>

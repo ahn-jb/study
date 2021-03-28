@@ -48,42 +48,47 @@
 							<td colspan="10" align="center"><h3>목록이 없습니다.</h3></td>
 						</tr>
 					</c:if>
+					<tr>
+						<td colspan="20" >
+							<button type="button" onclick="suntaek_proc('resetList','','')" >전체목록</button>
+							<button type="button" onclick="suntaek_proc('sihum_chuga','','')" >시험추가</button>
+							<button type="button" onclick="suntaek_proc('munje_chuga','','')" >문제추가</button>
+							<button type="button" onclick="suntaek_proc('answer_chuga','','')" >정답관리</button>
+							<button type="button" onclick="suntaek_proc('test_suntaek','','')">시험보기</button>
+				<!-- 			</td> -->
+				<!-- 		</tr> -->
+							<c:if test="${totalRecord > 0 }">
+					<!-- 			<tr> -->
+					<!-- 				<td colspan="7" height="50" align="center"> -->
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="#" onclick="suntaek_proc('list','1','');">[첫페이지]</a>&nbsp;&nbsp;
+								<c:if test="${startPage > blockSize }">
+									<a href="#" onclick="suntaek_proc('list','${startPage -blockSize}','');">[이전 10개]</a>
+								</c:if>
+								<c:if test="${startPage <=blockSize }"> [이전10개] </c:if>&nbsp;&nbsp;
+								<c:forEach var="i" begin="${startPage}" end="${lastPage}" step="1">
+								<c:if test="${i == pageNumber}"> [${i}]</c:if>
+								<c:if test="${i != pageNumber}">
+									<a href="#" onclick="suntaek_proc('list','${i}','');">${i}</a>
+								</c:if>
+								</c:forEach>&nbsp;&nbsp;
+								<c:if test="${lastPage < totalPage }">
+									<a href="#" onclick="suntaek_proc('list','${startPage + blockSize}','');">[다음 10개]</a>
+								</c:if>
+								<c:if test="${lastPage >= totalPage }"> [다음10개] </c:if>&nbsp;&nbsp;
+								<a href="#" onclick="suntaek_proc('list','${totalPage}','');">[끝페이지]</a> 
+							</c:if>	
+						</td>
+					</tr>
 				</table>
-			</td>
-		</tr>
-		<c:if test="${totalRecord > 0 }">
-			<tr>
-				<td colspan="7" height="50" align="center">
-					<a href="#" onclick="suntaek_proc('list','1','');">[첫페이지]</a>&nbsp;&nbsp;
-					<c:if test="${startPage > blockSize }">
-						<a href="#" onclick="suntaek_proc('list','${startPage -blockSize}','');">[이전 10개]</a>
-					</c:if>
-					<c:if test="${startPage <=blockSize }"> [이전10개] </c:if>&nbsp;&nbsp;
-					<c:forEach var="i" begin="${startPage}" end="${lastPage}" step="1">
-					<c:if test="${i == pageNumber}"> [${i}]</c:if>
-					<c:if test="${i != pageNumber}">
-						<a href="#" onclick="suntaek_proc('list','${i}','');">${i}</a>
-					</c:if>
-					</c:forEach>&nbsp;&nbsp;
-					<c:if test="${lastPage < totalPage }">
-						<a href="#" onclick="suntaek_proc('list','${startPage + blockSize}','');">[다음 10개]</a>
-					</c:if>
-					<c:if test="${lastPage >= totalPage }"> [다음10개] </c:if>&nbsp;&nbsp;
-					<a href="#" onclick="suntaek_proc('list','${totalPage}','');">[끝페이지]</a> 
-				</td>
-			</tr>
-		</c:if>	
-		<tr>
-			<td colspan="20" align="right">
-				<button type="button" onclick="suntaek_proc('sihum_chuga','','')">시험추가</button>
-				<button type="button" onclick="suntaek_proc('munje_chuga','','')">문제추가</button>
-				<button type="button" onclick="suntaek_proc('answer_chuga','','')">정답등록</button>
-				<button type="button" onclick="suntaek_proc('test_suntaek','','')">시험보기</button>
-				<button type="button" onclick="suntaek_proc('resetList','','')">전체목록</button>
 			</td>
 		</tr>
 	</table>
 <script>
+$(document).ready(function(){
+	result.style.height = "500px";
+
+});
 function search(){
 	$("#span_search_option").text($("#search_option").val());
 	$("#span_search_data").text($("#search_data").val());

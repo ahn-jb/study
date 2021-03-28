@@ -57,6 +57,11 @@ function GoPage(value1,value2){
 			"checked": $("#span_checkAll").text(),
 			"index"  : $("#span_index").text()
 		}
+	}else if(value1 == "jumun"){
+		param = {
+			"no" : $("#span_no").text(),
+			"total_price" : $("#total_price").val()
+		}
 	}
 	$.ajax({
 		type :"post",

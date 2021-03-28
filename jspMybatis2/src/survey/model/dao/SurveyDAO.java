@@ -213,28 +213,12 @@ public class SurveyDAO {
 	}
 	
 	public int updateSurvey(SurveyDTO dto) {
-		
 		Map<String,Object> map = new HashMap<>();
 		map.put("dto", dto);
 		SqlSession session = MybatisManager.getInstance().openSession();
-		int result= session.update("survey.updateSurvey",map);
+		int result = session.update("survey.updateSurvey",map);
 		session.commit();
 		session.close();
-//		int result = 0;
-//		try {
-//			String sql = "update survey set question=?,ans1=?,ans2=?,ans3=?,ans4=?,status=? where no=? ";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1,dto.getQuestion());
-//			pstmt.setString(2,dto.getAns1());
-//			pstmt.setString(3,dto.getAns2());
-//			pstmt.setString(4,dto.getAns3());
-//			pstmt.setString(5,dto.getAns4());
-//			pstmt.setString(6, dto.getStatus());
-//			pstmt.setInt(7, dto.getNo());
-//			result = pstmt.executeUpdate();
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
 		return result;
 	}
 	

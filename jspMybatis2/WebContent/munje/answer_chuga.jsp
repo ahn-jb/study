@@ -8,7 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<span id="proc_check"></span>
+	<input type="hidden" id="test_name" value="${dto.testName}(${dto.testType})">
 	<table border="0" width="30%">
 		<tr>
 			<td colspan="10">
@@ -29,9 +30,10 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="10">
+						<td colspan="10" align="center">
 							<button type="button" onclick="test('jeongdab');">정답작성</button>
 							<button type="button" onclick="test('jd_sujeong');">정답수정</button>
+							<button type="button" onclick="test('jd_sakje');">정답삭제</button>
 							<button type="button" onclick="suntaek_proc('resetList','1','')">취소</button>
 						</td>
 					</tr>
@@ -40,12 +42,19 @@
 		</tr>
 	</table>
 <script>
+
+
 function test(value1){
+	$("#proc_check").text(value1);
 	var testNo = $('#testNo').val();
+	var test_name = $('#test_name').val();
 	if(value1 == 'jeongdab'){
 		suntaek_proc('jeongdab','',testNo);
 	}else if(value1 == 'jd_sujeong'){
 		suntaek_proc('jd_sujeong','',testNo);
+	}else if(value1 == 'jd_sakje'){
+		if(confirm('정말 삭제하시겠습니까?'))
+		suntaek_proc('jd_sakje','',testNo);
 	}
 }
 </script>

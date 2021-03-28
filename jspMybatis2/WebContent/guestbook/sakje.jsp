@@ -13,6 +13,7 @@
 		[본인 확인]
 		passwd : <input type="text" id="passwd" name="passwd" value=""> &nbsp;&nbsp;
 		<button type="button" onclick="sakje();">확인</button>
+		<button type="button" onclick="location.href='${path}/guestbook_servlet/list.do';">취소</button>
 	</div>
 
 <script>

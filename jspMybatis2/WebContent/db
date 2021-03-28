@@ -212,11 +212,14 @@ select*from survey_answer;
 create table sihum(
 no number not null primary key,
 testName varchar2(100) not null,
+testType varchar2(1) not null unique,
 start_date  timestamp default current_timestamp,
 last_date   timestamp default current_timestamp,
+status char(1) default '1',  --실행중 1 종료 0
 regi_date   timestamp default current_timestamp
 );
 create sequence seq_sihum start with 1 increment by 1 minvalue 1;
+
 
 drop table sihum;
 drop sequence seq_sihum;
@@ -224,17 +227,19 @@ commit;
 
 select * from sihum;
 select * from sihum order by no desc;
+select *,(select *from munje m join sihum s on m.testNo=s.no where testNo =1) from sihum where no =1;
+select s.*,m.no munjeNo,m.testNo,m.testnumber,m.question,m.ans1,m.ans2,m.ans3,m.ans4 from sihum s , munje m where s.no = m.testNo(+) and s.no =2;
+select * from (select A.*, Rownum Rnum from(select* from sihum  where 1=1  and testName like '%1%' order by no desc)A )where Rnum >= 1 and Rnum<= 5;
 -------------------------------------------------------------------------------------------------------------
 create table munje(
 no number not null primary key,
 testNo number not null,
-testType varchar2(1) not null,
+testNumber number not null ,
 question clob not null,
 ans1 varchar2(200) not null,
 ans2 varchar2(200) not null,
 ans3 varchar2(200) not null,
 ans4 varchar2(200) not null,
-status char(1) default '1',  --실행중 1 종료 0
 regi_date   timestamp default current_timestamp
 );
 create sequence seq_munje start with 1 increment by 1 minvalue 1;
@@ -242,8 +247,24 @@ create sequence seq_munje start with 1 increment by 1 minvalue 1;
 drop table munje;
 drop sequence seq_munje;
 
-select*from munje;
+select * from munje;
+select no munjeNo,testNo,testNumber,question,ans1,ans2,ans3,ans4,regi_date from munje where testNo = 1 order by testNumber asc;
 -------------------------------------------------------------------------------------------------------------------------------
+create table test_answer(
+no number not null primary key,
+testNo number not null,
+answer varchar2(2000) not null,
+regi_date   timestamp default current_timestamp
+);
+create sequence seq_test_answer start with 1 increment by 1 minvalue 1;
+
+drop table test_answer;
+drop sequence seq_test_answer;
+
+select * from test_answer;
+select count(*) from test_answer where testno = 1;
+select * from test_answer where testno = 1;
+--------------------------------------------------------------------------------------------------------------------------------
 create table product(
 no number not null primary key, --상품코드
 name varchar2(50) not null,--상품이름

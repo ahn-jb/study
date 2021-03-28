@@ -11,7 +11,7 @@
 
 	<form name="deleteForm">
 		<h2>회원 탈퇴</h2>
-			<table>
+			<table border="1">
 				<tr>
 					<td>등급:</td>
 					<td><input type="text" name="grade" value="${dto.getGrade()}" ></td>

@@ -291,7 +291,7 @@ public class MemberController extends HttpServlet {
 				out.println("</script>");
 				
 			}else if(url.indexOf("list.do") != -1) {//회원 리스트
-				int pageSize = 10;
+				int pageSize = 3;
 				int blockSize= 10;
 				int totalRecord = dao.getTotalRecord(search_option,search_data);
 				int number =totalRecord - pageSize * (pageNumber-1);

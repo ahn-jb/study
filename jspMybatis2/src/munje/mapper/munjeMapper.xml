@@ -85,4 +85,28 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 		</selectKey>
 		insert into test_answer values(#{no},#{testNo},#{answer_total},current_timestamp)
 	</insert>
+	
+	<select id="check_test_answer" resultType="int">
+		select count(*) from test_answer where testNo = #{testNo}
+	</select>
+	
+	<select id="check_sihum"  resultType="int">
+		select count(*) from sihum where testType = #{testType} and testName = #{testName}
+	</select>
+	
+	<select id="check_munje" resultType="int">
+		select count(*) from munje where testNo = #{testNo} and testNumber = #{testNumber}
+	</select>
+	
+	<update id="sujeong_test_answer">
+		update test_answer set answer = #{answer_total} where testNo = #{testNo}
+	</update>
+	
+	<delete id="sakje_test_answer">
+		delete from test_answer where  testNo = #{testNo}
+	</delete>
+	
+	<select id="get_test_answer" resultType="munje.model.dto.MunjeDTO">
+		select * from test_answer where testNo = #{testNo}
+	</select>
 </mapper>

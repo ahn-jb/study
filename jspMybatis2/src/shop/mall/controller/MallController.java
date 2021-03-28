@@ -221,6 +221,16 @@ public class MallController extends HttpServlet {
 			
 			temp=path+"/mall_servlet/cart_list2.do";
 			response.sendRedirect(temp);
+		}else if(url.indexOf("jumun.do") != -1) {
+			
+			String total_price = request.getParameter("total_price");
+			System.out.println("total_price:"+total_price);
+			request.setAttribute("total_price", total_price);
+			
+			page= "/shop/mall/jumun.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
+			
 		}
 		
 	}

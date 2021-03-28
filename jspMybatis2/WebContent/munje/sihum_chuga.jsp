@@ -96,8 +96,9 @@
 		 			<tr>
 						<td>Status:</td>
 						<td>
-							<input type="radio" id="status" name="status" value="1">ON
-							<input type="radio" id="status" name="status" value="0">OFF
+							<input type="radio"  name="status" value="1" onclick="status('1');">ON
+							<input type="radio"  name="status" value="0" onclick="status('0');">OFF
+							<input type="hidden" id ="status"  value="${dto.status}">
 						</td>
 					</tr>
 		 			<tr>
@@ -113,6 +114,9 @@
 <script type="text/javascript">
 	function Type(value1){
 		$('#testType').val(value1);
+	}
+	function status(value1){
+		$('#status').val(value1);
 	}
 </script>	
 </body>

@@ -8,66 +8,71 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	proc_check: <span id="proc_check">${proc_check}</span>
 	<form>
 	<h2>시험: ${dto.testName}(${dto.testType})</h2>
+	<input type="hidden" id="answer_total" value="${answer_total}">
 	<input type="hidden" id="testName" value="${dto.testName}">
 	<input type="hidden" id="testType" value="${dto.testType}">
-	<input type="text" id="testNo" value="${dto.no}">
+	<input type="hidden" id="testNo" value="${dto.no}">
 	span_list_size : <span id="span_list_size" style="display:;">${totalRecord}</span><br>
 	span_answer_total : <span id = "span_answer_total" style="display:;"></span><br>
 	<c:forEach var="dto" items="${list}">
 	<a named="a_${dto.testNumber}"></a>
-	q_${number}: <span id="q_${number}">${dto.testNumber}</span><br>
-	span_answer_${number}: <span id="span_answer_${number}" style="display:;"></span><br>
+	q_${dto.testNumber}: <span id="q_${dto.testNumber}">${dto.testNumber}</span><br>
+	span_answer_${dto.testNumber}: <span id="span_answer_${dto.testNumber}" style="display:;"></span><br>
 	<table border="1">
 		<tr>
 			<td width="400">
-				[Q-${dto.testNumber}] &nbsp; ${dto.question}
+				[Q-${dto.testNumber}] ${dto.question}
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<a href="#a_${dto.testNumber}" onclick="check_answer('1','${number}');"><font style="font-family:'MS Gothic';"><span id="mun1_${number}">①</span></font></a>
-				<a href="#a_${dto.testNumber}" onclick="check_answer('1','${number}');">${dto.ans1}</a>
+				<a href="#a_${dto.testNumber}" onclick="check_answer('1','${dto.testNumber}');"><font style="font-family:'MS Gothic';"><span id="mun1_${dto.testNumber}">①</span></font></a>
+				<a href="#a_${dto.testNumber}" onclick="check_answer('1','${dto.testNumber}');">${dto.ans1}</a>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<a href="#a_${dto.testNumber}" onclick="check_answer('2','${number}');"><font style="font-family:'MS Gothic';"><span id="mun2_${number}">②</span></font></a>
-				<a href="#a_${dto.testNumber}" onclick="check_answer('2','${number}');">${dto.ans2}</a>
+				<a href="#a_${dto.testNumber}" onclick="check_answer('2','${dto.testNumber}');"><font style="font-family:'MS Gothic';"><span id="mun2_${dto.testNumber}">②</span></font></a>
+				<a href="#a_${dto.testNumber}" onclick="check_answer('2','${dto.testNumber}');">${dto.ans2}</a>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<a href="#a_${dto.testNumber}" onclick="check_answer('3','${number}');"><font style="font-family:'MS Gothic';"><span id="mun3_${number}">③</span></font></a>
-				<a href="#a_${dto.testNumber}" onclick="check_answer('3','${number}');">${dto.ans3}</a>
+				<a href="#a_${dto.testNumber}" onclick="check_answer('3','${dto.testNumber}');"><font style="font-family:'MS Gothic';"><span id="mun3_${dto.testNumber}">③</span></font></a>
+				<a href="#a_${dto.testNumber}" onclick="check_answer('3','${dto.testNumber}');">${dto.ans3}</a>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<a href="#a_${dto.testNumber}" onclick="check_answer('4','${number}');"><font style="font-family:'MS Gothic';"><span id="mun4_${number}">④</span></font></a>
-				<a href="#a_${dto.testNumber}" onclick="check_answer('4','${number}');">${dto.ans4}</a>
+				<a href="#a_${dto.testNumber}" onclick="check_answer('4','${dto.testNumber}');"><font style="font-family:'MS Gothic';"><span id="mun4_${dto.testNumber}">④</span></font></a>
+				<a href="#a_${dto.testNumber}" onclick="check_answer('4','${dto.testNumber}');">${dto.ans4}</a>
 			</td>
-		</tr>
-		<tr> 
-			<td>기간 : ${dto.start_date} ~ ${dto.last_date}</td>
 		</tr>
 	</table>
 	<span style="display:none;">${number = number-1} </span>
 	</c:forEach>
-	</form>
-	<input type="button" onclick="goSaveProc();" value="제출하기">
+	</form><br>
+	<input type="button" id ="jeongdab" onclick="goSaveProc('save');" value="저장하기" style="display:none;">
+	<input type="button" id ="jd_sujeong" onclick="goSaveProc('sujeong');" value="수정하기" style="display:none;">
 	<input type="button" onclick="suntaek_proc('resetList','1','')" value ="목록">
 
 <script type="text/javascript">
-	function goSaveProc(){
+	function goSaveProc(value1){
 		var answer_total = $("#span_answer_total").text();
 		var testNo = $('#testNo').val();
 		if(answer_total == ''){
 			alert('정답을 입력해주세요.');
-		}else if(confirm('저장하시겠습니까?')){
-			suntaek_proc('jeongdabProc','',testNo);
+		}else if(value1 == 'save'){
+			if(confirm('저장하시겠습니까?')){				
+				suntaek_proc('jeongdabProc','',testNo);
+			}
+		}else if(value1 == 'sujeong'){
+			if(confirm('수정하시겠습니까?')){				
+				suntaek_proc('jd_sujeongProc','',testNo);
+			}
 		}
 	}
 	function check_answer(value1,value2){
@@ -104,18 +109,38 @@
 				if(msg ==''){
 					msg = q_no + ":" +answer;
 				}else{
-					msg =msg+"|" +q_no+ ":" +answer;
+					msg = q_no+ ":" +answer +"|" + msg;
 				}
 			}
 		}
 		$("#span_answer_total").text(msg);
 	}
+
 	$(document).ready(function(){
-		
-		console.log($('#span_list_size').text());
 		var size =$('#span_list_size').text() *320;
-		console.log(size);
-		result.style.height = size+"px";
+		if(size == 0){
+			result.style.height = "400px";
+		}else{
+			result.style.height = size+"px";
+		}
+		
+		var proc_check = $('#proc_check').text();
+		$("#"+proc_check+"").css("display","");
+		
+		var answer_totalArr = $('#answer_total').val();
+		if(answer_totalArr.trim() !=''){
+			alert('체크하지 않은 문제가 있습니다.')
+			var answer_total = answer_totalArr.split("|");
+			for(var i in answer_total ){			
+				var answer = answer_total[i].split(":");
+// 				console.log("--------reset--------");
+// 				console.log(answer[1]);
+// 				console.log(answer[0]);
+// 				console.log("---------------------");
+				check_answer(answer[1],answer[0]);
+			}
+		}
+		
 	});
 </script>
 </body>

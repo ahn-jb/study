@@ -12,7 +12,7 @@
 
 <h2>회원 상세정보</h2>
 	<form name="viewForm">
-		<table>
+		<table border="1">
 			<tr>
 				<td>등급:</td>
 				<td><input type="text" name="grade" value="${dto.getGrade()}" readonly></td>

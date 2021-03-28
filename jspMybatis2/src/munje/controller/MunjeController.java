@@ -125,18 +125,31 @@ public class MunjeController extends HttpServlet {
 			dto.setStart_date(start_date);
 			dto.setLast_date(last_date);
 			dto.setStatus(status);
+			
+			
 			if(url.indexOf("sihum_chugaProc.do" ) != -1) {
+				int check = dao.check_sihum(testName,testType);
+				if(check >0) {	
+					out.println("<script>");
+					out.println("alert('등록 되어있는 시험입니다.');");
+					out.println("suntaek_proc('resetList','','')");
+					out.println("</script>");
+					return;
+				}	
+			
 				int result = dao.setInsert_sihum(dto);
 				if(result>0) {
 					out.println("<script>");
 					out.println("alert('시험 추가완료.');");
 					out.println("suntaek_proc('resetList','','')");
 					out.println("</script>");
+					return;
 				}else {
 					out.println("<script>");
 					out.println("alert('오류.');");
 					out.println(" suntaek_proc('sihum_chuga','','')");
 					out.println("</script>");
+					return;
 				}
 				
 			}else if(url.indexOf("sihum_sujeongProc.do" ) != -1) {
@@ -147,11 +160,13 @@ public class MunjeController extends HttpServlet {
 					out.println("alert('시험 수정완료.');");
 					out.println("suntaek_proc('sihum_view','','"+no+"')");
 					out.println("</script>");
+					return;
 				}else {
 					out.println("<script>");
 					out.println("alert('오류.');");
 					out.println(" suntaek_proc('sihum_sujeong','','"+no+"')");
 					out.println("</script>");
+					return;
 				}
 			}
 		}else if(url.indexOf("munje_chugaProc.do") != -1 || url.indexOf("munje_sujeongProc.do") != -1) {
@@ -172,20 +187,31 @@ public class MunjeController extends HttpServlet {
 			dto.setAns2(ans2);
 			dto.setAns3(ans3);
 			dto.setAns4(ans4);
-			if(url.indexOf("munje_chugaProc.do") != -1) {			
+			
+			if(url.indexOf("munje_chugaProc.do") != -1) {////////////추가처리
+				int check = dao.check_munje(testNo, testNumber);
+				if(check >0) {
+					out.println("<script>");
+					out.println("alert('등록된 문제번호 입니다.');");
+					out.println("suntaek_proc('resetList','','')");
+					out.println("</script>");
+					return;
+				}
 				int result = dao.setInsert_munje(dto);
 				if(result>0) {
 					out.println("<script>");
 					out.println("alert('문제 추가완료.');");
 					out.println("suntaek_proc('resetList','','')");
 					out.println("</script>");
+					return;
 				}else {
 					out.println("<script>");
 					out.println("alert('오류.');");
 					out.println(" suntaek_proc('munje_chuga','','')");
 					out.println("</script>");
+					return;
 				}
-			}else if(url.indexOf("munje_sujeongProc.do") != -1) {
+			}else if(url.indexOf("munje_sujeongProc.do") != -1) {/////////수정처리
 				String testName = request.getParameter("testName");
 				String testType = request.getParameter("testType");
 				dto.setTestName(testName);
@@ -202,6 +228,7 @@ public class MunjeController extends HttpServlet {
 					out.println("alert('오류.');");
 					out.println(" suntaek_proc('munje_sujeong','','"+no+"')");
 					out.println("</script>");
+					return;
 				}
 			}
 			
@@ -266,11 +293,13 @@ public class MunjeController extends HttpServlet {
 				out.println("alert('시험 삭제완료.');");
 				out.println("suntaek_proc('resetList','1','')");
 				out.println("</script>");
+				return;
 			}else {
 				out.println("<script>");
 				out.println("alert('오류.');");
 				out.println("suntaek_proc('sihum_view','','"+no+"')");
 				out.println("</script>");
+				return;
 			}
 		}else if(url.indexOf("munje_view.do") != -1) {
 			String testName = request.getParameter("testName");
@@ -312,11 +341,13 @@ public class MunjeController extends HttpServlet {
 				out.println("alert('문제 삭제완료.');");
 				out.println("suntaek_proc('sihum_view','1','"+testNo+"')");
 				out.println("</script>");
+				return;
 			}else {
 				out.println("<script>");
 				out.println("alert('오류.');");
 				out.println("suntaek_proc('munje_view','','"+no+"')");
 				out.println("</script>");
+				return;
 			}
 		}else if(url.indexOf("test_suntaek.do") != -1) {
 			request.setAttribute("menu_gubun", "munje_test_suntaek");
@@ -330,14 +361,17 @@ public class MunjeController extends HttpServlet {
 		}else if(url.indexOf("test.do") != -1) {
 			request.setAttribute("menu_gubun", "munje_test");
 			
+			String proc_check = request.getParameter("proc_check");
+			
 			int totalRecord = dao.getTotalRecord_munje(no);
 			int number =totalRecord;
 			dto = dao.getView_sihum(no);
 			List<MunjeDTO> list = dao.getView_Munje(no);
 			
 			request.setAttribute("dto", dto);
-			request.setAttribute("totalRecord", totalRecord);	
-			request.setAttribute("number", number);	
+			request.setAttribute("proc_check", proc_check);
+			request.setAttribute("totalRecord", totalRecord);
+			request.setAttribute("number", number);
 			request.setAttribute("list", list);
 			
 			page = "/munje/test.jsp";
@@ -352,9 +386,21 @@ public class MunjeController extends HttpServlet {
 			page = "/munje/answer_chuga.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
-		}else if(url.indexOf("jeongdab.do") != -1) {
+		}else if(url.indexOf("jeongdab.do") != -1 || url.indexOf("jd_sujeong.do") != -1 ) {
 			request.setAttribute("menu_gubun", "munje_test");
 			
+			String proc_check = request.getParameter("proc_check");
+			
+			int check = dao.check_test_answer(no);
+			if(url.indexOf("jeongdab.do") != -1) {
+				if(check >0) {
+					out.println("<script>");
+					out.println("alert('등록된 정답지가 있습니다. 수정이나 삭제 한 후 이용해 주세요.');");
+					out.println("suntaek_proc('answer_chuga','','')");
+					out.println("</script>");
+					return;
+				}
+			}
 			int totalRecord = dao.getTotalRecord_munje(no);
 			int number =totalRecord;
 			dto = dao.getView_sihum(no);
@@ -364,29 +410,146 @@ public class MunjeController extends HttpServlet {
 			request.setAttribute("totalRecord", totalRecord);	
 			request.setAttribute("number", number);	
 			request.setAttribute("list", list);
+			request.setAttribute("proc_check", proc_check);
 			
 			page = "/munje/jeongdab.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
-		}else if(url.indexOf("jeongdabProc.do") != -1) {
-			System.out.println("no:"+no);
+			
+			
+		}else if(url.indexOf("jeongdabProc.do") != -1 || url.indexOf("jd_sujeongProc.do") != -1) {
 			String testNo_ = request.getParameter("no");
 			int testNo = Integer.parseInt(testNo_);
 			String answer_total = request.getParameter("answer_total");
+			String proc_check = request.getParameter("proc_check");	
+		
+			String[] answer_totalArr = answer_total.split("[|]");
+			int munje_count = dao.getTotalRecord_munje(testNo);
 			
-			int result = dao.setInsert_test_answer(testNo, answer_total);
+			if(answer_totalArr.length != munje_count) {
+				int totalRecord = dao.getTotalRecord_munje(no);
+				int number =totalRecord;
+				dto = dao.getView_sihum(no);
+				List<MunjeDTO> list = dao.getView_Munje(no);
+				
+				request.setAttribute("answer_total", answer_total);
+				request.setAttribute("dto", dto);
+				request.setAttribute("totalRecord", totalRecord);	
+				request.setAttribute("number", number);	
+				request.setAttribute("list", list);
+				request.setAttribute("proc_check", proc_check);
+				
+				page = "/munje/jeongdab.jsp";
+				RequestDispatcher rd = request.getRequestDispatcher(page);
+				rd.forward(request, response);
+				return;
+			}
+			
+			if(url.indexOf("jeongdabProc.do") != -1 ) {
+				int result = dao.setInsert_test_answer(testNo, answer_total);
+				if(result>0) {
+					out.println("<script>");
+					out.println("alert('저장 완료.');");
+					out.println("suntaek_proc('resetList','1','')");
+					out.println("</script>");
+					return;
+				}else {
+					out.println("<script>");
+					out.println("alert('오류.');");
+					out.println("suntaek_proc('jeongdab','','"+testNo+"')");
+					out.println("</script>");
+					return;
+				}		
+			}
+			if(url.indexOf("jd_sujeongProc.do") != -1) {
+				int result = dao.sujeong_test_answer(testNo, answer_total);
+				if(result>0) {
+					out.println("<script>");
+					out.println("alert('수정 완료.');");
+					out.println("suntaek_proc('resetList','1','')");
+					out.println("</script>");
+					return;
+				}else {
+					out.println("<script>");
+					out.println("alert('답안지가 저장 되어있지 않습니다.');");
+					out.println("suntaek_proc('jeongdab','','"+testNo+"')");
+					out.println("</script>");
+					return;
+				}
+			}
+		}else if(url.indexOf("jd_sakje.do") != -1) {
+			String testNo_ = request.getParameter("no");
+			int testNo = Integer.parseInt(testNo_);
+			
+			int result = dao.sakje_test_answer(testNo);
 			if(result>0) {
 				out.println("<script>");
-				out.println("alert('저장 완료.');");
+				out.println("alert('수정 완료.');");
 				out.println("suntaek_proc('resetList','1','')");
 				out.println("</script>");
+				return;
 			}else {
 				out.println("<script>");
 				out.println("alert('오류.');");
-				out.println("suntaek_proc('jeongdab','','"+testNo+"')");
+				out.println("suntaek_proc('answer_chuga','','')");
 				out.println("</script>");
+				return;
+			}
+		}else if(url.indexOf("test_result.do") != -1) {
+			String testNo_ = request.getParameter("no");
+			int testNo = Integer.parseInt(testNo_);
+			String answer_total = request.getParameter("answer_total");
+			String[] answer_totalArr = answer_total.split("[|]");
+			
+			dto = dao.get_test_answer(testNo);
+			String test_anwer = dto.getAnswer();
+			String[] test_anwerArr = test_anwer.split("[|]");
+			
+			if(test_anwerArr.length != answer_totalArr.length) {
+				int totalRecord = dao.getTotalRecord_munje(no);
+				int number =totalRecord;
+				dto = dao.getView_sihum(no);
+				List<MunjeDTO> list = dao.getView_Munje(no);
+				
+				request.setAttribute("answer_total", answer_total);
+				request.setAttribute("dto", dto);
+				request.setAttribute("totalRecord", totalRecord);
+				request.setAttribute("number", number);
+				request.setAttribute("list", list);
+				
+				page = "/munje/test.jsp";
+				RequestDispatcher rd = request.getRequestDispatcher(page);
+				rd.forward(request, response);
+				return;
 			}
 			
+			int munje_total =0;
+			int jeongdab_count =0;
+			String fail_munje = "";
+			
+			for(int i=0; i<test_anwerArr.length; i++) {
+				String[] cases = test_anwerArr[i].split(":");
+				int tempNo = Integer.parseInt(cases[0]); 
+				int tempAnswer = Integer.parseInt(cases[1]); 
+				
+				if(test_anwerArr[i].equals(answer_totalArr[i])) {
+					jeongdab_count = jeongdab_count+1;
+				}else {			
+					fail_munje =fail_munje+", "+tempNo +"번";
+				}
+				munje_total = munje_total +1;
+			}
+			if(fail_munje != "") {
+				fail_munje =fail_munje.substring(1);
+			}
+			request.setAttribute("testNo", testNo);
+			request.setAttribute("munje_total", munje_total);
+			request.setAttribute("jeongdab_count", jeongdab_count);	
+			request.setAttribute("fail_munje", fail_munje);	
+			
+			page = "/munje/test_result.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
 		}
 		
 		

@@ -98,13 +98,7 @@ public class ProductController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
 		}else if(url.indexOf("list.do") != -1) {
-			String pageSize_ = request.getParameter("pageSize");
-			int pageSize = 0;
-			if(pageSize_ == null || pageSize_ == "") {
-				pageSize = 10;
-			}else {
-				pageSize = Integer.parseInt(pageSize_);
-			}
+			int pageSize = 5;
 			int blockSize= 10;
 			int totalRecord = dao.getCount(search_option, search_data);
 			int number =totalRecord - pageSize * (pageNumber-1);

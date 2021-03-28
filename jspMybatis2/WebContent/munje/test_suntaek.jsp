@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 	<table border="0" width="30%">
 		<tr>
 			<td colspan="10">
@@ -29,7 +28,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="10">
+						<td colspan="10" align="center">
 							<button type="button" onclick="test();">시험치기</button>
 							<button type="button" onclick="suntaek_proc('resetList','1','')">취소</button>
 						</td>
@@ -39,6 +38,7 @@
 		</tr>
 	</table>
 <script>
+
 function test(){
 	var testNo = $('#testNo').val();
 	

@@ -36,6 +36,7 @@ function GoPage(value1){
 	
 	if(value1 == 'chugaProc' || value1 == 'modifyProc'){
 		param={
+				"no" : $("#span_no").text(),
 				"question" : $('#question').val(),
 				"ans1" : $('#ans1').val(),
 				"ans2" : $('#ans2').val(),
@@ -122,6 +123,7 @@ function GoPage(value1){
 				
 			}else{
 				sunteak_proc('list','1','');
+				return;
 			}
 		}
 		

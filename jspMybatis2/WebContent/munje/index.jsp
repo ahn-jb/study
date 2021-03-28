@@ -50,19 +50,27 @@ function GoPage(value1){
 			"search_option" : $("#span_search_option").text(),
 			"search_data" : $("#span_search_data").text()
 		}
-	}else if(value1 == 'sihum_sujeong' || value1 =='sihum_sakje' || value1 == 'sihum_view'
-			|| value1 == 'munje_view' || value1 == 'munje_sujeong' || value1 =='munje_sakje' || value1 == 'test' ||value1 == 'jeongdab'){
-		
+	}else if(value1 == 'sihum_sujeong' || value1 =='sihum_sakje' || value1 == 'sihum_view' 
+			|| value1 == 'munje_view' || value1 == 'munje_sujeong' || value1 =='munje_sakje'){		
 		param={
 				"testNo" : $('#testNo').val(),
 				"testName" : $('#testName').val(),
 				"testType" : $('#testType').val(),
 				"no" : $("#span_no").text()
 		}
-	}else if(value1 =='jeongdabProc'){
+	}else if(value1 =='jeongdabProc' || value1 == 'jd_sujeongProc' ||  value1 =="test_result"){
 		param = {
 				"no" : $("#span_no").text(),
+				"proc_check" : $('#proc_check').text(),
 				"answer_total" : $("#span_answer_total").text()
+		}
+	}else if(value1 == 'test' || value1 == 'jeongdab' || value1 == 'jd_sujeong' || value1 == 'jd_sakje'){
+		param={
+				"proc_check" : $('#proc_check').text(),
+				"testNo" : $('#testNo').val(),
+				"testName" : $('#testName').val(),
+				"testType" : $('#testType').val(),
+				"no" : $("#span_no").text()
 		}
 	}
 	
@@ -75,6 +83,8 @@ function GoPage(value1){
 				$("#result").html(data);
 			}else if(value1 == 'modifyProc' || value1 =='sendProc' || value1 =='sakje'){
 				suntaek_proc('list','1','');
+			}else if(value1 =="test_result"){
+				$("#result").html(data);
 			}else{
 				$("#result").html(data);
 			}

@@ -200,8 +200,9 @@ public class SurveyController extends HttpServlet {
 			dto.setAns3(ans3);
 			dto.setAns4(ans4);
 			dto.setStatus(status);
-			
+
 			int result = dao.updateSurvey(dto);
+
 			temp = "";
 			if(result >0){
 		 		temp=path+"/survey_servlet/index.do";
@@ -211,7 +212,7 @@ public class SurveyController extends HttpServlet {
 			response.sendRedirect(temp);
 		}else if(url.indexOf("sakje.do") != -1) {
 			SurveyDAO dao = new SurveyDAO();
-			System.out.println("d_no: "+no);
+//			System.out.println("d_no: "+no);
 			int result = dao.deleteSurvey(no);
 			temp = "";
 
@@ -240,7 +241,7 @@ public class SurveyController extends HttpServlet {
 			SurveyDAO dao = new SurveyDAO();
 			SurveyAnswerDTO dto = new SurveyAnswerDTO();
 			String answer_total = request.getParameter("answer_total");
-			System.out.println(answer_total);
+//			System.out.println(answer_total);
 			String[] anwer_totalArr = answer_total.split("[|]");
 			int result=0;
 			for(int i=0; i<anwer_totalArr.length; i++) {

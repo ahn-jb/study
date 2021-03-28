@@ -66,7 +66,6 @@ function GoPage(value1,value2){
 	}else if(value1 == "sakje"){
 		
 	}
-
 		$.ajax({
 			type : "post",
 			data : param,
@@ -96,6 +95,10 @@ function suntaek_proc(value1,value2,value3){
 		}
 	}else if(value1 =='list'){
 		$("#span_no").text("");	
+	}else if(value1 == 'resetList'){
+		$("#span_search_option").text("");
+		$("#span_search_data").text("");
+		suntaek_proc('list','1','');
 	}
 	
 	if(value1 != ''){

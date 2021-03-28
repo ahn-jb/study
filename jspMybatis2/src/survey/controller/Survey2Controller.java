@@ -196,6 +196,7 @@ public class Survey2Controller extends HttpServlet {
 			String ans3 = request.getParameter("ans3");
 			String ans4 = request.getParameter("ans4");
 			String status = request.getParameter("status");
+
 			SurveyDTO dto = new SurveyDTO();
 			dto.setNo(no);
 			dto.setQuestion(question);

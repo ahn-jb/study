@@ -139,5 +139,60 @@ public class MunjeDAO {
 		session.close();
 		return result;
 	}
+	public int check_test_answer(int testNo) {
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.selectOne("munje.check_test_answer",testNo);
+		session.commit();
+		session.close();
+		return result;
+	}
 	
+	public int check_sihum(String testName,String testType) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("testName", testName);
+		map.put("testType", testType);
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.selectOne("munje.check_sihum",map);
+		session.commit();
+		session.close();
+		return result;
+	}
+	
+	public int check_munje(int testNo,int testNumber) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("testNo", testNo);
+		map.put("testNumber", testNumber);
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.selectOne("munje.check_munje",map);
+		session.commit();
+		session.close();
+		return result;
+	}
+	
+	public int sujeong_test_answer(int testNo,String answer_total) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("testNo", testNo);
+		map.put("answer_total", answer_total);
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.update("munje.sujeong_test_answer",map);
+		session.commit();
+		session.close();
+		return result;
+	}
+	
+	public int sakje_test_answer(int testNo) {
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.delete("munje.sakje_test_answer",testNo);
+		session.commit();
+		session.close();
+		return result;
+	}
+	
+	public MunjeDTO get_test_answer(int testNo) {
+		SqlSession session = MybatisManager.getInstance().openSession();
+		MunjeDTO dto = session.selectOne("munje.get_test_answer",testNo);
+		session.commit();
+		session.close();
+		return dto;
+	}
 }

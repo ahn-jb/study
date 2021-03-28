@@ -132,7 +132,7 @@
 					</c:if>	
 					<tr>
 						<td colspan="10" height="50" align="right">
-							<button type="button" id="list_all">전체목록</button>
+							<button type="button" onclick="suntaek_proc('resetList','1','')">전체목록</button>
 							<button type="button" id="btnChuga">상품 추가</button>
 						</td>
 					</tr>
