@@ -38,7 +38,9 @@
 		</tr>
 	</table>
 <script>
-
+$(document).ready(function(){
+	result.style.height = "300px";
+});
 function test(){
 	var testNo = $('#testNo').val();
 	

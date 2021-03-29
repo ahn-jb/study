@@ -505,14 +505,17 @@ public class MunjeController extends HttpServlet {
 			String test_anwer = dto.getAnswer();
 			String[] test_anwerArr = test_anwer.split("[|]");
 			
+			request.setAttribute("answer_total", answer_total);
+			String alert = "";
 			if(test_anwerArr.length != answer_totalArr.length) {
 				int totalRecord = dao.getTotalRecord_munje(no);
 				int number =totalRecord;
 				dto = dao.getView_sihum(no);
 				List<MunjeDTO> list = dao.getView_Munje(no);
+				alert = "체크하지 않은 문제가 있습니다.";
 				
-				request.setAttribute("answer_total", answer_total);
 				request.setAttribute("dto", dto);
+				request.setAttribute("alert", alert);
 				request.setAttribute("totalRecord", totalRecord);
 				request.setAttribute("number", number);
 				request.setAttribute("list", list);
@@ -526,6 +529,7 @@ public class MunjeController extends HttpServlet {
 			int munje_total =0;
 			int jeongdab_count =0;
 			String fail_munje = "";
+			String failMunje_coment = "";
 			
 			for(int i=0; i<test_anwerArr.length; i++) {
 				String[] cases = test_anwerArr[i].split(":");
@@ -535,19 +539,34 @@ public class MunjeController extends HttpServlet {
 				if(test_anwerArr[i].equals(answer_totalArr[i])) {
 					jeongdab_count = jeongdab_count+1;
 				}else {			
-					fail_munje =fail_munje+", "+tempNo +"번";
+					fail_munje = fail_munje+","+tempNo;
+					failMunje_coment = failMunje_coment+", "+tempNo+"번";
 				}
 				munje_total = munje_total +1;
 			}
 			if(fail_munje != "") {
-				fail_munje =fail_munje.substring(1);
+				fail_munje = fail_munje.substring(1);
+				failMunje_coment = failMunje_coment.substring(1);
 			}
+			
+			int totalRecord = dao.getTotalRecord_munje(no);
+			int number =totalRecord;
+			dto = dao.getView_sihum(no);
+			List<MunjeDTO> list = dao.getView_Munje(no);
+			alert="채점 완료.";
+			
+			request.setAttribute("dto", dto);
+			request.setAttribute("totalRecord", totalRecord);
+			request.setAttribute("number", number);
+			request.setAttribute("list", list);
+			request.setAttribute("alert", alert);
 			request.setAttribute("testNo", testNo);
 			request.setAttribute("munje_total", munje_total);
 			request.setAttribute("jeongdab_count", jeongdab_count);	
 			request.setAttribute("fail_munje", fail_munje);	
+			request.setAttribute("failMunje_coment", failMunje_coment);	
 			
-			page = "/munje/test_result.jsp";
+			page = "/munje/test.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
 		}
