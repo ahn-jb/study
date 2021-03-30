@@ -24,32 +24,32 @@
 								<option value="id">아이디</option>
 								<option value="name">이름</option>
 								<option value="gender">성별</option>
-								<option value="id_name_gender" selected>아이디+성별+성별</option>
+								<option value="id_name_gender" selected>아이디+이름+성별</option>
 							</c:when>
 							<c:when test="${search_option=='id'}">
 								<option value="id" selected>아이디</option>
 								<option value="name">이름</option>
 								<option value="gender">성별</option>
-								<option value="id_name_gender" >아이디+성별+성별</option>
+								<option value="id_name_gender" >아이디+이름+성별</option>
 							</c:when>
 							<c:when test="${search_option=='name'}">
 								<option value="id" >아이디</option>
 								<option value="name" selected>이름</option>
 								<option value="gender">성별</option>
-								<option value="id_name_gender" >아이디+성별+성별</option>
+								<option value="id_name_gender" >아이디+이름+성별</option>
 							</c:when>
 							<c:when test="${search_option=='gender'}">
 								<option value="id">아이디</option>
 								<option value="name">이름</option>
 								<option value="gender" selected>성별</option>
-								<option value="id_name_gender" >아이디+성별+성별</option>
+								<option value="id_name_gender" >아이디+이름+성별</option>
 							</c:when>
 							<c:otherwise>
 								<option value="">선택</option>	
 								<option value="id">아이디</option>
 								<option value="name">이름</option>
 								<option value="gender">성별</option>
-								<option value="id_name_gender">아이디+성별+성별</option>
+								<option value="id_name_gender">아이디+이름+성별</option>
 							</c:otherwise>	
 						</c:choose>
 					</select>

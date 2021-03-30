@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h2>설문 응답</h2>
 	<span id="span_answer" style="display:none;"></span>
 	<input type="hidden" id ="answer" value="">
 	<form name="aa">

@@ -11,7 +11,7 @@
 
 	<form name="loginForm" align="center">
 		<h2 >로그인</h2>
-		<table align="center">
+		<table border="1" align="center" >
 			<tr>
 				<td>아이디: </td>
 				<td><input type="text" name="id"></td>

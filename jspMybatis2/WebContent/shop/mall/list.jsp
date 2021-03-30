@@ -118,31 +118,29 @@
 		</tr>
 		<tr>
 			<td colspan="10" height="50" align="center">
-				<a href="#" onclick="suntaek_proc('mall_list','1','');">[첫페이지]</a>&nbsp;&nbsp;
-				<c:if test="${startPage > blockSize }">
-					<a href="#" onclick="suntaek_proc'mall_list','${startPage -blockSize}','');">[이전 10개]</a>
+				<button type="button" onclick="suntaek_proc('mall_list_all','1','');" style="float:left">전체목록</button>
+				<button type="button" onclick="suntaek_proc('cart_list2','1','');" style="float:left">장바구니</button>
+				<c:if test="${totalRecord >=0 }">
+					<a href="#" onclick="suntaek_proc('mall_list','1','');">[첫페이지]</a>&nbsp;&nbsp;
+					<c:if test="${startPage > blockSize }">
+						<a href="#" onclick="suntaek_proc'mall_list','${startPage -blockSize}','');">[이전 10개]</a>
+					</c:if>
+					<c:if test="${startPage <=blockSize }"> [이전10개] </c:if>&nbsp;&nbsp;
+					<c:forEach var="i" begin="${startPage}" end="${lastPage}" step="1">
+					<c:if test="${i == pageNumber}"> [${i}]</c:if>
+					<c:if test="${i != pageNumber}">
+						<a href="#" onclick="suntaek_proc('mall_list','${i}','');">${i}</a>
+					</c:if>
+					</c:forEach>&nbsp;&nbsp;
+					<c:if test="${lastPage < totalPage }">
+						<a href="#" onclick="suntaek_proc('mall_list','${startPage + blockSize}','');">[다음 10개]</a>
+					</c:if>
+					<c:if test="${lastPage >= totalPage }"> [다음10개] </c:if>&nbsp;&nbsp;
+					<a href="#" onclick="suntaek_proc('mall_list','${totalPage}','');">[끝페이지]</a> 
 				</c:if>
-				<c:if test="${startPage <=blockSize }"> [이전10개] </c:if>&nbsp;&nbsp;
-				<c:forEach var="i" begin="${startPage}" end="${lastPage}" step="1">
-				<c:if test="${i == pageNumber}"> [${i}]</c:if>
-				<c:if test="${i != pageNumber}">
-					<a href="#" onclick="suntaek_proc('mall_list','${i}','');">${i}</a>
-				</c:if>
-				</c:forEach>&nbsp;&nbsp;
-				<c:if test="${lastPage < totalPage }">
-					<a href="#" onclick="suntaek_proc('mall_list','${startPage + blockSize}','');">[다음 10개]</a>
-				</c:if>
-				<c:if test="${lastPage >= totalPage }"> [다음10개] </c:if>&nbsp;&nbsp;
-				<a href="#" onclick="suntaek_proc('mall_list','${totalPage}','');">[끝페이지]</a> 
 			</td>
 		</tr>
 		</c:if>
-		<tr>
-			<td colspan="10" height="50" align="right">
-				<button type="button" onclick="suntaek_proc('mall_list_all','1','');">전체목록</button>
-				<button type="button" onclick="suntaek_proc('cart_list2','1','');">장바구니</button>
-			</td>
-		</tr>
 	</table>
 <script>
 function search2(){

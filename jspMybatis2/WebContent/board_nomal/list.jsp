@@ -13,7 +13,7 @@
 	<tr>
 		<td>
 			<form name="searchForm">
-				<h2 align="center">게시판</h2>
+				<h2 align="center">${tblName}</h2>
 				(총 레코드 수:${totalRecord})
 				<table border="1" width="100%" align="left">
 				<tr>

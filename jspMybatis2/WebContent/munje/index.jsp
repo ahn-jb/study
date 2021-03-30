@@ -2,15 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/inc_header.jsp" %>
 
-
-menu_gubun : ${menu_gubun}<br>
-naljaMap : ${naljaMap}<br>
-Proc : <span id="span_proc">${span_proc}</span><br>
-pageNumber : <span id="span_pageNumber">${pageNumber}</span><br>
-no : <span id="span_no">${no}</span><br>
-search_option : <span id="span_search_option">${search_option}</span><br>
-search_data : <span id="span_search_data">${search_data}</span><br>
-<div id="result" style="border: 1px solid red; height: 500px; "></div>
+<div style="display:none;">
+<%-- menu_gubun : ${menu_gubun}<br> --%>
+<%-- naljaMap : ${naljaMap}<br> --%>
+<span id="span_proc" style="display:none;">${span_proc}</span><br>
+<span id="span_pageNumber" style="display:none;">${pageNumber}</span><br>
+<span id="span_no" style="display:none;">${no}</span><br>
+<span id="span_search_option" style="display:none;">${search_option}</span><br>
+<span id="span_search_data" style="display:none;">${search_data}</span><br>
+</div>
+<div id="result" style="border:; height: 500px; "></div>
 
 <script>
 $(document).ready(function(){

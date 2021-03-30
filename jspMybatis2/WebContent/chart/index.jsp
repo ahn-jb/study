@@ -21,7 +21,7 @@
 <!-- &nbsp;&nbsp;&nbsp; -->
 <!-- <button type="button" id=btnJfreeChartPdf>JFreeChart(pdf)</button> -->
 <br><br>
-<div id="result" style="border:1px solid red; posoton:relative;"></div>
+<div id="result" style="border:; posoton:relative;"></div>
 <script>
 	$(document).ready(function(){
 		$("#btnCreateJson").click(function(){

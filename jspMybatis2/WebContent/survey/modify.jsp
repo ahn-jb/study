@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>상세보기</h2>
+	<h2>수정하기</h2>
 	<form>
 		<table border="1">
 			<tr>

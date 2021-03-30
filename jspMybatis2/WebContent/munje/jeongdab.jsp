@@ -8,8 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	proc_check: <span id="proc_check">${proc_check}</span>
+	<span id="proc_check" style="display:none;">${proc_check}</span>
 	<form>
+	<div style="display:none;">
 	<h2>시험: ${dto.testName}(${dto.testType})</h2>
 	<input type="hidden" id="answer_total" value="${answer_total}">
 	<input type="hidden" id="testName" value="${dto.testName}">
@@ -17,10 +18,13 @@
 	<input type="hidden" id="testNo" value="${dto.no}">
 	span_list_size : <span id="span_list_size" style="display:;">${totalRecord}</span><br>
 	span_answer_total : <span id = "span_answer_total" style="display:;"></span><br>
+	</div>
 	<c:forEach var="dto" items="${list}">
+	<div style="display:none;">
 	<a named="a_${dto.testNumber}"></a>
-	q_${dto.testNumber}: <span id="q_${dto.testNumber}">${dto.testNumber}</span><br>
-	span_answer_${dto.testNumber}: <span id="span_answer_${dto.testNumber}" style="display:;"></span><br>
+	q_${dto.testNumber}: <span id="q_${dto.testNumber}"  style="display:none;">${dto.testNumber}</span><br>
+	span_answer_${dto.testNumber}: <span id="span_answer_${dto.testNumber}" style="display:none;"></span><br>
+	</div>
 	<table border="1">
 		<tr>
 			<td width="400">

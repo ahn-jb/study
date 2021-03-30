@@ -1,6 +1,5 @@
 var path=$("#span_path").text();
 var no = $("#span_no").text();
-console.log(no);
 $(document).ready(function(){
 	var menu_gubun = $('#menu_gubun').text();
 	if(menu_gubun == 'member_chuga2'){
@@ -61,7 +60,7 @@ function GoPage(value1){
 			param={
 				"no" : $("#span_no").text()
 			}
-		}else if(value1 == 'chugaProc' || value1 == 'modifyProc'){
+		}else if(value1 == 'chugaProc' || value1 == 'modifyProc' || value1 == 'modifyProc2'){
 //			alert("asd");
 			param = {
 				"no" : $("#span_no").text(),
@@ -89,7 +88,7 @@ function GoPage(value1){
 		success: function(data){
 			if(value1 == "list"){
 				$("#result").html(data);
-			}else if(value1 == 'modifyProc'){
+			}else if(value1 == 'modifyProc' ){
 //				alert('aaaaaaa');
 				sunteak_proc('list','1','');
 //				$("#result").html(data);

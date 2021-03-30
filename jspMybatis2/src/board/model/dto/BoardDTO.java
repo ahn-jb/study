@@ -41,6 +41,7 @@ public class BoardDTO {
 		private String comment_content;
 		private String comment_passwd;
 		
+		private String tblName;
 		//Constructor
 		public BoardDTO() {
 			
@@ -341,6 +342,16 @@ public class BoardDTO {
 
 		public void setComment_passwd(String comment_passwd) {
 			this.comment_passwd = comment_passwd;
+		}
+
+
+		public String getTblName() {
+			return tblName;
+		}
+
+
+		public void setTblName(String tblName) {
+			this.tblName = tblName;
 		}
 		
 		

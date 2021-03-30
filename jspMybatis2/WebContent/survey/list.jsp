@@ -9,22 +9,14 @@
 <table border="0" align="center" width="80%">
 	<tr>
 		<td colspan="7">
-			<h2>설문조사 목록</h2>
+			<h2 id="all" style="display:none;">전체 설문조사 목록</h2>
+			<h2 id="ing" style="display:none;">진행중인 설문조사 목록</h2>
+			<h2 id="end" style="display:none;">종료된 설문조사 목록</h2>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="7">
 			<select name="search_option" id="search_option">
-<%-- 			<c:choose> --%>
-<%-- 				<c:when test="${search_option == 'question'}"> --%>
-<!-- 					<option value="">-선택-</option> -->
-<!-- 					<option value="question" selected="selected">질문내용</option> -->
-<%-- 				</c:when> --%>
-<%-- 			</c:choose> --%>
-<%-- 			<c:otherwise> --%>
-<!-- 				<option value="" selected="selected">-선택-</option> -->
-<!-- 				<option value="question">질문내용</option> -->
-<%-- 			</c:otherwise> --%>
 				<option value="" selected>-선택-</option>
 				<option value="question">질문내용</option>
 			</select>
@@ -37,7 +29,9 @@
 		</td>
 	</tr>
 	<tr>
-		<td style="padding: 10px 0px 5px;">전체 ${totalRecord}건입니다.</td>
+		<td style="padding: 10px 0px 5px;">
+			전체 ${totalRecord}건입니다.
+		</td>
 	</tr>
 	<tr>
 		<td style="padding: 0 0 20px 0;">
@@ -73,9 +67,17 @@
 			</table>
 		</td>
 	</tr>
-	<c:if test="${totalRecord > 0 }">
-		<tr>
-			<td colspan="7" height="50" align="center">
+	<tr>
+		<td>
+			<button type="button" onclick="sunteak_proc('resetList','1','');" style="float:right;">전체 설문목록</button>
+			<button type="button" onclick="sunteak_proc('startList','1','');" style="float:right;">진행중인 설문목록</button>
+			<button type="button" onclick="sunteak_proc('endList','1','');" style="float:right;">종료된 설문목록</button>
+			<button type="button" onclick="sunteak_proc('chuga','','');" style="float:right;">등록하기</button>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="7" height="50" align="center">
+			<c:if test="${totalRecord > 0 }">
 				<a href="#" onclick="sunteak_proc('list','1','');">[첫페이지]</a>&nbsp;&nbsp;
 				<c:if test="${startPage > blockSize }">
 					<a href="#" onclick="sunteak_proc('list','${startPage -blockSize}','');">[이전 10개]</a>
@@ -92,16 +94,7 @@
 				</c:if>
 				<c:if test="${lastPage >= totalPage }"> [다음10개] </c:if>&nbsp;&nbsp;
 				<a href="#" onclick="sunteak_proc('list','${totalPage}','');">[끝페이지]</a> 
-			</td>
-		</tr>
-	</c:if>	
-	<tr>
-		<td colspan="7" height="50" align="right">
-			<button type="button" onclick="sunteak_proc('resetList','1','');">전체 설문목록</button>
-			<button type="button" onclick="sunteak_proc('startList','1','');">진행중인 설문목록</button>
-			<button type="button" onclick="sunteak_proc('endList','1','');">종료된 설문목록</button>
-			<button type="button" onclick="sunteak_proc('chuga','','');">등록하기</button>
-<!-- 			<button type="button" onclick="sunteak_proc('munje','','');">문제풀이</button> -->
+			</c:if>	
 		</td>
 	</tr>
 </table>
@@ -114,7 +107,11 @@
 //    		 dateFormat: 'yy-mm-dd'
 // 	  });
 // 	});
-
+	$(document).ready(function(){
+		var gubun = $('#span_list_gubun').text();
+		$('#'+gubun).css("display","");
+	});
+	
 	function search(){
 		$("#span_search_option").text($("#search_option").val());
 		$("#span_search_data").text($("#search_data").val());
@@ -132,15 +129,4 @@
 	}
 	
 
-	function list_2(){
-		var param= {}
-		$.ajax({
-			type: "post",
-			data: param,
-			url: "${path}/survey_servlet/list_2.do",
-			success : function(data){
-				$("#result").html(data);
-			}
-		});
-	}
 </script>

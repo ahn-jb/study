@@ -8,20 +8,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- 	<div style="display:none;"> -->
-	<input type="text" name="a" style ="display: ;"><br>
+<div style="display:none;">
 	menu_gubun : ${menu_gubun}<br>
 	naljaMap : ${naljaMap}<br>
-	Proc : <span id="span_proc">${span_proc}</span><br>
-	list_gubun : <span id="span_list_gubun">${list_gubun}</span><br>
-	pageNumber : <span id="span_pageNumber">${pageNumber}</span><br>
-	no : <span id="span_no">${no}</span><br>
-	search_option : <span id="span_search_option">${search_option}</span><br>
-	search_data : <span id="span_search_data">${search_data}</span><br>
-	search_date_check : <span id="span_search_date_check">${search_date_check}</span><br>
-	search_date_s : <span id ="span_search_date_s">${search_date_s}</span><br>
-	search_date_e : <span id="span_search_date_e">${search_date_e}</span><br>
-<!-- 	</div> -->
+	<span id="span_proc">${span_proc}</span><br>
+	<span id="span_list_gubun" >${list_gubun}</span><br>
+	<span id="span_pageNumber" >${pageNumber}</span><br>
+	<span id="span_no" >${no}</span><br>
+	<span id="span_search_option" >${search_option}</span><br>
+	<span id="span_search_data" >${search_data}</span><br>
+	<span id="span_search_date_check" >${search_date_check}</span><br>
+	<span id ="span_search_date_s" >${search_date_s}</span><br>
+	<span id="span_search_date_e" >${search_date_e}</span><br>
+</div>
 	<div id ="result" ></div><br><br>
 	
 

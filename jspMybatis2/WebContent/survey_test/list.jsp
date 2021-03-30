@@ -8,10 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<span id="span_list_gubun" style="display:none;">${list_gubun}</span>
 	<table border="0" align="center" width="80%">
 		<tr>
 			<td colspan="7">
-				<h2>설문조사 목록</h2>
+				<h2 id="all" style="display:none;">전체 설문조사 목록</h2>
+				<h2 id="ing" style="display:none;">진행중인 설문조사 목록</h2>
+				<h2 id="end" style="display:none;">종료된 설문조사 목록</h2>
 			</td>
 		</tr>
 		<tr>
@@ -82,6 +85,14 @@
 				</table>
 			</td>
 		</tr>
+		<tr>
+			<td>
+				<button type="button" onclick="sunteak_proc('resetList','1','');" style="float:right;">전체 설문목록</button>
+				<button type="button" onclick="sunteak_proc('startList','1','');" style="float:right;">진행중인 설문목록</button>
+				<button type="button" onclick="sunteak_proc('endList','1','');" style="float:right;">종료된 설문목록</button>
+				<button type="button" onclick="sunteak_proc('chuga','','');" style="float:right;">등록하기</button>
+			</td>
+		</tr>
 		<c:if test="${totalRecord > 0 }">
 		<tr>
 			<td colspan="7" height="50" align="center">
@@ -104,17 +115,12 @@
 			</td>
 		</tr>
 		</c:if>	
-		<tr>
-			<td colspan="7" height="50" align="right">
-				<button type="button" onclick="suntaek_list('all');">전체 설문목록</button>
-				<button type="button" onclick="suntaek_list('ing');">진행중인 설문목록</button>
-				<button type="button" onclick="suntaek_list('end');">종료된 설문목록</button>
-				<button type="button" onclick="chuga();">등록하기</button>
-<!-- 				<button type="button" onclick="list_2();">문제풀이</button> -->
-			</td>
-		</tr>
 	</table>
 <script>
+	$(document).ready(function(){
+		var gubun = $('#span_list_gubun').text();
+		$('#'+gubun).css("display","");
+	});
 	function uu(value1,value2,value3){
 		search.method="post";
 		search.action="${path}/test_servlet/list.do?pageNumber="+value2;

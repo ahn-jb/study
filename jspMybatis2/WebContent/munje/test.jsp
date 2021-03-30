@@ -24,17 +24,20 @@
 			<button type="button" onclick="suntaek_proc('test_suntaek','1','')">다른시험 치기</button>
 		</h4>
 	</c:if>
-		
+	<div style="display:none;">	
 	<input type="hidden" id="fail_munje" value="${fail_munje}"><br>
 	<input type="hidden" id="alert" value="${alert}"><br>
 	<input type="hidden" id="answer_total" value="${answer_total}"><br>
 	<input type="hidden" id="testNo" value="${dto.no}"><br>
 	span_list_size : <span id="span_list_size" style="display:;">${totalRecord}</span><br>
 	span_answer_total : <span id = "span_answer_total" style="display:;"></span><br>
+	</div>
 	<c:forEach var="dto" items="${list}">
+	<div style="display:none;">
 	<a named="a_${dto.testNumber}"></a>
 	q_${dto.testNumber}: <span id="q_${dto.testNumber}">${dto.testNumber}</span><br>
 	span_answer_${dto.testNumber}: <span id="span_answer_${dto.testNumber}" style="display:;"></span><br>
+	</div>
 	<table border="1">
 		<tr>
 			<td width="400">
@@ -65,7 +68,7 @@
 				<a href="#a_${dto.testNumber}" onclick="check_answer('4','${dto.testNumber}');">${dto.ans4}</a>
 			</td>
 		</tr>
-	</table>
+	</table><br>
 	<span style="display:none;">${number = number-1} </span>
 	</c:forEach>
 	</form><br>

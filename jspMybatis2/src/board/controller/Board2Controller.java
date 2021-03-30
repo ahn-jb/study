@@ -124,6 +124,9 @@ public class Board2Controller extends HttpServlet {
 			}
 
 			List<BoardDTO> list =dao.search(startRecord,lastRecord,tbl,search_data,search_option);
+			dto = dao.getTblName(tbl);
+			String tblName = dto.getTblName();
+			
 			request.setAttribute("menu_gubun", "board2_list");
 			request.setAttribute("list",list);
 			request.setAttribute("count",totalRecord);
@@ -138,6 +141,7 @@ public class Board2Controller extends HttpServlet {
 			request.setAttribute("totalPage",totalPage);
 			request.setAttribute("startPage",startPage);
 			request.setAttribute("lastPage",lastPage);
+			request.setAttribute("tblName",tblName);
 			
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);

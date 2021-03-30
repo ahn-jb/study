@@ -607,6 +607,13 @@ public class BoardDAO {
 		session.close();
 		return result;
 	}
+	
+	public BoardDTO getTblName(String tbl) {
+		SqlSession session = MybatisManager.getInstance().openSession();
+		BoardDTO dto= session.selectOne("board.getTblName",tbl);
+		session.close();
+		return dto;
+	}
 }
 
 

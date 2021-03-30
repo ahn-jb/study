@@ -168,6 +168,7 @@ public class Survey2Controller extends HttpServlet {
 			List<SurveyDTO> list = dao.getSelectSurvey(startRecord, lastRecord,
 					list_gubun, search_option,search_data,search_date_s,search_date_e,search_date_check);
 			request.setAttribute("list", list);
+			request.setAttribute("list_gubun", list_gubun);
 			request.setAttribute("pageNumber",pageNumber);
 			request.setAttribute("blockSize",blockSize);
 			request.setAttribute("totalRecord",totalRecord);

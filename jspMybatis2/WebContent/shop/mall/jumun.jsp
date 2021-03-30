@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../../include/inc_header.jsp" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,7 @@
 						<td>
 							농협 : 1684564 - 12-321654658<br>
 							신한 : 15974612684664<br>
-							금액 : ${total_price} 원
+							금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${total_price}" />원
 						</td>
 					</tr>
 				</table>

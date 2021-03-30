@@ -412,7 +412,7 @@ public class MemberController extends HttpServlet {
 						rd.forward(request, response);
 					}
 				}
-			}else if(url.indexOf("modifyProc.do") != -1){//수정 처리
+			}else if(url.indexOf("modifyProc.do") != -1 || url.indexOf("modifyProc2.do") != -1){//수정 처리
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
 				pw = replace(pw);
@@ -455,20 +455,27 @@ public class MemberController extends HttpServlet {
 					if(no == cookNo || dto1.getGrade() == 1) {
 						result = dao.update(dto);
 						if(result >0 ){
-							if(no == cookNo) {//세션초기화
-								session.invalidate(); //세션제거
-								temp = path+"/member/login.jsp";
+							if(url.indexOf("modifyProc2.do") != -1) {
+								out.println("<script>");
+								out.println("alert('수정 완료.');");
+								out.println("location.href='"+path+"/index.do';");
+								out.println("</script>");	
+								System.out.println("aaaaaaaaaaaaaa");
+								return;
 							}else {
 								temp = path+"/member/list.jsp";
+								System.out.println("bbbbbbbbbbbbbb");
 							}
 						}else {
 							temp = path+"/member/list.jsp";
+							System.out.println("ccccccccccccccccc");
 						}
 					}else if(dto1.getGrade() != 1) {
 						out.println("<script>");
 						out.println("alert('권한 제한.');");
 						out.println("location.href='"+path+"/index.do';");
-						out.println("</script>");					
+						out.println("</script>");
+						return;
 					}
 					
 				}
