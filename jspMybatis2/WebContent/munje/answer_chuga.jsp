@@ -31,7 +31,7 @@
 							<button type="button" onclick="test('jeongdab');">정답작성</button>
 							<button type="button" onclick="test('jd_sujeong');">정답수정</button>
 							<button type="button" onclick="test('jd_sakje');">정답삭제</button>
-							<button type="button" onclick="suntaek_proc('resetList','1','')">취소</button>
+							<button type="button" onclick="suntaek_proc('sihum_view','','${dto.no}')">뒤로가기</button>
 						</td>
 					</tr>
 				</table>

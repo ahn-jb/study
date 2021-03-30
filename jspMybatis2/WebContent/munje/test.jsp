@@ -11,6 +11,19 @@
 
 	<form>
 	<h2>시험: ${dto.testName}(${dto.testType})</h2>
+	<c:if test="${alert == '채점 완료.' }">
+		<h4 align="center">
+			[${munje_total}] 문항 중  [${jeongdab_count}] 문항을 맞추셨습니다. <br>
+			<c:if test="${fail_munje_coment.trim() != ''}">
+				틀린 문항으로는 "${failMunje_coment}" 이 있습니다.
+			</c:if>
+			<c:if test="${fail_munje_coment.trim() == ''}">
+				틀린 문항이 없습니다. 
+			</c:if><br>
+			<button type="button" onclick="suntaek_proc('test','1','${testNo}')">다시치기</button>
+			<button type="button" onclick="suntaek_proc('test_suntaek','1','')">다른시험 치기</button>
+		</h4>
+	</c:if>
 		
 	<input type="hidden" id="fail_munje" value="${fail_munje}"><br>
 	<input type="hidden" id="alert" value="${alert}"><br>
@@ -59,19 +72,6 @@
 	<input type="button" onclick="goSaveProc();" value="제출하기">
 	<input type="button" onclick="suntaek_proc('resetList','1','')" value ="목록">
 	<br><br>
-	<c:if test="${alert == '채점 완료.' }">
-		<h4 align="center">
-			[${munje_total}] 문항 중  [${jeongdab_count}] 문항을 맞추셨습니다. <br>
-			<c:if test="${fail_munje_coment.trim() != ''}">
-				틀린 문항으로는 "${failMunje_coment}" 이 있습니다.
-			</c:if>
-			<c:if test="${fail_munje_coment.trim() == ''}">
-				틀린 문항이 없습니다. 
-			</c:if><br>
-			<button type="button" onclick="suntaek_proc('test','1','${testNo}')">다시치기</button>
-			<button type="button" onclick="suntaek_proc('test_suntaek','1','')">다른시험 치기</button>
-		</h4>
-	</c:if>
 <script type="text/javascript">
 	function goSaveProc(){
 		var answer_total = $("#span_answer_total").text();

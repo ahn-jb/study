@@ -104,7 +104,7 @@
 		 			<tr>
 		 				<td colspan="10" align="center">
 		 					<button type="button" id="" onclick="suntaek_proc('sihum_sujeongProc','1','${dto.no}');">시험수정</button>
-		 					<button type="button" id="" onclick="suntaek_proc('resetList','1','');">목록</button>
+		 					<button type="button" onclick="suntaek_proc('sihum_view','','${dto.no}')">뒤로가기</button>	
 		 				</td>
 		 			</tr>
 				</table>

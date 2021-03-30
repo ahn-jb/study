@@ -49,8 +49,8 @@
 					<tr>
 						<td colspan="10">
 							<button type="button" onclick="suntaek_proc('munje_sujeong','','${dto.no}')">수정</button>
-							<button type="button" onclick="suntaek_proc('munje_sakje','','${dto.no}')">삭제</button>
-							<button type="button" onclick="suntaek_proc('sihum_view','','${dto.testNo}')">시험 상세보기</button>
+							<button type="button" onclick="munje_sakje('${dto.no}')">삭제</button>
+							<button type="button" onclick="suntaek_proc('sihum_view','','${dto.testNo}')">뒤로가기</button>
 							<button type="button" onclick="suntaek_proc('resetList','','')">목록</button>
 						</td>
 					</tr>
@@ -58,5 +58,14 @@
 			</td>
 		</tr>
 	</table>
+<script>
+	function munje_sakje(value1){
+		if(confirm('정말 삭제하시겠습니까?')){
+			suntaek_proc('munje_sakje','',value1);			
+		}else{
+			
+		}
+	}
+</script>
 </body>
 </html>

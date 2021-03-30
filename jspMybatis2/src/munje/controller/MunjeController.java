@@ -404,7 +404,7 @@ public class MunjeController extends HttpServlet {
 				if(check >0) {
 					out.println("<script>");
 					out.println("alert('등록된 정답지가 있습니다. 수정이나 삭제 한 후 이용해 주세요.');");
-					out.println("suntaek_proc('answer_chuga','','')");
+					out.println("suntaek_proc('answer_chuga','','"+no+"')");
 					out.println("</script>");
 					return;
 				}
@@ -492,14 +492,14 @@ public class MunjeController extends HttpServlet {
 			int result = dao.sakje_test_answer(testNo);
 			if(result>0) {
 				out.println("<script>");
-				out.println("alert('수정 완료.');");
+				out.println("alert('삭제 완료.');");
 				out.println("suntaek_proc('resetList','1','')");
 				out.println("</script>");
 				return;
 			}else {
 				out.println("<script>");
-				out.println("alert('오류.');");
-				out.println("suntaek_proc('answer_chuga','','')");
+				out.println("alert('답안지가 존재하지 않습니다.');");
+				out.println("suntaek_proc('answer_chuga','','"+testNo+"')");
 				out.println("</script>");
 				return;
 			}

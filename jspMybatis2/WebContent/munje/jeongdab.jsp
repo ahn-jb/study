@@ -57,7 +57,7 @@
 	</form><br>
 	<input type="button" id ="jeongdab" onclick="goSaveProc('save');" value="저장하기" style="display:none;">
 	<input type="button" id ="jd_sujeong" onclick="goSaveProc('sujeong');" value="수정하기" style="display:none;">
-	<input type="button" onclick="suntaek_proc('resetList','1','')" value ="목록">
+	<button type="button" onclick="suntaek_proc('sihum_view','','${dto.no}')">취소</button>
 
 <script type="text/javascript">
 	function goSaveProc(value1){
