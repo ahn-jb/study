@@ -344,9 +344,9 @@ public class MemberController extends HttpServlet {
 					}	
 				}
 			
-			}else if(url.indexOf("view.do") != -1) {//상세보기
-				
+			}else if(url.indexOf("view.do") != -1 || url.indexOf("view2.do") != -1) {//상세보기
 				response.setContentType("text/html; charset=utf-8");
+				
 				if(cookNo == 0) {
 					out.println("<script>");
 					out.println("alert('권한 제한.');");
@@ -357,11 +357,13 @@ public class MemberController extends HttpServlet {
 					MemberDTO dto1 = dao.getSelectOneNo(cookNo);
 					MemberDTO dto = dao.getSelectOneNo(no);
 					request.setAttribute("dto",dto);
-					if(no == cookNo || dto1.getGrade() == 1) {
-						request.setAttribute("menu_gubun", "member_view");
-						page = "/member/view.jsp";
-						RequestDispatcher rd = request.getRequestDispatcher(page);
-						rd.forward(request, response);
+					if(	no == cookNo || dto1.getGrade() == 1) {
+						if(url.indexOf("view.do") != -1) {
+							request.setAttribute("menu_gubun", "member_view");
+							page = "/member/view.jsp";
+						}else if(url.indexOf("view2.do") != -1) {
+							request.setAttribute("menu_gubun", "member_view2");
+						}
 						
 					}else if(dto1.getGrade() != 1) {
 						out.println("<script>");
@@ -370,6 +372,8 @@ public class MemberController extends HttpServlet {
 						out.println("</script>");						
 					}
 										
+					RequestDispatcher rd = request.getRequestDispatcher(page);
+					rd.forward(request, response);
 				}
 				
 			}else if(url.indexOf("modify.do") != -1) {//수정 페이지
@@ -470,7 +474,6 @@ public class MemberController extends HttpServlet {
 				}
 		 		response.sendRedirect(temp);
 			}else if(url.indexOf("delete.do") != -1){//// 삭제 처리 ////
-				System.out.println("123456789");
 				if(cookNo == 0) {
 					out.println("<script>");
 					out.println("alert('권한 제한.');");

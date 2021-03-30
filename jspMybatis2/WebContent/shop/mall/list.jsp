@@ -64,7 +64,6 @@
 		<tr>
 			<td style="paddong:0 0 20px 0;">
 				<c:set var="cell_counter" value="3"></c:set>
-				
 				<c:set var="k" value="0"></c:set>
 				<table border="1" align="center" width="100%" height="500">
 					<c:forEach var="dto" items="${list}">

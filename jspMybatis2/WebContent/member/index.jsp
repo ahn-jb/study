@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/inc_header.jsp" %>
-menu_gubun : <span id="menu_gubun">${menu_gubun}</span><br>
+first_menu_gubun : <span id="menu_gubun">${menu_gubun}</span><br>
 naljaMap : ${naljaMap}<br>
 ip : ${ip}<br>
 Proc : <span id="span_proc">${span_proc}</span><br>

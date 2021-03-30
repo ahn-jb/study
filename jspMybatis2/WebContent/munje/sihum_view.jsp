@@ -44,7 +44,9 @@
 					<tr>	
 						<td colspan="4">
 							<button type="button" onclick="suntaek_proc('sihum_sujeong','','${dto.no}')">수정</button>
-							<button type="button" onclick="suntaek_proc('sihum_sakje','','${dto.no}')">삭제</button>
+							<button type="button" onclick="suntaek_proc('${dto.no}')">삭제</button>
+							<button type="button" onclick="suntaek_proc('munje_chuga','','${dto.no}')" >문제추가</button>
+							<button type="button" onclick="suntaek_proc('answer_chuga','','${dto.no}')" >정답관리</button>
 							<button type="button" onclick="suntaek_proc('resetList','','')">목록</button>
 						</td>
 					</tr>
@@ -52,5 +54,14 @@
 			</td>
 		</tr>
 	</table>
+<script type="text/javascript">
+	function sakje(value1){
+		if(confirm('정말 삭제하시겠습니까?')){
+			
+		}else{
+			suntaek_proc('sihum_sakje','','${dto.no}');
+		}
+	}
+</script>
 </body>
 </html>

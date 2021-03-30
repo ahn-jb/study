@@ -8,7 +8,7 @@
 <title>글쓰기</title>
 </head>
 <body>
-	<input type="text" value="${tbl}">
+
 	<span id="passwd_check" style="display :;">${dto.passwd}</span>
 	<h2>게시글 쓰기</h2>
 	<form name="sakjeForm" action="">

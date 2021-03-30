@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 	<table border="0" width="60%">
 		<tr>
 			<td colspan="20">
@@ -20,16 +21,18 @@
 					<tr>
 						<td>TestName:</td>
 						<td>
-							<select id="testNo">
-								<c:forEach var="dto" items="${list}" >
-									<option value ="${dto.no}">${dto.testName}(${dto.testType})</option>
-								</c:forEach>
-							</select>
+							<input type="hidden" id="testNo" value="${dto.no}"> 
+							${dto.testName}(${dto.testType})
 						</td>
 					</tr>
 					<tr>
 						<td>TestNumber</td>
 						<td>
+<!-- 							<select id="testNumber"> -->
+<%-- 								<c:forEach var="list" items="${list}"> --%>
+<%-- 									<option value="${list.testNumber}">${list.testNumber}									 --%>
+<%-- 								</c:forEach> --%>
+<!-- 							</select> -->
 							<input type="text" id="testNumber" name="testNumber" style="width:20%;">
 						</td>
 					</tr>
@@ -66,7 +69,7 @@
 					<tr>
 						<td colspan="10" ailgn="center"> 
 							<button type="button" onclick="suntaek_proc('munje_chugaProc','','')">추가</button>
-							<button type="button" onclick="suntaek_proc('resetList','','')">목록</button>	
+							<button type="button" onclick="suntaek_proc('sihum_view','','${dto.no}')">뒤로가기</button>	
 						</td>
 					</tr>
 				</table>

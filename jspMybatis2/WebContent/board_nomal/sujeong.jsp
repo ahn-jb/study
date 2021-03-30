@@ -8,7 +8,7 @@
 <title>글쓰기</title>
 </head>
 <body>
-	<input type="text" value="${tbl}">
+
 	<h2>게시글 쓰기</h2>
 	<form name="sujeongForm" action="">
 		<input type="hidden" name="no" id ="no" value="${dto.getNo()}" style="width:40%;" >

@@ -53,9 +53,19 @@
 		</table>
 		<br>
 		<button type="button" onclick="remove('${dto.getPw()}','${dto.getNo()}');">삭제하기</button>
-		<button type="button" onclick="sunteak_proc('resetList','1','');">취소</button>
+		<button type="button" id="button_a" onclick="sunteak_proc('resetList','1','');" style="display:none;">취소</button>
+		<button type="button" id="button_b" onclick="sunteak_proc('view','1','${dto.no}');" style="display:none;">취소</button>
 	</form>
 <script>
+	$(document).ready(function(){
+		var menu_gubun = $('#menu_gubun').text();
+		if(menu_gubun == 'member_index'){
+			$('#button_a').css("display","");
+		}else{
+			$('#button_b').css("display","");	
+		}
+	});
+	
 	function remove(value1,value2){
 		if(document.deleteForm.pw.value != value1){
 			alert('비밀번호가 다릅니다.')

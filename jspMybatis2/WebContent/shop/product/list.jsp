@@ -24,25 +24,25 @@
 						<c:when test="${search_option == 'name'}">
 							<option value="">-선택-</option>
 							<option value="name" selected="selected">상품명</option>
-							<option value="discription" >상품설명</option>
+							<option value="description" >상품설명</option>
 							<option value="total">상품명+상품설명</option>
 						</c:when>
 						<c:when test="${search_option == 'discription'}">
 							<option value="">-선택-</option>
 							<option value="name" >상품명</option>
-							<option value="discription" selected="selected">상품설명</option>
+							<option value="description" selected="selected">상품설명</option>
 							<option value="total">상품명+상품설명</option>
 						</c:when>
 						<c:when test="${search_option == 'total'}">
 							<option value="">-선택-</option>
 							<option value="name" >상품명</option>
-							<option value="discription" >상품설명</option>
+							<option value="description" >상품설명</option>
 							<option value="total" selected="selected">상품명+상품설명</option>
 						</c:when>
 						<c:otherwise>
 							<option value="" selected="selected">-선택-</option>
 							<option value="name">상품명</option>
-							<option value="discription" >상품설명</option>
+							<option value="description" >상품설명</option>
 							<option value="total">상품명+상품설명</option>
 						</c:otherwise>
 						</c:choose>

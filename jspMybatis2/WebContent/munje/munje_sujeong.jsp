@@ -29,7 +29,17 @@
 					<tr>
 						<td>TestNumber</td>
 						<td>
-							<input type="text" id="testNumber" name="testNumber" style="width:20%;" value="${dto.testNumber}">
+							<select id="testNumber">
+								<c:forEach var="list" items="${list}">
+									<c:if test="${dto.testNumber == list.testNumber }">
+										<option value="${list.testNumber}" selected>${list.testNumber} </option>				
+									</c:if>
+									<c:if test="${dto.testNumber != list.testNumber }">
+										<option value="${list.testNumber}" >${list.testNumber}</option>	
+									</c:if>			
+								</c:forEach>
+							</select>
+<%-- 							<input type="text" id="testNumber" name="testNumber" style="width:20%;" value="${dto.testNumber}"> --%>
 						</td>
 					</tr>
 					<tr>
@@ -65,7 +75,7 @@
 					<tr>
 						<td colspan="10" ailgn="center"> 
 							<button type="button" onclick="suntaek_proc('munje_sujeongProc','','${dto.no}')">문제수정</button>
-							<button type="button" onclick="suntaek_proc('resetList','','')">목록</button>	
+							<button type="button" onclick="suntaek_proc('munje_view','','${dto.no}')">뒤로가기</button>	
 						</td>
 					</tr>
 				</table>

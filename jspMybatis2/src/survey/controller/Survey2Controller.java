@@ -277,7 +277,6 @@ public class Survey2Controller extends HttpServlet {
 			SurveyDAO dao = new SurveyDAO();
 			SurveyAnswerDTO dto_answer = new SurveyAnswerDTO();
 			dto_answer = dao.getCountAnwer(no);
-			
 //			System.out.println("1: "+dto_answer.getAnswer_count1());
 //			System.out.println("2: "+dto_answer.getAnswer_count2());
 //			System.out.println("3: "+dto_answer.getAnswer_count3());

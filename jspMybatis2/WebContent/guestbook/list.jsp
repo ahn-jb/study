@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h2>방명록</h2><br><br>
-	<form name="searchForm">
+	<form name="searchForm" >
 		<select name="bunryu">
 			<option value="name">이름
 			<option value="content">내용
@@ -17,6 +17,7 @@
 		</select>
 		<input type="text" name="search" style="width:350;">
 		<button type="button" onclick="go('guestbook_list','','');">검색</button> 날짜검색 ex) 21/01/14  <br><br>
+		<button type="button" onclick="go('resetList','1','');" >전체목록</button>
 		<button type="button" onclick="go('guestbook_write','','');">글쓰기</button>&nbsp;&nbsp;
 	</form><br>
 	'${count}'개의 글이 있습니다
@@ -41,11 +42,6 @@
 						<td colspan="4">${dto.content}</td>
 					</tr>				
 				</c:forEach>
-				<tr>
-					<td colspan="10" align="left">
-						<button type="button" onclick="go('resetList','1','');">전체목록</button>
-					</td>
-				</tr>
 			</table>
 		<table>
 			<c:if test="${totalRecord > 0 }">

@@ -30,6 +30,9 @@
 					<c:when test="${menu_gubun == 'member_login2'}">
 						<jsp:include page="../member/index.jsp" />
 					</c:when>
+					<c:when test="${menu_gubun == 'member_view2'}">
+						<jsp:include page="../member/index.jsp" />
+					</c:when>
 					<c:when test="${menu_gubun == 'memo_write'}">
 						<jsp:include page="../memo/write.jsp" />
 					</c:when>

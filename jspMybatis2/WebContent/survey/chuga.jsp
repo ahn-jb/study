@@ -45,8 +45,11 @@
  				<td>start_date</td>
  				<td>
  					<select name="syear" id ="syear">
+ 						<option value="${naljaMap['now_y']+2}">${naljaMap['now_y']+2}
+ 						<option value="${naljaMap['now_y']+1}">${naljaMap['now_y']+1}
+ 						<option value="${naljaMap['now_y']}" selected>${naljaMap['now_y']}
  					<c:forEach var="i" begin="0" end="121" step="1">
- 						<option value="${naljaMap['now_y']-i}">${naljaMap['now_y']-i}
+ 						<option value="${naljaMap['now_y']-i-1}" >${naljaMap['now_y']-i-1}
  					</c:forEach>
  					</select>년
  					<select name="smonth" id="smonth">
@@ -75,8 +78,11 @@
  				<td>last_date</td>
  				<td>
  					<select name="lyear" id="lyear">
+ 						<option value="${naljaMap['now_y']+2}">${naljaMap['now_y']+2}
+ 						<option value="${naljaMap['now_y']+1}">${naljaMap['now_y']+1}
+ 						<option value="${naljaMap['now_y']}" selected>${naljaMap['now_y']}
  					<c:forEach var="i" begin="0" end="121" step="1">
- 						<option value="${naljaMap['now_y']-i}">${naljaMap['now_y']-i}
+ 						<option value="${naljaMap['now_y']-i-1}" >${naljaMap['now_y']-i-1}
  					</c:forEach>
  					</select>년
  					<select name="lmonth" id="lmonth">

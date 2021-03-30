@@ -266,6 +266,7 @@ public class SurveyDAO {
 		
 		SqlSession session = MybatisManager.getInstance().openSession();
 		dto = session.selectOne("survey.getCountAnwer",no);
+//		System.out.println("1:"+dto.getAnswer_count1());
 		session.close();
 //		try {
 //			for(int i=0; i<count.length; i++ ) {

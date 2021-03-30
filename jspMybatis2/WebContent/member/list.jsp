@@ -9,7 +9,6 @@
 <title></title>
 </head>
 <body>
-	${totalRecord}
 	<form>
 		<table border="0" width="90%" >
 			<tr>
@@ -59,6 +58,11 @@
 				</td>
 			</tr>
 			<tr>
+				<td colspan="20">
+					${totalRecord}명이 검색 되었습니다.
+				</td>
+			</tr>
+			<tr>
 				<td>
 					<table border="1" width="100%">
 						<tr>
@@ -79,7 +83,7 @@
 				 			<c:forEach var="dto" items="${list}">
 							<tr>
 								<td>${dto.getNo()}</td>
-								<td><a href="#" onclick="sunteak_proc('view','','${dto.getNo()}','');">${dto.getId()}</a></td>
+								<td><a href="#" onclick="sunteak_proc('view','','${dto.getNo()}');">${dto.getId()}</a></td>
 								<td>${dto.getPw()}</td>
 								<td>${dto.getName()}</td>
 								<td>${dto.getGender()}</td>
@@ -103,7 +107,7 @@
 						<tr>
 							<td colspan="20" align="center"> 
 							<c:if test="${totalRecord > 0 }">
-								<button type="button" onclick="sunteak_proc('resetList','1','');" style="float:left;">전체목록</button>
+								<button type="button" onclick="sunteak_proc('resetList','1');" style="float:left;">전체목록</button>
 								<button type="button" onclick="sunteak_proc('chuga','1','');" style="float:left;">회원등록</button>	
 								
 								<a href="#" onclick="sunteak_proc('list','1','');">[첫페이지]</a>&nbsp;&nbsp;

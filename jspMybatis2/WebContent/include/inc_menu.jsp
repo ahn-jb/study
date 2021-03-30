@@ -17,8 +17,9 @@
 			</c:if>
 			
 			<c:if test="${sessionScope.cookNo != null && sessionScope.cookNo != 0}">
+				<c:set var="cookNo" value="${sessionScope.cookNo}"></c:set>
 				<a style="font-size:1.1em; font-weight:bold; ">${sessionScope.cookName}님 환영합니다.</a> &nbsp;&nbsp;
-				<a href="#" >[내정보]</a>&nbsp;&nbsp;
+				<a href="${path}/member_servlet/view2.do?no=${cookNo}" >[내정보]</a>&nbsp;&nbsp;
 				<a href="${path}/member_servlet/logout.do" >[로그아웃]</a>
 			</c:if>
 			</td> 

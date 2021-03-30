@@ -143,7 +143,7 @@ public class MallController extends HttpServlet {
 			rd.forward(request, response);
 		}else if(url.indexOf("mall_cart.do") != -1) {
 			request.setAttribute("menu_gubun", "product_mall_cart");
-			
+
 			String amount_ = request.getParameter("amount");
 			int amount = Integer.parseInt(amount_);
 			
@@ -160,7 +160,10 @@ public class MallController extends HttpServlet {
 			
 		}else if(url.indexOf("cart_list2.do") != -1) {
 			request.setAttribute("menu_gubun", "product_cart_list");
-			
+			if(cookNo == 0) {
+				out.println("<script>alert('로그인이 필요한 페이지입니다.'); suntaek_proc('mall_list','1','');</script>");
+				return;
+			}
 			int pageSize = 10;
 			int blockSize= 10;
 			int totalRecord = cartDao.getCount(cookNo);

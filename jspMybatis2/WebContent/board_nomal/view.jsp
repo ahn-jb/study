@@ -9,7 +9,6 @@
 </head>
 <body>
 
-<input type="text" value="${tbl}"><br>
 <span id="comment_no"></span><br>
 <span id="span_i" style="display:none;"></span><br>
 <span id="qwer">${qwer}</span>

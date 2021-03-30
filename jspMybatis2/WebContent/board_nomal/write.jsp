@@ -8,7 +8,6 @@
 <title>글쓰기</title>
 </head>
 <body>
-	<input type="text" value="${tbl}">
 	<h2>게시글 쓰기</h2>
 	<form name="writeForm" action="">
 		<table border="1" width ="800" align="center">

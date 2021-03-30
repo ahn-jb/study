@@ -110,7 +110,7 @@
 				<button type="button" onclick="suntaek_list('ing');">진행중인 설문목록</button>
 				<button type="button" onclick="suntaek_list('end');">종료된 설문목록</button>
 				<button type="button" onclick="chuga();">등록하기</button>
-				<button type="button" onclick="list_2();">문제풀이</button>
+<!-- 				<button type="button" onclick="list_2();">문제풀이</button> -->
 			</td>
 		</tr>
 	</table>

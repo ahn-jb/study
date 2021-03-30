@@ -2,6 +2,7 @@ package guestbook.contoller;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.Util;
 import guestbook.model.dao.GbDAO;
 import guestbook.model.dto.GbDTO;
 
@@ -32,12 +34,24 @@ public class GuestBookController extends HttpServlet {
 	
 	protected void doProc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
-		String path = request.getContextPath();
-		String url = request.getRequestURL().toString();
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
 		String page = "/main/main.jsp";
-		GbDAO dao = new GbDAO();
 		
+		Util util = new Util(); 
+		GbDAO dao = new GbDAO();
+		GbDTO dto = new GbDTO();
+		
+		String serverInfo[] = util.getServerInfo(request); //request.gfetContextPath();
+		String refer = serverInfo[0];
+		String path = serverInfo[1];
+		String url = serverInfo[2];
+		String uri = serverInfo[3];
+		String ip = serverInfo[4];
+		
+		String temp="";
+		temp = request.getParameter("no");
+		int no = util.numberCheck(temp,0);
 		
 		String pageNumber_;
 		pageNumber_ = request.getParameter("pageNumber");
@@ -63,12 +77,11 @@ public class GuestBookController extends HttpServlet {
 			String passwd = request.getParameter("passwd");
 			String content = request.getParameter("content");
 			
-			GbDTO dto = new GbDTO();
+			dto = new GbDTO();
 			dto.setName(name);
 			dto.setEmail(email);
 			dto.setPasswd(passwd);
 			dto.setContent(content);
-			String temp="";
 			int result = dao.setInsert(dto);
 			if(result >0) {
 				System.out.println("등록되었습니다.");
@@ -117,29 +130,33 @@ public class GuestBookController extends HttpServlet {
 			rd.forward(request, response);
 		}else if(url.indexOf("sujeong.do") != -1) {
 			request.setAttribute("menu_gubun", "guestbook_sujeong");
-			String no_ =request.getParameter("no");
-			int no = Integer.parseInt(no_);
 			
-			GbDTO dto = dao.selectOne(no);
+			dto = dao.selectOne(no);
 			request.setAttribute("dto", dto);
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
 		}else if(url.indexOf("sujeongProc.do") != -1) {
-			String no_ =request.getParameter("no");
-			int no = Integer.parseInt(no_);			
-
+			dto = dao.selectOne(no);
+			String passwd =request.getParameter("passwd");		
+			dto = dao.selectOne(no);
+			if(!passwd.equals(dto.getPasswd())) {
+				out.println("<script>");
+				out.println("alert('비밀번호가 다릅니다.');");
+				out.println("location.href='"+path+"/guestbook_servlet/sujeong.do?no="+no+"';");
+				out.println("</script>");
+				return;
+			}
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
 			String content = request.getParameter("content");
 			
-			GbDTO dto = new GbDTO();
+			dto = new GbDTO();
 			dto.setNo(no);
 			dto.setName(name);
 			dto.setEmail(email);
 			dto.setContent(content);
 			
 			int result = dao.update(dto);
-			String temp ="";
 			if(result > 0) {
 				temp = path + "/guestbook_servlet/list.do";
 			}else {
@@ -149,19 +166,14 @@ public class GuestBookController extends HttpServlet {
 			response.sendRedirect(temp);
 		}else if(url.indexOf("sakje.do") != -1) {
 			request.setAttribute("menu_gubun", "guestbook_sakje");
-			String no_ =request.getParameter("no");
-			int no = Integer.parseInt(no_);
 			
-			GbDTO dto = dao.selectOne(no);
+			dto = dao.selectOne(no);
 			request.setAttribute("dto", dto);
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
 		}else if(url.indexOf("sakjeProc.do") != -1) {
-			String no_ =request.getParameter("no");
-			int no = Integer.parseInt(no_);
 			
 			int result = dao.delete(no);
-			String temp="";
 			if(result > 0) {
 				temp = path + "/guestbook_servlet/list.do";
 			}else {

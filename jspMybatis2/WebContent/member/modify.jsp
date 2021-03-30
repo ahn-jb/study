@@ -64,10 +64,19 @@
 		</table>
 		<br>
 		<button type="button" onclick="sujeong();">수정하기</button>
-		<button type="button" onclick="sunteak_proc('resetList','1','');">취소</button>
+		<button type="button" id="button_a" onclick="sunteak_proc('resetList','1','');" style="display:none;">취소</button>
+		<button type="button" id="button_b" onclick="sunteak_proc('view','1','${dto.no}');" style="display:none;">취소</button>
 		<input type="hidden" name="no" value="${dto.getNo()}" readonly>
 	</form>
 <script>
+$(document).ready(function(){
+	var menu_gubun = $('#menu_gubun').text();
+	if(menu_gubun == 'member_index'){
+		$('#button_a').css("display","");
+	}else{
+		$('#button_b').css("display","");	
+	}
+});
 	function sujeong(){
 		 if(document.updateForm.pw.value.trim() ==""){
 			alert('비밀번호를 입력하세요.')

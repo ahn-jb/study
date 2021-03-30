@@ -77,9 +77,8 @@ public class ProductController extends HttpServlet {
 		String search_option = request.getParameter("search_option");
 		String search_data = request.getParameter("search_data");
 		String[] searchArray = util.searchCheck(search_option, search_data);
-		search_option = searchArray[0];
 		search_data = searchArray[1];
-		
+		search_option = searchArray[0];
 		String[] sessionArray = util.sessionCheck(request);
 		int cookNo = Integer.parseInt(sessionArray[0]);
 		String cookId = sessionArray[1];

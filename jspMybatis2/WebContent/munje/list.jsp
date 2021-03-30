@@ -52,8 +52,6 @@
 						<td colspan="20" >
 							<button type="button" onclick="suntaek_proc('resetList','','')" >전체목록</button>
 							<button type="button" onclick="suntaek_proc('sihum_chuga','','')" >시험추가</button>
-							<button type="button" onclick="suntaek_proc('munje_chuga','','')" >문제추가</button>
-							<button type="button" onclick="suntaek_proc('answer_chuga','','')" >정답관리</button>
 							<button type="button" onclick="suntaek_proc('test_suntaek','','')">시험보기</button>
 				<!-- 			</td> -->
 				<!-- 		</tr> -->

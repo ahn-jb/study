@@ -93,8 +93,11 @@ public class MunjeController extends HttpServlet {
 			rd.forward(request, response);
 		}else if(url.indexOf("munje_chuga.do") != -1) {
 			request.setAttribute("menu_gubun", "munje_chuga");
-			List<MunjeDTO> list = dao.getSihumName();
-			request.setAttribute("list", list );
+			dto = dao.getView_sihum(no);
+			
+//			System.out.println(dto.getTestName());
+//			System.out.println(dto.getTestType());
+			request.setAttribute("dto", dto);
 			
 			page = "/munje/munje_chuga.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(page);
@@ -322,6 +325,9 @@ public class MunjeController extends HttpServlet {
 			String testNo_ = request.getParameter("testNo");
 			int testNo = Integer.parseInt(testNo_);
 			
+			List<MunjeDTO> list = dao.getView_Munje(testNo);
+			request.setAttribute("list", list);
+			
 			dto = dao.getView_munje(no);
 			dto.setTestName(testName);
 			dto.setTestType(testType);
@@ -380,8 +386,10 @@ public class MunjeController extends HttpServlet {
 		}else if(url.indexOf("answer_chuga.do") != -1) {
 			request.setAttribute("menu_gubun", "munje_answer_chuga");
 			
-			List<MunjeDTO> list = dao.getSihumName();
-			request.setAttribute("list", list );
+			dto = dao.getView_sihum(no);
+			request.setAttribute("dto", dto);
+//			List<MunjeDTO> list = dao.getSihumName();
+//			request.setAttribute("list", list );
 			
 			page = "/munje/answer_chuga.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(page);

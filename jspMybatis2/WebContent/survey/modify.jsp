@@ -10,10 +10,10 @@
 <body>
 	<h2>상세보기</h2>
 	<form>
-		<table>
+		<table border="1">
 			<tr>
 				<td>no</td>
-				<td><input type="text" name="no" value="${dto.getNo()}" readonly> </td>
+				<td>${dto.getNo()}</td>
 			</tr>
 			<tr>
 				<td>질문</td>
@@ -37,12 +37,25 @@
 			</tr>
 			<tr>
 				<td>status</td>
-				<td><input type="text" id="status" name="status" value="${dto.getStatus()}"></td>
+				<td >
+ 					<input type="radio" name="status" value="1" onclick="statusChk('1');">진행중
+ 					<input type="radio" name="status" value="0" onclick="statusChk('0');">종료
+ 					<input type="hidden" id="status" value="${dto.status}">
+ 				</td>
 			</tr>
+			
 		</table>
 		<button type="button" onclick="sunteak_proc('modifyProc','','${dto.no}');">저장</button>
 		<button type="button" onclick="sunteak_proc('resetList','1','');">목록으로</button>
 	</form>
-
+<script>
+$(document).ready(function(){	
+	var status = $('#status').val();
+	$("input[name=status][value=" + status + "]").attr("checked", true);
+});
+function statusChk(value1){
+	$('#status').val(value1);
+}
+</script>
 </body>
 </html>

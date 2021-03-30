@@ -51,7 +51,7 @@ function GoPage(value1){
 			"search_data" : $("#span_search_data").text()
 		}
 	}else if(value1 == 'sihum_sujeong' || value1 =='sihum_sakje' || value1 == 'sihum_view' 
-			|| value1 == 'munje_view' || value1 == 'munje_sujeong' || value1 =='munje_sakje'){		
+			|| value1 == 'munje_view' || value1 == 'munje_sujeong' || value1 =='munje_sakje' || value1 == 'munje_chuga' || value1 == 'answer_chuga'){		
 		param={
 				"testNo" : $('#testNo').val(),
 				"testName" : $('#testName').val(),
@@ -106,12 +106,6 @@ function suntaek_proc(value1,value2,value3){
 			
 		}else{
 			suntaek_proc('sihum_view','',value3);
-		}
-	}else if(value1 == "munje_sakje"){
-		if(confirm('정말 삭제 하시겠습니까?')){
-			
-		}else{
-			suntaek_proc('munje_view','',value3);
 		}
 	}
 

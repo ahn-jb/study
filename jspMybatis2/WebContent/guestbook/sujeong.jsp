@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	${dto.passwd}
 	<h2>수정</h2>
 	<form name="sujeongForm">
 		<input type="hidden" name="no" value="${dto.no}">
@@ -40,9 +39,8 @@
 	</form>
 <script>
 	function sujeong(){
-		var pw = "${dto.passwd}";
-		if(sujeongForm.passwd.value.trim() != pw){
-			alert('비밀번호가 다릅니다');
+		if(sujeongForm.passwd.value.trim() == ""){
+			alert('비밀번호를 입력하세요.');
 			sujeongForm.passwd.focus();
 		}else if(confirm('수정 하시겠습니까?')){
 			sujeongForm.method = "post";

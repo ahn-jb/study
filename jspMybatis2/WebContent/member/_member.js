@@ -1,12 +1,16 @@
 var path=$("#span_path").text();
-
+var no = $("#span_no").text();
+console.log(no);
 $(document).ready(function(){
 	var menu_gubun = $('#menu_gubun').text();
 	if(menu_gubun == 'member_chuga2'){
 		sunteak_proc('chuga','','');
 	}else if(menu_gubun == 'member_login2'){
 		sunteak_proc('login','','');
-	}else{	
+	}else if(menu_gubun == 'member_view2'){
+		sunteak_proc('view','',no);
+	}
+	else{
 		sunteak_proc('list','1','');
 	}
 });

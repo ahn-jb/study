@@ -57,26 +57,32 @@
 			</tr>
 	</table>
 		<br>
-			<button type="button" onclick="sujeong('${dto.getPw()}','${dto.getNo()}');">수정하기</button>
-			<button type="button" onclick="remove('${dto.getPw()}','${dto.getNo()}');">삭제하기</button>
-			<button type="button" onclick="history.back()">취소</button>
+			<button type="button" onclick="sujeong('${dto.getNo()}');">수정하기</button>
+			<button type="button" onclick="remove('${dto.getNo()}');">삭제하기</button>
+			<button type="button" id="button" onclick="sunteak_proc('list','1','');" style="display:none;">목록</button>
 	</form>
 <script type="text/javascript">
-function sujeong(value1,value2){
-	if(document.viewForm.pw.value != value1){
-		alert('비밀번호가 다릅니다.')
+$(document).ready(function(){
+	var menu_gubun = $('#menu_gubun').text();
+	if(menu_gubun == 'member_index'){
+		$('#button').css("display","");
+	}
+});
+function sujeong(value1){
+	if(document.viewForm.pw.value == ""){
+		alert('비밀번호를 입력해주세요.')
 		
 	}else if(confirm('수정 페이지로 가시겠습니까?')){
-		sunteak_proc('modify','',value2);
+		sunteak_proc('modify','',value1);
 	}
 }
 
-function remove(value1,value2){
-	if(document.viewForm.pw.value != value1){
-		alert('비밀번호가 다릅니다.')
+function remove(value1){
+	if(document.viewForm.pw.value == ""){
+		alert('비밀번호를 입력해주세요.')
 		
 	}else if(confirm('삭제페이지로 가시겠습니까?')){
-		sunteak_proc('delete','',value2);
+		sunteak_proc('delete','',value1);
 	}
 }
 </script>

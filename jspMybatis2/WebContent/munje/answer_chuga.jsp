@@ -22,11 +22,8 @@
 					<tr>
 						<td>시험선택</td>
 						<td>
-							<select id="testNo">
-								<c:forEach var="dto" items="${list}" >
-									<option value ="${dto.no}">${dto.testName}(${dto.testType})</option>
-								</c:forEach>
-							</select>
+							<input type="hidden" id="testNo" value="${dto.no}"> 
+							${dto.testName}(${dto.testType})
 						</td>
 					</tr>
 					<tr>

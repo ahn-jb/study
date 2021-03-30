@@ -87,7 +87,7 @@ public class SurveyController extends HttpServlet {
 			page = "/survey/chuga.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
-		}else if(url.indexOf("chugaProc.do") != -1) {
+		}else if(url.indexOf("chugaProc.do") != -1 || url.indexOf("modifyProc.do") != -1) {
 			SurveyDAO dao = new SurveyDAO();
 			String question = request.getParameter("question");
 			String ans1 = request.getParameter("ans1");
@@ -115,6 +115,7 @@ public class SurveyController extends HttpServlet {
 			java.sql.Timestamp last_date = java.sql.Timestamp.valueOf(last_date_);
 			
 			SurveyDTO dto = new SurveyDTO();
+			
 			dto.setQuestion(question);
 			dto.setAns1(ans1);
 			dto.setAns2(ans2);
@@ -124,12 +125,23 @@ public class SurveyController extends HttpServlet {
 			dto.setStart_date(start_date);
 			dto.setLast_date(last_date);
 			
-			int result = dao.setInsert(dto);
-			temp = "";
-			if(result >0){
-		 		temp=path+"/survey_servlet/index.do";
-			}else {
-				temp=path+"/survey_servlet/index.do";
+			if(url.indexOf("chugaProc.do") != -1) {		
+				int result = dao.setInsert(dto);
+				if(result >0){
+					temp=path+"/survey_servlet/index.do";
+				}else {
+					temp=path+"/survey_servlet/index.do";
+				}
+			}else if(url.indexOf("modifyProc.do") != -1) {
+				System.out.println("sadasdqwee");
+				dto.setNo(no);
+				int result = dao.updateSurvey(dto);
+
+				if(result >0){
+			 		temp=path+"/survey_servlet/index.do";
+				}else {
+					temp=path+"/survey_servlet/index.do";
+				}
 			}
 			response.sendRedirect(temp);
 		}else if(url.indexOf("list.do") != -1 || url.indexOf("munje.do") != -1) {
@@ -184,32 +196,6 @@ public class SurveyController extends HttpServlet {
 			page = "/survey/modify.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
-		}else if(url.indexOf("modifyProc.do") != -1) {
-			SurveyDAO dao = new SurveyDAO();
-			String question = request.getParameter("question");
-			String ans1 = request.getParameter("ans1");
-			String ans2 = request.getParameter("ans2");
-			String ans3 = request.getParameter("ans3");
-			String ans4 = request.getParameter("ans4");
-			String status = request.getParameter("status");
-			SurveyDTO dto = new SurveyDTO();
-			dto.setNo(no);
-			dto.setQuestion(question);
-			dto.setAns1(ans1);
-			dto.setAns2(ans2);
-			dto.setAns3(ans3);
-			dto.setAns4(ans4);
-			dto.setStatus(status);
-
-			int result = dao.updateSurvey(dto);
-
-			temp = "";
-			if(result >0){
-		 		temp=path+"/survey_servlet/index.do";
-			}else {
-				temp=path+"/survey_servlet/index.do";
-			}
-			response.sendRedirect(temp);
 		}else if(url.indexOf("sakje.do") != -1) {
 			SurveyDAO dao = new SurveyDAO();
 //			System.out.println("d_no: "+no);
@@ -290,7 +276,6 @@ public class SurveyController extends HttpServlet {
 			persent[1] = persent2;
 			persent[2] = persent3;
 			persent[3] = persent4;
-			
 			SurveyDTO dto = dao.getSelectOne(no);
 			
 			request.setAttribute("dto", dto);
