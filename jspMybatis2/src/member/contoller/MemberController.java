@@ -460,15 +460,12 @@ public class MemberController extends HttpServlet {
 								out.println("alert('수정 완료.');");
 								out.println("location.href='"+path+"/index.do';");
 								out.println("</script>");	
-								System.out.println("aaaaaaaaaaaaaa");
 								return;
 							}else {
 								temp = path+"/member/list.jsp";
-								System.out.println("bbbbbbbbbbbbbb");
 							}
 						}else {
 							temp = path+"/member/list.jsp";
-							System.out.println("ccccccccccccccccc");
 						}
 					}else if(dto1.getGrade() != 1) {
 						out.println("<script>");

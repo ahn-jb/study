@@ -9,7 +9,7 @@
 </head>
 <body>
 	
-<table border="0" width="100%">
+<table border="0" width="80%">
 	<tr>
 		<td>
 			<form name="searchForm">
@@ -32,15 +32,15 @@
 						<td>작성자</td>
 						<td>등록일</td>
 						<td>조회수</td>
-						<td>ip</td>
-						<td>회원번호</td>
-						<td>공지</td>
-						<td>비밀글</td>
-						<td>자식글여부</td>
-						<td>RefNo</td>
-						<td>stepNo</td>
-						<td>levelNo</td>
-						<td>P_No</td>
+<!-- 						<td>ip</td> -->
+<!-- 						<td>회원번호</td> -->
+<!-- 						<td>공지</td> -->
+<!-- 						<td>비밀글</td> -->
+<!-- 						<td>자식글여부</td> -->
+<!-- 						<td>RefNo</td> -->
+<!-- 						<td>stepNo</td> -->
+<!-- 						<td>levelNo</td> -->
+<!-- 						<td>P_No</td> -->
 					</tr>
 					<c:if test="${totalRecord > 0 }">
 						<c:forEach var="dto" items="${list}">
@@ -58,19 +58,21 @@
 										${Re}
 									</c:if>
 									<a href="#" onclick="go('board_view','${dto.getNo()}');" >${dto.getSubject()}</a>
+									<c:if test="${dto.secretGubun == 'T'}">(🔒)</c:if>
+									(${dto.comment_counter})
 								</td>
 								<td align="center">${dto.getWriter()}</td>
 								<td align="center">${dto.getRegiDate()}</td>
 								<td align="center">${dto.getHit()}</td>
-								<td>${ip}</td>
-								<td>${dto.getMemberNo()}</td>
-								<td>${dto.getNoticeNo()}</td>
-								<td>${dto.getSecretGubun()}</td>
-								<td>${dto.getChild_counter()}</td>
-								<td>${dto.getRefNo()}</td>
-								<td>${dto.getStepNo()}</td>
-								<td>${dto.getLevelNo()}</td>
-								<td>${dto.getP_no()}</td>
+<%-- 								<td>${ip}</td> --%>
+<%-- 								<td>${dto.getMemberNo()}</td> --%>
+<%-- 								<td>${dto.getNoticeNo()}</td> --%>
+<%-- 								<td>${dto.getSecretGubun()}</td> --%>
+<%-- 								<td>${dto.getChild_counter()}</td> --%>
+<%-- 								<td>${dto.getRefNo()}</td> --%>
+<%-- 								<td>${dto.getStepNo()}</td> --%>
+<%-- 								<td>${dto.getLevelNo()}</td> --%>
+<%-- 								<td>${dto.getP_no()}</td> --%>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -118,7 +120,7 @@
 								</c:otherwise>	
 							</c:choose>
 							</select>
-							<input type="text" name="search_data" id="search_data" style="width:400px" value="${search_data}">
+							<input type="text" name="search_data" id="search_data" style="width:300px" value="${search_data}">
 							<button type="button" onclick="go('board_search','1');">검색</button>&nbsp;&nbsp;&nbsp; 	
 							
 							<a href="#" onclick="go('board_list','1');">[첫페이지]</a>&nbsp;&nbsp;

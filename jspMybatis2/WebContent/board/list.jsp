@@ -8,13 +8,16 @@
 <title>게시판</title>
 </head>
 <body>
-	<table border="0" width="100%">
+	<table border="0" width="80%">
+	<tr>
+		<td colspan="20">
+			<h2 align="center">게시판</h2>
+			(총 레코드 수:${totalRecord})
+		</td>
+	</tr>
 	<tr>
 		<td>
-			<form name="searchForm">
-				<h2 align="center">게시판</h2>
-				(총 레코드 수:${totalRecord})
-				<table border="1" width="100%" align="left">
+			<table border="1" width="100%">
 				<tr>
 					<td colspan ="20" align="right" >PageSize-
 						<select name="pageSize" id="pageSize" style="width:60px" > <%--페이지 사이즈 변경 --%>							
@@ -31,15 +34,15 @@
 						<td>작성자</td>
 						<td>등록일</td>
 						<td>조회수</td>
-						<td>ip</td>
-						<td>회원번호</td>
-						<td>공지</td>
-						<td>비밀글</td>
-						<td>자식글여부</td>
-						<td>RefNo</td>
-						<td>stepNo</td>
-						<td>levelNo</td>
-						<td>P_No</td>
+<!-- 						<td>ip</td> -->
+<!-- 						<td>회원번호</td> -->
+<!-- 						<td>공지</td> -->
+<!-- 						<td>비밀글</td> -->
+<!-- 						<td>자식글여부</td> -->
+<!-- 						<td>RefNo</td> -->
+<!-- 						<td>stepNo</td> -->
+<!-- 						<td>levelNo</td> -->
+<!-- 						<td>P_No</td> -->
 					</tr>
 					<c:if test="${totalRecord > 0 }">
 						<c:forEach var="dto" items="${list}">
@@ -57,19 +60,21 @@
 										${Re}
 									</c:if>
 									<a href="#" onclick="suntaek_proc('view','','${dto.getNo()}');" >${dto.getSubject()}</a>
+									<c:if test="${dto.secretGubun == 'T'}">(🔒)</c:if>
+									(${dto.comment_counter})
 								</td>
 								<td align="center">${dto.getWriter()}</td>
 								<td align="center">${dto.getRegiDate()}</td>
 								<td align="center">${dto.getHit()}</td>
-								<td>${ip}</td>
-								<td>${dto.getMemberNo()}</td>
-								<td>${dto.getNoticeNo()}</td>
-								<td>${dto.getSecretGubun()}</td>
-								<td>${dto.getChild_counter()}</td>
-								<td>${dto.getRefNo()}</td>
-								<td>${dto.getStepNo()}</td>
-								<td>${dto.getLevelNo()}</td>
-								<td>${dto.getP_no()}</td>
+<%-- 								<td>${ip}</td> --%>
+<%-- 								<td>${dto.getMemberNo()}</td> --%>
+<%-- 								<td>${dto.getNoticeNo()}</td> --%>
+<%-- 								<td>${dto.getSecretGubun()}</td> --%>
+<%-- 								<td>${dto.getChild_counter()}</td> --%>
+<%-- 								<td>${dto.getRefNo()}</td> --%>
+<%-- 								<td>${dto.getStepNo()}</td> --%>
+<%-- 								<td>${dto.getLevelNo()}</td> --%>
+<%-- 								<td>${dto.getP_no()}</td> --%>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -139,10 +144,9 @@
 						</td>
 					</tr>
 				</table>
-			</form>
-		</td>
-	</tr>
-</table>
+			</td>
+		</tr>
+	</table>
 <script>
 $("#pageSize").change(function(){
 	

@@ -121,7 +121,7 @@ public class BoardController extends HttpServlet {
 					lastPage = totalPage;
 				}
 			}
-
+			
 			List<BoardDTO> list =dao.search(startRecord,lastRecord,tbl,search_data,search_option);
 			request.setAttribute("menu_gubun", "board_list");
 			request.setAttribute("list",list);

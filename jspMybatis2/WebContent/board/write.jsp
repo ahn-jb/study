@@ -34,14 +34,14 @@
 			<tr>
 				<td>공지글</td>
 				<td>
-					<input type="text" name="noticeGubun" id ="noticeGubun" value="" style="width:10%;">
+					<input type="hidden" name="noticeGubun" id ="noticeGubun" value="" style="width:10%;">
 					<input type="checkbox" name="noticeGubunCheckBox" id="noticeGubunCheckBox" value="T" onclick="clickChk('noticeGubun');">공지글체크
 				</td>
 			</tr>
 			<tr>
 				<td>비밀글</td>
 				<td>
-					<input type="text" name="secretGubun" id ="secretGubun" value="" style="width:10%;">
+					<input type="hidden" name="secretGubun" id ="secretGubun" value="" style="width:10%;">
 					<input type="checkbox" name="secretGubunCheckBox" id="secretGubunCheckBox" value="T" onclick="clickChk('secretGubun');">비밀글체크	
 				</td>
 			</tr>

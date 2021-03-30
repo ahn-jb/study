@@ -86,7 +86,8 @@ PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
 	</delete>
 	
 	<select id="search" resultType="board.model.dto.BoardDTO">
-		select*from (select ROWNUM rn,bb.* from (select b.*,(select count(*) from board where p_no=b.no) child_counter from
+		select*from (select ROWNUM rn,bb.* from (select b.*,(select count(*) from board where p_no=b.no) child_counter,
+		(select count(*) from board_comment where board_no=b.no) comment_counter  from
 		board b where tbl= #{tbl}
 		<include refid="search"></include>
 	 	order by noticeNo desc, refNo desc, levelNo asc) bb) where rn between #{startRecord} and #{lastRecord}

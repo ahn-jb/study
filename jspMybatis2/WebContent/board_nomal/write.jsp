@@ -34,21 +34,21 @@
 			<tr>
 				<td>공지글</td>
 				<td>
-					<input type="text" name="noticeGubun" id ="noticeGubun" value="" style="width:10%;">
+					<input type="hidden" name="noticeGubun" id ="noticeGubun" value="" style="width:10%;">
 					<input type="checkbox" name="noticeGubunCheckBox" id="noticeGubunCheckBox" value="" onclick="clickChk('noticeGubun');">공지글체크
 				</td>
 			</tr>
 			<tr>
 				<td>비밀글</td>
 				<td>
-					<input type="text" name="secretGubun" id ="secretGubun" value="" style="width:10%;">
+					<input type="hidden" name="secretGubun" id ="secretGubun" value="" style="width:10%;">
 					<input type="checkbox" name="secretGubunCheckBox" id="secretGubunCheckBox" value="" onclick="clickChk('secretGubun');">비밀글체크	
 				</td>
 			</tr>
 			<tr>
 				<td colspan="3">
 					<button type="button" id="btnChuga">저장하기</button>
-					<button type="button" onclick="GoPage('list','')">취소</button>
+					<button type="button" id="btnList">취소</button>
 				</td>						
 			</tr>
 		</table>
@@ -71,6 +71,10 @@ function clickChk(value1){
 }
 $(document).ready(function(){
 	$("#writer").focus();
+	
+	$("#btnList").click(function(){
+		location.href="${path}/board2_servlet/list.do?tbl=${tbl}"
+	});
 	
 	$("#btnChuga").click(function(){
 		if(document.writeForm.writer.value.trim() ==""){

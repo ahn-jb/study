@@ -40,7 +40,7 @@ public class BoardDTO {
 		private String comment_writer;
 		private String comment_content;
 		private String comment_passwd;
-		
+		private int comment_counter;
 		private String tblName;
 		//Constructor
 		public BoardDTO() {
@@ -352,6 +352,16 @@ public class BoardDTO {
 
 		public void setTblName(String tblName) {
 			this.tblName = tblName;
+		}
+
+
+		public int getComment_counter() {
+			return comment_counter;
+		}
+
+
+		public void setComment_counter(int comment_counter) {
+			this.comment_counter = comment_counter;
 		}
 		
 		
