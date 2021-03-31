@@ -52,7 +52,7 @@
 		<c:if test="${totalRecord ==0 }">
 			<tr>
 				<td>
-					<table border="1" align="center" width="100%" height="400">
+					<table border="1" align="center" width="100%" height="500">
 						<tr>
 							<td>상품이 존재하지 않습니다. </td>
 						</tr>		
@@ -65,7 +65,7 @@
 			<td style="paddong:0 0 20px 0;">
 				<c:set var="cell_counter" value="3"></c:set>
 				<c:set var="k" value="0"></c:set>
-				<table border="1" align="center" width="100%" height="500">
+				<table border="1" align="center" width="100%" height="300">
 					<c:forEach var="dto" items="${list}">
 						<c:set var="k" value="${k=k+1}"/>
 						<c:if test="${k mod cell_counter ==1 }">
@@ -74,9 +74,9 @@
 						</c:if>
 						<td width="300">
 							<c:set var="imsi_counter" value="${imsi_counter= imsi_counter+1 }"></c:set>
-							<table border="1" align="center" width="60%">
+							<table border="1" align="center" width="60%" height="200">
 								<tr>
-									<td align="center">
+									<td align="center" >
 										<c:choose>
 											<c:when test="${dto.product_img == '-,-,-'}">
 												<a href="#" onclick="suntaek_proc('mall_view','','${dto.no}');">이미지X</a>
@@ -87,7 +87,7 @@
 													<c:set var="temp2" value="${fn:split(temp1,'|')[0]}"></c:set>
 													<c:set var="temp3" value="${fn:split(temp1,'|')[1]}"></c:set>
 													<a href="#" onclick="suntaek_proc('mall_view','','${dto.no}');">
-														<img src="${path}/attach/product_img/${temp3}" alt="${dto.name}" title="${dto.name}" style="width:130px; height:70px;">
+														<img src="${path}/attach/product_img/${temp3}" alt="${dto.name}" title="${dto.name}" style="width:130px; height:150px; magin:0px 0px;">
 													</a>
 												</c:if>
 											</c:otherwise>
@@ -98,7 +98,7 @@
 									<td align="center">${dto.name}</td>
 								</tr>
 								<tr>
-									<td align="center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.price}" /></td>
+									<td align="center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.price}" />원</td>
 								</tr>	
 							</table>
 						</td>

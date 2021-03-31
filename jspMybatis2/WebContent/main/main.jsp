@@ -8,7 +8,7 @@
 <title>HONG</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
-<body style="background-image:url('${path}/attach/image/background.jpg')" >
+<body style="background-image:url('${path}/attach/image/background.png')" >
 	<table border="1" align="center" width="100%" height="90%">
 		<tr>
 			<td align="center" style="padding:20px 20px;">

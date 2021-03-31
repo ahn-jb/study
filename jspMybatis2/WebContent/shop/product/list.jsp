@@ -62,7 +62,7 @@
 						<td width="200">상품명</td>
 						<td width="100">가격</td>
 						<td width="300">상품설명</td>
-						<td>파일</td>
+<!-- 						<td>파일</td> -->
 						<td width="100">장바구니 수</td>
 						<td>등록날자</td>
 					</tr>
@@ -97,7 +97,7 @@
 							<td>${dto.name}</td>
 							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.price}" /></td>
 							<td>${dto.description}</td>
-							<td>${dto.product_img}</td>
+<%-- 							<td>${dto.product_img}</td> --%>
 							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.buy_count}"/></td>
 							<td>${dto.regi_date}</td>
 						</tr>
