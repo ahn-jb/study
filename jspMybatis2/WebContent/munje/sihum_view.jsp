@@ -37,7 +37,7 @@
 						<td>문제</td>
 						<td>
 						<c:forEach var="dto1" items="${list}" >
-							<a href="#" onclick="suntaek_proc('munje_view','','${dto1.munjeNo}')">Q.${dto1.testNumber} - ${dto1.question}</a><br>
+							<a href="#" onclick="suntaek_proc('munje_view','','${dto1.munjeNo}')" style="text-decoration: none">Q.${dto1.testNumber} - ${dto1.question}</a><br>
 						</c:forEach>
 						</td>
 					</tr>

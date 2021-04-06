@@ -320,7 +320,11 @@ public class Board2Controller extends HttpServlet {
 		 		int result = dao.setUpdate(dto);
 		 		temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data;
 		 	}else {
-		 		temp=path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data;
+		 		out.println("<script>");
+		 		out.println("alert('비밀번호가 다릅니다.');");
+		 		out.println("location.href='"+path+"/board2_servlet/view.do?tbl="+tbl+"&no="+no+"&search_option="+search_option+"&search_data="+search_data+"';");
+		 		out.println("</script>");
+		 		return;
 		 	}
 		 	
 		 	response.sendRedirect(temp);
@@ -342,7 +346,12 @@ public class Board2Controller extends HttpServlet {
 		 		int result = dao.Delete(no);
 		 		temp=path+"/board2_servlet/list.do?tbl="+tbl;
 		 	}else {
-		 		temp=path+"/board2_servlet/sakje.do?tbl="+tbl+"&no="+no;
+		 		out.println("<script>");
+		 		out.println("alert('비밀번호가 다릅니다.');");
+		 		out.println("location.href='"+path+"/board2_servlet/sakje.do?tbl="+tbl+"&no="+no+"';");
+		 		out.println("</script>");
+		 		return;
+//		 		temp=path+"/board2_servlet/sakje.do?tbl="+tbl+"&no="+no;
 		 	}
 			response.sendRedirect(temp);
 		}else if(url.indexOf("comment_up.do") != -1) {

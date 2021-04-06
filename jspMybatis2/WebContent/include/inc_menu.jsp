@@ -12,65 +12,65 @@
 		<tr>
 			<td colspan="15" align="right" style="padding:5px 20px 10px;">
 			<c:if test="${sessionScope.cookNo == null || sessionScope.cookNo == 0}">
-				<a href="${path}/member_servlet/login2.do">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
-				<a href="${path}/member_servlet/chuga2.do">회원가입</a>
+				<a href="${path}/member_servlet/login2.do" style="text-decoration: none">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="${path}/member_servlet/chuga2.do" style="text-decoration: none">회원가입</a>
 			</c:if>
 			
 			<c:if test="${sessionScope.cookNo != null && sessionScope.cookNo != 0}">
 				<c:set var="cookNo" value="${sessionScope.cookNo}"></c:set>
 				<a style="font-size:1.1em; font-weight:bold; ">${sessionScope.cookName}님 환영합니다.</a> &nbsp;&nbsp;
-				<a href="${path}/member_servlet/view2.do?no=${cookNo}" >[내정보]</a>&nbsp;&nbsp;
-				<a href="${path}/member_servlet/logout.do" >[로그아웃]</a>
+				<a href="${path}/member_servlet/view2.do?no=${cookNo}" style="text-decoration: none">[내정보]</a>&nbsp;&nbsp;
+				<a href="${path}/member_servlet/logout.do" style="text-decoration: none">[로그아웃]</a>
 			</c:if>
 			</td> 
 		</tr>
 		<tr>
 			<td style="padding:0px 20px;" id="home">
-				<a href="${path}">HOME</a>
+				<a href="${path}" style="text-decoration: none">HOME</a>
 			</td>
 <%-- 			<c:if test="${sessionScope.cookNo != null && sessionScope.cookNo != 0}"> --%>
 			<td style="padding:0px 20px;" id="member">
-				<a href="${path}/member_servlet/index.do" >회원관리</a>
+				<a href="${path}/member_servlet/index.do" style="text-decoration: none">회원관리</a>
 			</td>
 <%-- 			</c:if> --%>
 			<td style="padding:0px 20px;" id="memo">
-				<a href="${path}/memo_servlet/write.do">메모장</a>
+				<a href="${path}/memo_servlet/write.do" style="text-decoration: none">메모장</a>
 			</td>
 			<td style="padding:0px 20px;" id="guestbook">
-				<a href="${path}/guestbook_servlet/list.do">방명록</a>
+				<a href="${path}/guestbook_servlet/list.do" style="text-decoration: none">방명록</a>
 			</td>
 			<td style="padding:0px 20px;" id="surveyAjax">
-				<a href="${path}/survey_servlet/index.do">설문조사(ajax)</a>
+				<a href="${path}/survey_servlet/index.do" style="text-decoration: none">설문조사(ajax)</a>
 			</td>
 			<td style="padding:0px 20px;" id="survey">
-				<a href="${path}/test_servlet/list.do">설문조사</a>
+				<a href="${path}/test_servlet/list.do" style="text-decoration: none">설문조사</a>
 			</td>
 			<td style="padding:0px 20px;" id="munje">
-				<a href="${path}/munje_servlet/index.do">문제은행</a>
+				<a href="${path}/munje_servlet/index.do" style="text-decoration: none">문제은행</a>
 			</td>
 			<td style="padding:0px 20px;" id="boardAjax">
-				<a href="${path}/board_servlet/index.do">게시판(ajax)</a>
+				<a href="${path}/board_servlet/index.do" style="text-decoration: none">게시판(ajax)</a>
 			</td>
 			<td style="padding:0px 20px;" id="board">
-				<a href="${path}/board2_servlet/list.do">자유게시판</a>
+				<a href="${path}/board2_servlet/list.do" style="text-decoration: none">자유게시판</a>
 			</td>
 			<td style="padding:0px 20px;" id="java">
-				<a href="${path}/board2_servlet/list.do?tbl=javaboard">자바게시판</a>
+				<a href="${path}/board2_servlet/list.do?tbl=javaboard" style="text-decoration: none">자바게시판</a>
 			</td>
 			<td style="padding:0px 20px;" id="productAjax">
-				<a href="${path}/product_servlet/index.do">쇼핑몰[관리자](ajax)</a>
+				<a href="${path}/product_servlet/index.do" style="text-decoration: none">쇼핑몰[관리자](ajax)</a>
 			</td>
 			<td style="padding:0px 20px;" id="mallAjax">
-				<a href="${path}/mall_servlet/index.do">쇼핑몰(ajax)</a>
+				<a href="${path}/mall_servlet/index.do" style="text-decoration: none">쇼핑몰(ajax)</a>
 			</td>
 			<td style="padding:0px 20px;" id="chart">
-				<a href="${path}/chart_servlet/index.do">Chart</a>
+				<a href="${path}/chart_servlet/index.do" style="text-decoration: none">Chart</a>
 			</td>
 			<td style="padding:0px 20px;" id="smtpEmail">
-				<a href="${path}/email_servlet/index.do">Email</a>
+				<a href="${path}/email_servlet/index.do" style="text-decoration: none">Email</a>
 			</td>
 			<td style="padding:0px 20px;" id="calculator">
-				<a href="${path}/calculator_servlet/index.do">계산기</a>
+				<a href="${path}/calculator_servlet/index.do" style="text-decoration: none">계산기</a>
 			</td>
 			
 		</tr>	
@@ -127,7 +127,3 @@
 </body>
 </html>
 
-<%-- ${fn:length(aaa)}<br> --%>
-<%-- ${fn:substring(aaa,0,3)}<br> --%>
-<%-- ${fn:substring(aaa,9,13)}<br> --%>
-<%-- ${fn:indexOf(aaa,"-")}<br>  --%>

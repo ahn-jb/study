@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<h2>게시글 쓰기</h2>
+	<h2>게시글 수정</h2>
 	<form name="sujeongForm" action="">
 		<input type="hidden" name="no" id ="no" value="${dto.getNo()}" style="width:40%;" >
 		<table border="1" width ="800" align="center">
@@ -19,7 +19,7 @@
 			</tr>
 			<tr>
 				<td>비밀번호:</td>
-				<td><input type="password" name="passwd" id ="passwd" value="${dto.getPasswd()}" style="width:40%;" ></td>
+				<td><input type="password" name="passwd" id ="passwd" value="" style="width:40%;" ></td>
 			</tr>
 			<tr>
 				<td>이메일:</td>
@@ -60,6 +60,17 @@
 $(document).ready(function(){
 	$("#subject").select();
 	$("#subject").focus();
+	
+	var noticeGubun = "${dto.noticeNo}";
+	var secretGubun = "${dto.secretGubun}";
+	if(noticeGubun != '0'){
+		 $("input[id=noticeGubunCheckBox]:checkbox").prop("checked",true);
+		 clickChk('noticeGubun');
+	}
+	if(secretGubun == 'T'){
+		 $("input[id=secretGubunCheckBox]:checkbox").prop("checked",true);
+		 clickChk('secretGubun');
+	}
 	
 	$("#btnSujeong").click(function(){
 		

@@ -83,7 +83,7 @@
 				 			<c:forEach var="dto" items="${list}">
 							<tr>
 								<td>${dto.getNo()}</td>
-								<td><a href="#" onclick="sunteak_proc('view','','${dto.getNo()}');">${dto.getId()}</a></td>
+								<td><a href="#" onclick="sunteak_proc('view','','${dto.getNo()}');" style="text-decoration: none">${dto.getId()}</a></td>
 								<td>${dto.getPw()}</td>
 								<td>${dto.getName()}</td>
 								<td>${dto.getGender()}</td>
@@ -110,22 +110,22 @@
 								<button type="button" onclick="sunteak_proc('resetList','1');" style="float:left;">전체목록</button>
 								<button type="button" onclick="sunteak_proc('chuga','1','');" style="float:left;">회원등록</button>	
 								
-								<a href="#" onclick="sunteak_proc('list','1','');">[첫페이지]</a>&nbsp;&nbsp;
+								<a href="#" onclick="sunteak_proc('list','1','');" style="text-decoration: none">[첫페이지]</a>&nbsp;&nbsp;
 								<c:if test="${startPage > blockSize }">
-									<a href="#" onclick="sunteak_proc('list','${startPage -blockSize}','');">[이전 10개]</a>
+									<a href="#" onclick="sunteak_proc('list','${startPage -blockSize}','');" style="text-decoration: none">[이전 10개]</a>
 								</c:if>
 								<c:if test="${startPage <=blockSize }"> [이전10개] </c:if>&nbsp;&nbsp;
 								<c:forEach var="i" begin="${startPage}" end="${lastPage}" step="1">
 								<c:if test="${i == pageNumber}"> [${i}]</c:if>
 								<c:if test="${i != pageNumber}">
-									<a href="#" onclick="sunteak_proc('list','${i}','')">${i}</a>
+									<a href="#" onclick="sunteak_proc('list','${i}','')" style="text-decoration: none">${i}</a>
 								</c:if>
 								</c:forEach>&nbsp;&nbsp;
 								<c:if test="${lastPage < totalPage }">
-									<a href="#" onclick="sunteak_proc('list','${startPage + blockSize}','');">[다음 10개]</a>
+									<a href="#" onclick="sunteak_proc('list','${startPage + blockSize}','');" style="text-decoration: none">[다음 10개]</a>
 								</c:if>
 								<c:if test="${lastPage >= totalPage }"> [다음10개] </c:if>&nbsp;&nbsp;
-								<a href="#" onclick="sunteak_proc('list','${totalPage}','');">[끝페이지]</a>
+								<a href="#" onclick="sunteak_proc('list','${totalPage}','');" style="text-decoration: none">[끝페이지]</a>
 								</c:if>
 							</td>
 						</tr>

@@ -8,15 +8,15 @@
 <title>HONG</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
-<body style="background-image:url('${path}/attach/image/background.png')" >
-	<table border="1" align="center" width="100%" height="90%">
+<body style="background-image:url('${path}/attach/image/background.png'); " >
+	<table border="1" align="center" width="100%" height="90%" style=" border: 2px solid #444444;  border-collapse: collapse;   padding: 10px;">
 		<tr>
-			<td align="center" style="padding:20px 20px;">
+			<td align="center" style="padding:20px 20px;  border-bottom: 2px solid #444444;">
 				<jsp:include page="../include/inc_menu.jsp"></jsp:include>
 			</td>
 		</tr>
 		<tr>
-			<td align="center" style="padding:50px 50px;">
+			<td align="center" style="padding:50px 50px; border-bottom: 2px solid #444444;">
 				<c:choose>
 					<c:when test="${menu_gubun == 'index'}">
 						<jsp:include page="../main/main_sub.jsp" /> 
@@ -106,8 +106,7 @@
 					<c:when test="${menu_gubun == 'board2_sakje'}">
 						<jsp:include page="../board_nomal/sakje.jsp" />
 					</c:when>
-					<c:otherwise>
-					</c:otherwise>
+				
 				</c:choose>
 			</td>
 		</tr>

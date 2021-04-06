@@ -15,7 +15,7 @@
 			<form name="searchForm">
 				<h2 align="center">${tblName}</h2>
 				(총 레코드 수:${totalRecord})
-				<table border="1" width="100%" align="left">
+				<table border="1" width="100%"  style="align:center;  border: 2px solid #444444;">
 				<tr>
 					<td colspan ="20" align="right" >PageSize-
 						<select name="pageSize" id="pageSize" style="width:60px" > <%--페이지 사이즈 변경 --%>							
@@ -45,7 +45,7 @@
 					<c:if test="${totalRecord > 0 }">
 						<c:forEach var="dto" items="${list}">
 							<tr>
-								<td>${dto.getNum()}</td>
+								<td align="center">${dto.getNum()}</td>
 								<td width="650">
 									<c:set var ="Re" value="┗ Re :"></c:set>
 									<c:set var="jm" value="　"></c:set>
@@ -57,7 +57,7 @@
 										</c:if>
 										${Re}
 									</c:if>
-									<a href="#" onclick="go('board_view','${dto.getNo()}');" >${dto.getSubject()}</a>
+									<a href="#" onclick="go('board_view','${dto.getNo()}');" style="text-decoration: none">${dto.getSubject()}</a>
 									<c:if test="${dto.secretGubun == 'T'}">(🔒)</c:if>
 									(${dto.comment_counter})
 								</td>
@@ -123,22 +123,22 @@
 							<input type="text" name="search_data" id="search_data" style="width:300px" value="${search_data}">
 							<button type="button" onclick="go('board_search','1');">검색</button>&nbsp;&nbsp;&nbsp; 	
 							
-							<a href="#" onclick="go('board_list','1');">[첫페이지]</a>&nbsp;&nbsp;
+							<a href="#" onclick="go('board_list','1');" style="text-decoration: none">[첫페이지]</a>&nbsp;&nbsp;
 							<c:if test="${startPage > blockSize }">
-								<a href="#" onclick="go('board_list','${lastPage -blockSize}');">[이전 10개]</a>
+								<a href="#" onclick="go('board_list','${lastPage -blockSize}');" style="text-decoration: none">[이전 10개]</a>
 							</c:if>
 							<c:if test="${startPage <=blockSize }"> [이전10개] </c:if>&nbsp;&nbsp;
 							<c:forEach var="i" begin="${startPage}" end="${lastPage}" step="1">
 							<c:if test="${i == pageNumber}"> [${i}]</c:if>
 							<c:if test="${i != pageNumber}">
-								<a href="#" onclick="go('board_list','${i}')">${i}</a>
+								<a href="#" onclick="go('board_list','${i}')" style="text-decoration: none">${i}</a>
 							</c:if>
 							</c:forEach>&nbsp;&nbsp;
 							<c:if test="${lastPage < totalPage }">
-								<a href="#" onclick="go('board_list','${startPage + blockSize}');">[다음 10개]</a>
+								<a href="#" onclick="go('board_list','${startPage + blockSize}');" style="text-decoration: none">[다음 10개]</a>
 							</c:if>
 							<c:if test="${lastPage >= totalPage }"> [다음10개] </c:if>&nbsp;&nbsp;
-							<a href="#" onclick="go('board_list','${totalPage}');">[끝페이지]</a> 						
+							<a href="#" onclick="go('board_list','${totalPage}');" style="text-decoration: none">[끝페이지]</a> 						
 						</td>
 					</tr>
 				</table>

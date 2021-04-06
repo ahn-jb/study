@@ -8,7 +8,7 @@
 <title>글쓰기</title>
 </head>
 <body>
-	<h2>게시글 쓰기</h2>
+	<h2>게시글 수정</h2>
 	<form name="writeForm" action="">
 		<table border="1" width ="800" align="center">
 			<tr>
@@ -17,7 +17,7 @@
 			</tr>
 			<tr>
 				<td>비밀번호:</td>
-				<td><input type="password" name="passwd" id ="passwd" value="${dto.passwd}" style="width:40%;" ></td>
+				<td><input type="password" name="passwd" id ="passwd" value="" style="width:40%;" ></td>
 			</tr>
 			<tr>
 				<td>이메일:</td>
@@ -59,6 +59,17 @@ $(document).ready(function(){
 	$("#subject").select();
 	$("#subject").focus();
 	
+	var noticeGubun = "${dto.noticeNo}";
+	var secretGubun = "${dto.secretGubun}";
+	if(noticeGubun != '0'){
+		 $("input[id=noticeGubunCheckBox]:checkbox").prop("checked",true);
+		 clickChk('noticeGubun');
+	}
+	if(secretGubun == 'T'){
+		 $("input[id=secretGubunCheckBox]:checkbox").prop("checked",true);
+		 clickChk('secretGubun');
+	}
+		
 	$("#btnSujeong").click(function(){
 		if(document.writeForm.writer.value.trim() ==""){
 			alert("작성자를 입력하세요.")

@@ -9,7 +9,7 @@
 </head>
 <body>
 	<span id="span_list_gubun" style="display:none;">${list_gubun}</span>
-	<table border="0" align="center" width="80%">
+	<table border="0" align="center" width="80%" >
 		<tr>
 			<td colspan="7">
 				<h2 id="all" style="display:none;">전체 설문조사 목록</h2>
@@ -53,7 +53,7 @@
 		</tr>
 		<tr>
 			<td style="padding: 0 0 20px 0;">
-				<table border="1" width="100%">
+				<table border="1" width="100%" >
 					<tr>
 						<th>순번</th>
 						<th width="40%">질문</th>
@@ -65,7 +65,7 @@
 					<c:forEach var="dto" items="${list}">
 					<tr>
 						<td align="center">${number}</td>
-						<td><a href="#" onclick="sunteak_view('${dto.no}');">${dto.question}</a></td>
+						<td><a href="#" onclick="sunteak_view('${dto.no}');" style="text-decoration: none">${dto.question}</a></td>
 						<td align="center">${dto.start_date}<br>${dto.last_date}</td>
 						<td align="center">${dto.survey_count}</td>
 						<td align="center">${dto.status}</td>
@@ -96,22 +96,22 @@
 		<c:if test="${totalRecord > 0 }">
 		<tr>
 			<td colspan="7" height="50" align="center">
-				<a href="#" onclick="uu('survey_list','1','');">[첫페이지]</a>&nbsp;&nbsp;
+				<a href="#" onclick="uu('survey_list','1','');" style="text-decoration: none">[첫페이지]</a>&nbsp;&nbsp;
 				<c:if test="${startPage > blockSize }">
-					<a href="#" onclick="uu('survey_list','${startPage -blockSize}','');">[이전 10개]</a>
+					<a href="#" onclick="uu('survey_list','${startPage -blockSize}','');" style="text-decoration: none">[이전 10개]</a>
 				</c:if>
 				<c:if test="${startPage <=blockSize }"> [이전10개] </c:if>&nbsp;&nbsp;
 				<c:forEach var="i" begin="${startPage}" end="${lastPage}" step="1">
 				<c:if test="${i == pageNumber}"> [${i}]</c:if>
 				<c:if test="${i != pageNumber}">
-					<a href="#" onclick="uu('survey_list','${i}','');">${i}</a>
+					<a href="#" onclick="uu('survey_list','${i}','');" style="text-decoration: none">${i}</a>
 				</c:if>
 				</c:forEach>&nbsp;&nbsp;
 				<c:if test="${lastPage < totalPage }">
-					<a href="#" onclick="uu('survey_list','${startPage + blockSize}','');">[다음 10개]</a>
+					<a href="#" onclick="uu('survey_list','${startPage + blockSize}','');" style="text-decoration: none">[다음 10개]</a>
 				</c:if>
 				<c:if test="${lastPage >= totalPage }"> [다음10개] </c:if>&nbsp;&nbsp;
-				<a href="#" onclick="uu('survey_list','${totalPage}','');">[끝페이지]</a> 
+				<a href="#" onclick="uu('survey_list','${totalPage}','');" style="text-decoration: none">[끝페이지]</a> 
 			</td>
 		</tr>
 		</c:if>	

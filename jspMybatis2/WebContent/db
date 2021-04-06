@@ -67,11 +67,11 @@ select*from  (select ROWNUM rn , bb.* from (select * from guestbook where name l
 create table board(
 no      number       not null,         
 num     number       not null,
-tbl     varchar2(50) not null,
-writer  varchar2(50) not null,
-subject varchar2(50) not null,  
+tbl     varchar2(100) not null,
+writer  varchar2(100) not null,
+subject varchar2(200) not null,  
 content clob         not null,
-email   varchar2(50)         ,
+email   varchar2(500)         ,
 passwd  varchar2(50)         ,
 refNo   number       not null,
 StepNo  number       not null,
@@ -85,6 +85,7 @@ secretGubun varchar2(1) not null check (secretGubun in('T','F')),
 regiDate date        DEFAULT sysdate,
 primary key(no)
 );
+
 
 drop table board;
 drop sequence seq_board;
@@ -117,8 +118,8 @@ select * from board;
 
 select*from
 (select ROWNUM rn,bb.* from 
-(select b.*,(select count(*) from board where p_no=b.no) child_counter 
-from  board b where tbl='aaa'  order by noticeNo desc, refNo desc, levelNo asc) bb) where rn between 1 and 5;
+(select b.*,(select count(*) from board where p_no=b.no) child_counter,(select count(*) from board_comment where board_no=b.no) comment_counter 
+from  board b where tbl='freeboard'  order by noticeNo desc, refNo desc, levelNo asc) bb) where rn between 1 and 10;
 
 ----------------------------------------------------------------------------------------------------------------------------
 create table boardChk(
@@ -134,7 +135,7 @@ create sequence seq_boardChk start with 1 increment by 1 minvalue 1;
 select*from boardchk;
 insert into boardChk values(seq_boardChk.nextval,'javaboard','자바게시판','T',sysdate);
 insert into boardChk values(seq_boardChk.nextval,'freeboard','자유게시판','T',sysdate);
-select*from boardChk where tbl='aaa' and serviceGubun='T';
+select tblname from boardChk where tbl='freeboard';
 select*from boardChk where tbl=? and serviceGubun='T';
 select count(*) from boardChk where tbl='aaa' and serviceGubun='T';
 ---------------------------------------------------------------------------------
@@ -158,12 +159,13 @@ select * from board_comment where board_no=184;
 delete from board_comment where board_no=184;
 
 select*from board_comment;
-select count(*) from board_comment;
+select count(*) from board_comment where board_no=135;
+select*from board order by noticeNo desc, refNo desc, levelNo asc;
 select*from (select rownum rn,a.* from (select * from board_comment where comment_no > 0 order by comment_no desc) a) where board_no=100 and rn between 1 and 5;
 
 insert into board_comment values(seq_board_comment.nextval,2,'1','1','1',1,'12',sysdate);
 commit;
-
+select count(*) from board_comment  where board_no = 1;
 select*from (select a.*,rownum rn from (select * from board_comment where board_no=99 order by comment_no desc ) a) where rn between 1 and 10;
 ----------------------------------------------------------------------------------------------------------------------------------------------
 create table survey(
@@ -212,7 +214,7 @@ select*from survey_answer;
 create table sihum(
 no number not null primary key,
 testName varchar2(100) not null,
-testType varchar2(1) not null unique,
+testType varchar2(1) not null,
 start_date  timestamp default current_timestamp,
 last_date   timestamp default current_timestamp,
 status char(1) default '1',  --실행중 1 종료 0
@@ -261,6 +263,7 @@ create sequence seq_test_answer start with 1 increment by 1 minvalue 1;
 drop table test_answer;
 drop sequence seq_test_answer;
 
+commit;
 select * from test_answer;
 select count(*) from test_answer where testno = 1;
 select * from test_answer where testno = 1;
@@ -277,6 +280,8 @@ create sequence seq_product start with 1 increment by 1 nomaxvalue nocache;
 
 drop table product;
 drop sequence seq_product;
+
+alter table product modify (name varchar2(150));
 
 insert into product values(seq_product.nextval,'사과',1500,'맛있는 사과','apple.jpg',current_timestamp);
 select*from product;
@@ -367,6 +372,7 @@ update member set grade = 1 where id ='hong';
 commit;
 
 
+
 select count(*) from boardChk where tbl = 'freeboard' and serviceGubun= 'T';
 select * from boardChk;
 
@@ -376,3 +382,8 @@ select * from boardChk;
 select *from
 (select ROWNUM rn, a.*, bb.name , bb.price, bb.product_img, bb.description from cart a join product bb on a.productNo = bb.no
 where memberNo= 1 order by a.regi_date desc) where rn BETWEEN 1 and 10;
+
+update survey set question = '술', ans1 = '소주', ans2 = '맥주', ans3 = '막걸리', ans4 = '양주', status = '1'    where no = 2;
+
+select count(*) from cart where memberNo = 2;
+select * from cart;
