@@ -11,18 +11,18 @@
 
 	<table border="1" width="900">
 	<tr>
-		<td>No</td>
-		<td>이름</td>
-		<td>메모</td>
-		<td>날짜</td>
+		<td align="center">No</td>
+		<td align="center">이름</td>
+		<td align="center">메모</td>
+		<td align="center">날짜</td>
 		<td>&nbsp;</td>
 	</tr>	
 	<c:forEach var="row" items="${list }">
 	<tr>
-		<td>${row.no}</td>
-		<td width="150">${row.writer}</td>
+		<td align="center">${row.no}</td>
+		<td width="150" >${row.writer}</td>
 		<td width="330">${row.content}</td>
-		<td width="200">${row.regi_date}</td>
+		<td width="200" align="center">${row.regi_date}</td>
 		<td align="center">
 			<button type="button" onclick="GoPage('sujeong','',${row.no},'${row.writer}','${row.content}');">수정</button>
 			<button type="button" onclick="GoPage('sakje','',${row.no});">삭제</button>

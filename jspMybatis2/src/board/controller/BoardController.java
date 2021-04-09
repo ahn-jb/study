@@ -91,6 +91,8 @@ public class BoardController extends HttpServlet {
 		request.setAttribute("no",no );
 		request.setAttribute("search_option",search_option);
 		request.setAttribute("search_data",search_data);
+		request.setAttribute("cookId",cookId);
+		request.setAttribute("cookName",cookName);
 		
 		String page = "/main/main.jsp";
 		if(url.indexOf("index.do") != -1) {

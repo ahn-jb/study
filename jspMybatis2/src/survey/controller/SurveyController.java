@@ -96,23 +96,7 @@ public class SurveyController extends HttpServlet {
 			String ans4 = request.getParameter("ans4");
 			String status = request.getParameter("status");
 			
-			String syear = request.getParameter("syear");
-			String smonth = request.getParameter("smonth");
-			String sday = request.getParameter("sday");
 			
-			String lyear = request.getParameter("lyear");  
-			String lmonth = request.getParameter("lmonth");
-			String lday = request.getParameter("lday");
-			
-			String start_date_ = syear + "-" + smonth+ "-" + sday;
-			start_date_ = start_date_+ " 00:00:00.0";
-//			System.out.println(start_date_);
-			java.sql.Timestamp start_date = java.sql.Timestamp.valueOf(start_date_);
-			
-			String last_date_ = lyear + "-" + lmonth+ "-" + lday;
-			last_date_ =last_date_+ " 23:59:59.9";
-//			System.out.println(last_date_ );
-			java.sql.Timestamp last_date = java.sql.Timestamp.valueOf(last_date_);
 			
 			SurveyDTO dto = new SurveyDTO();
 			
@@ -122,10 +106,29 @@ public class SurveyController extends HttpServlet {
 			dto.setAns3(ans3);
 			dto.setAns4(ans4);
 			dto.setStatus(status);
-			dto.setStart_date(start_date);
-			dto.setLast_date(last_date);
+			
 			
 			if(url.indexOf("chugaProc.do") != -1) {		
+				String syear = request.getParameter("syear");
+				String smonth = request.getParameter("smonth");
+				String sday = request.getParameter("sday");
+				
+				String lyear = request.getParameter("lyear");  
+				String lmonth = request.getParameter("lmonth");
+				String lday = request.getParameter("lday");
+				
+				String start_date_ = syear + "-" + smonth+ "-" + sday;
+				start_date_ = start_date_+ " 00:00:00.0";
+//				System.out.println(start_date_);
+				java.sql.Timestamp start_date = java.sql.Timestamp.valueOf(start_date_);
+				
+				String last_date_ = lyear + "-" + lmonth+ "-" + lday;
+				last_date_ =last_date_+ " 23:59:59.9";
+//				System.out.println(last_date_ );
+				java.sql.Timestamp last_date = java.sql.Timestamp.valueOf(last_date_);
+				dto.setStart_date(start_date);
+				dto.setLast_date(last_date);
+				
 				int result = dao.setInsert(dto);
 				if(result >0){
 					temp=path+"/survey_servlet/index.do";

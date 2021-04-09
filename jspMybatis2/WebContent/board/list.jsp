@@ -49,7 +49,7 @@
 					<c:if test="${totalRecord > 0 }">
 						<c:forEach var="dto" items="${list}">
 							<tr >
-								<td>${dto.getNum()}</td>
+								<td align="center">${dto.getNum()}</td>
 								<td width="650">
 									<c:set var ="Re" value="┗ Re :"></c:set>
 									<c:set var="jm" value="　"></c:set>

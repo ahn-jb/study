@@ -9,9 +9,9 @@
 </head>
 <body>
 
-<span id="comment_no"></span><br>
+<span id="comment_no" style="display:none;"></span><br>
 <span id="span_i" style="display:none;"></span><br>
-<span id="qwer">${qwer}</span>
+<span id="qwer" style="display:none;">${qwer}</span>
 <c:choose>
 	<c:when test="${imsiPage == 'viewPasswdPage'}">
 		<form name="passwdForm">
@@ -120,14 +120,14 @@
 								<tr>
 									<td style="padding:0 0 10 0;">
 										${list.comment_writer}  (${list.regiDate})
-										<button type="button"  class="bush" id="comment_censle${i}" onclick="comment_censle('${i}');" style=" height:24px; float:right; display:none;">취소</button>
+										<button type="button"  class="bush" id="comment_censle${i}" onclick="comment_censle('${i}');" style="  float:right; display:none;">취소</button>
 										<button type="button" id="button_sakje${i}" onclick="comment_D('${i}');" style="float:right;">삭제</button>&nbsp;
 										<button type="button" onclick="comment_U('${list.comment_no}','${list.comment_writer}','${list.comment_content}','${i}');" style="float:right;">수정</button>
 										<br>
 										<br>
 										${list.comment_content}
 										<button type="button"  class="bush" id="comment_chk${i}" onclick="comment_sakje('${list.comment_no}','${i}');" style=" height:24px; float:right; display:none;">확인</button>
-										<input type="text"  class="bush" name="pwchk" id="pwchk${i}" value="" style="display:none; width:70px; height:15px; float:right;" placeholder="비밀번호">
+										<input type="text"  class="bush" name="pwchk" id="pwchk${i}" value="" style="display:none; width:70px; height:20px; float:right;" placeholder="비밀번호">
 										<br>
 										------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 									</td>

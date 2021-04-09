@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table border="0" width="80%">
+	<table border="0" width="84%">
 		<tr>
 			<td colspan="2"><h2>Shopping Mall</h2></td>
 		</tr>
@@ -62,19 +62,19 @@
 		</c:if>
 		<c:if test="${totalRecord > 0}">
 		<tr>
-			<td style="paddong:0 0 20px 0;">
+			<td style="paddong:0 0 20px 0; ">
 				<c:set var="cell_counter" value="3"></c:set>
 				<c:set var="k" value="0"></c:set>
-				<table border="1" align="center" width="100%" height="300">
+				<table border="1" align="center" width="100%" height="80%">
 					<c:forEach var="dto" items="${list}">
 						<c:set var="k" value="${k=k+1}"/>
 						<c:if test="${k mod cell_counter ==1 }">
 							<c:set var="imsi_counter" value="0"></c:set>
 						<tr>
 						</c:if>
-						<td width="300">
+						<td width="34%">
 							<c:set var="imsi_counter" value="${imsi_counter= imsi_counter+1 }"></c:set>
-							<table border="1" align="center" width="60%" height="200">
+							<table border="1" align="center" width="60%" >
 								<tr>
 									<td align="center" >
 										<c:choose>
@@ -110,7 +110,7 @@
 			
 					<c:if test="${imsi_counter < cell_counter }">
 						<c:forEach var="i" begin="${imsi_counter +1 }" end="${cell_counter }" step="1">
-						<td>&nbsp;</td>
+						<td >&nbsp;</td>
 						</c:forEach>
 					</c:if>
 				</table>

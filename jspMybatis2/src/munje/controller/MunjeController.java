@@ -196,7 +196,7 @@ public class MunjeController extends HttpServlet {
 				if(check >0) {
 					out.println("<script>");
 					out.println("alert('등록된 문제번호 입니다.');");
-					out.println("suntaek_proc('resetList','','')");
+					out.println("suntaek_proc('munje_chuga','','"+no+"')");
 					out.println("</script>");
 					return;
 				}

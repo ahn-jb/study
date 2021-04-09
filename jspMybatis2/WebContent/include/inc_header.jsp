@@ -14,6 +14,11 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css">
+<script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
+<script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script>
+<script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
+
 <%
 // 	response.setHeader("Cache-Control", "no-store");
 // 	response.setHeader("Pragma", "no-cache");

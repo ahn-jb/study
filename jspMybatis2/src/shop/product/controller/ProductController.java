@@ -145,6 +145,7 @@ public class ProductController extends HttpServlet {
 		}else if(url.indexOf("chugaProc.do") != -1 || url.indexOf("sujungProc.do") != -1) {
 			
 			String img_path01 = request.getSession().getServletContext().getRealPath("/attach/product_img/");	
+//			System.out.println(img_path01);
 			java.io.File isDir = new java.io.File(img_path01);
 			if(!isDir.isDirectory()) {
 				System.out.println("디렉토리가 존재하지않음.");

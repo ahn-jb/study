@@ -14,7 +14,7 @@
 		<td>
 			<form name="searchForm">
 				<h2 align="center">${tblName}</h2>
-				(총 레코드 수:${totalRecord})
+				【총 게시글 수:${totalRecord}】
 				<table border="1" width="100%"  style="align:center;  border: 2px solid #444444;">
 				<tr>
 					<td colspan ="20" align="right" >PageSize-

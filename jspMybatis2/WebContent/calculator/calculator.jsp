@@ -16,7 +16,7 @@
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-	<input type="text" id="aaa" style="width: 233px; height: 50px; text-align:right;" placeholder="' . '을 두번씩 쓰면 오류발생." readonly>
+	<input type="text" id="aaa" style="width: 242px; height: 70px; text-align:right;" readonly>
 <!--  	숫자: <span id="aaa"> </span><br> -->
 <!--  	부호: <span id="aaaa"></span><br> -->
 	<br><span id="aa" style ="display:none;"></span>

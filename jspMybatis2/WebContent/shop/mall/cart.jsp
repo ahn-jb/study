@@ -38,7 +38,7 @@
 					<c:if test="${totalRecord >0 }">
 						<c:forEach var="dto" items="${Cart_list}">
 						<tr>
-							<td><input type="checkbox"  name="checking" id="checking" value="${dto.no}">&nbsp; ${dto.no}</td>
+							<td>&nbsp;<input type="checkbox"  name="checking" id="checking" value="${dto.no}">&nbsp;</td>
 							<td>
 								<c:choose>
 									<c:when test="${dto.product_img == '-,-,-'}">
@@ -78,7 +78,7 @@
 					</tr>
 					</c:if>
 				</table>
-				<button type="button" onclick="cartSakje();">장바구니 비우기</button>
+				<button type="button" onclick="cartSakje();">선택상품 삭제</button>
 				<button type="button" onclick="suntaek_proc('mall_list_all','1','');">쇼핑하기</button>
 				<button type="button" onclick="suntaek_proc('cart_list2','1','');">장바구니</button>
 				<button type="button" onclick="jumun();">주문하기</button>

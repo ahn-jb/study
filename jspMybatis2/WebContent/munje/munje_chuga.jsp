@@ -68,7 +68,7 @@
 					</tr>
 					<tr>
 						<td colspan="10" ailgn="center"> 
-							<button type="button" onclick="suntaek_proc('munje_chugaProc','','')">추가</button>
+							<button type="button" onclick="suntaek_proc('munje_chugaProc','','${dto.no}')">추가</button>
 							<button type="button" onclick="suntaek_proc('sihum_view','','${dto.no}')">뒤로가기</button>	
 						</td>
 					</tr>

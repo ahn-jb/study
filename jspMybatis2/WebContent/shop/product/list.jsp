@@ -68,7 +68,7 @@
 					</tr>
 					<c:forEach var="dto" items="${list}">
 						<tr>
-							<td>${dto.no}</td>
+							<td align="center">${dto.no}</td>
 							<td align="center">
 								<c:choose>
 									<c:when test="${dto.product_img == '-,-,-'}">
@@ -95,11 +95,11 @@
 								</c:choose>
 							</td>
 							<td>${dto.name}</td>
-							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.price}" /></td>
+							<td align="center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.price}" />원</td>
 							<td>${dto.description}</td>
 <%-- 							<td>${dto.product_img}</td> --%>
-							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.buy_count}"/></td>
-							<td>${dto.regi_date}</td>
+							<td align="center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${dto.buy_count}"/></td>
+							<td align="center">${dto.regi_date}</td>
 						</tr>
 						<c:set var="number" value="${number= number-1}"></c:set>
 					</c:forEach>

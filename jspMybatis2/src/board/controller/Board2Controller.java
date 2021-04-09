@@ -65,13 +65,15 @@ public class Board2Controller extends HttpServlet {
 		int pageNumber = util.numberCheck(temp,1);
 		
 		temp = request.getParameter("tbl");
+//		System.out.println("temp: "+temp);
 		int result_tbl = dao.tblchk(temp);
 		if(result_tbl == 0) {
 			temp ="";
 		}
 		String tbl = util.tblCheck(temp,"freeboard");
 //		System.out.println("tbl: "+tbl);
-				
+		request.setAttribute("tbl", tbl);
+		
 		temp = request.getParameter("no");
 		int no = util.numberCheck(temp,0);
 		String search_option = request.getParameter("search_option");
@@ -126,6 +128,7 @@ public class Board2Controller extends HttpServlet {
 			List<BoardDTO> list =dao.search(startRecord,lastRecord,tbl,search_data,search_option);
 			dto = dao.getTblName(tbl);
 			String tblName = dto.getTblName();
+
 			
 			request.setAttribute("menu_gubun", "board2_list");
 			request.setAttribute("list",list);

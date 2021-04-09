@@ -16,6 +16,7 @@ import shop.mall.model.dto.CartDTO;
 
 public class ChartService {
 	
+	@SuppressWarnings("unchecked")
 	public JSONObject getChartData() {
 		CartDAO cartDao = new CartDAO();
 		List<CartDTO> items = cartDao.getListCartProductGroup();

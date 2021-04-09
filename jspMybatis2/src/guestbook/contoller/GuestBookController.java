@@ -136,7 +136,6 @@ public class GuestBookController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
 		}else if(url.indexOf("sujeongProc.do") != -1) {
-			dto = dao.selectOne(no);
 			String passwd =request.getParameter("passwd");		
 			dto = dao.selectOne(no);
 			if(!passwd.equals(dto.getPasswd())) {
@@ -172,6 +171,15 @@ public class GuestBookController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
 		}else if(url.indexOf("sakjeProc.do") != -1) {
+			String passwd =request.getParameter("passwd");		
+			dto = dao.selectOne(no);
+			if(!passwd.equals(dto.getPasswd())) {
+				out.println("<script>");
+				out.println("alert('비밀번호가 다릅니다.');");
+				out.println("location.href='"+path+"/guestbook_servlet/sakje.do?no="+no+"';");
+				out.println("</script>");
+				return;
+			}
 			
 			int result = dao.delete(no);
 			if(result > 0) {

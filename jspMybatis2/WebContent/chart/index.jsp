@@ -11,7 +11,7 @@
 	
 	<!-- 구글 차트 라이브러리 로딩 -->
 <script src="http://www.google.com/jsapi"></script>
-<button type="button" id="btnCreateJson">???? </button>
+<button type="button" id="btnCreateJson">장바구니 차트</button>
 &nbsp;&nbsp;&nbsp;
 <button type="button" id="btnGoogleChartJson">구글차트(json)</button>
 &nbsp;&nbsp;&nbsp;
