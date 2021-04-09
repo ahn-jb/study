@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+	<select id="list" resultType="member.model.dto.MemberDTO">
+		select * from member order by name
+	</select>
+	
+	<select id = "view" resultType="member.model.dto.MemberDTO">
+		select *from member where no = #{no}
+	</select>
+	
+	<insert id="setInsert">
+		insert into member (id,passwd,name,email) values (#{id},#{passwd},#{name},#{email})
+	</insert>
+	<update id="setUpdate">
+		update member set passwd = #{passwd}, name = #{name}, email = #{email} where id = #{id}
+	</update>
+	
+	<delete id="setDelete">
+		delete from member where id = #{id}
+	</delete>
+	
+	<select id="checkPasswd" resultType="int">
+		select count(*) from member where id = #{id} and passwd = #{passwd}
+	</select>
+</mapper>
