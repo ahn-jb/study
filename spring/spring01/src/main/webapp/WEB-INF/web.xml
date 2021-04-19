@@ -29,27 +29,20 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
-
-
-
-
-	<!-- 한글 처리를 위한 인코딩 필터 : POST로 넘어오는 것 처리 -->
+	
 	<filter>
-		<filter-name>encoding</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class><!-- 스프링에 내장되어있는 인코딩 필터이다. -->
-		<init-param><!-- 필터가 구동될 때 초기화되는 내용.. -->
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
+
+
 	<filter-mapping>
-		<filter-name>encoding</filter-name>
-		<url-pattern>/*</url-pattern><!-- /* 는 모든 url에 해당된다. /*.do 는?-->
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-	
-	
-	
 	
 </web-app>
