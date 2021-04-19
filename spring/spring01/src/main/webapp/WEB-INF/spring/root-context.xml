@@ -7,27 +7,20 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
     
-	<bean id="dataSource"
-class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName"
-            value="oracle.jdbc.driver.OracleDriver" />
-        <property name="url"
-            value="jdbc:oracle:thin:@localhost:1521/xe" />
-        <property name="username" value="spring01" />			<!-- 수정할것 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521/xe" />
+        <property name="username" value="spring01" />			 <!-- 수정할것 -->
         <property name="password" value="1234" />	   			 <!-- 수정할것 -->
     </bean>
-    <bean id="sqlSessionFactory"
-        class="org.mybatis.spring.SqlSessionFactoryBean">
+    <!-- SqlSessionFactory 객체 주입 --> <!-- mybatis와 연결하는 설정이다.  -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="configLocation"
-            value="classpath:/mybatis-config.xml" />        <!-- mybatis설정파일 -->
-        <property name="mapperLocations"
-            value="classpath:/mappers/**/*.xml" />
+        <property name="configLocation" value="classpath:/mybatis-config.xml" /> <!-- mybatis설정파일인데, classpath는 src/main/resources/mybatis-config.xml을 만들면 된다. 내용은 아래에 있다. -->
+        <property name="mapperLocations" value="classpath:mappers/**/*.xml" />   <!-- mybatis에서 사용하는 mapper 파일은 mappers라는 디렉토리를 만들고,  하위디랙토리는 무관하게 확장자가 xml인 파일은 모두 찾겠다는 의미이다. src/main/resources/mappers폴더를 만든다. -->
     </bean>
-    <bean id="sqlSession"
-        class="org.mybatis.spring.SqlSessionTemplate"
-        destroy-method="clearCache">
-        <constructor-arg name="sqlSessionFactory"
-            ref="sqlSessionFactory" />
+    <!-- SqlSession 객체 주입 --> <!-- sql을 호출할 때, sqlSession 이라는 객체를 만들어서 사용하는데, 그 역할을 하는 태그이다. -->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
 </beans>
