@@ -2,21 +2,19 @@ package com.test.springStudy.member.controller;
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.HandlerMapping;
+
 
 import com.test.springStudy.member.model.dao.MemberDAO;
 import com.test.springStudy.member.model.dto.MemberDTO;
@@ -46,10 +44,8 @@ public class MemberController {
 		map.put("search_option", search_option);
 		map.put("search_data", search_data);
 		return map;
-		
-		
 	}
-    
+	
 	@RequestMapping("/index.do")
 	public String index(HttpServletRequest request, Model model){
 		Map<String, Object> map = topInfo(request);
@@ -173,102 +169,4 @@ public class MemberController {
 			e.printStackTrace();
 		}
 	}
-	
-	@RequestMapping(value ={"/login.do", "/login2.do"})
-	public String login(
-			HttpServletRequest request, Model model
-			) {
-		Map<String, Object> map = topInfo(request);
-		
-		String requestUrl = (String)request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
-		String ip = (String) map.get("ip");
-		String arg01 = request.getParameter("arg01");
-		arg01 = util.nullCheck(arg01);
-		
-		model.addAttribute("ip",map.get("ip"));
-		model.addAttribute("arg01","arg01");
-		
-		if(requestUrl.equals("/member/login.do")) {
-			model.addAttribute("menu_gubun","member_login");
-			return "member/login";
-		}else {
-			model.addAttribute("menu_gubun","member_login2");
-			return  "main/main";
-		}
-	}
-	
-	@RequestMapping("/loginProc.do")
-	public void loginProc(
-			@RequestParam(value="id", defaultValue="") String id,
-			@RequestParam(value="pw", defaultValue="") String pw,
-			Model model,
-			HttpServletResponse response,
-			HttpServletRequest request
-			) throws IOException {
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter out = response.getWriter();
-		Map<String, Object> map = topInfo(request);
-		String path = (String)map.get("path");
-		
-		String newId = id.replace(" ","");
-		String newPw = pw.replace(" ","");
-		
-		if(!id.equals(newId)) {
-			out.println("<script>");
-			out.println("alert('아이디 빈칸 오류');");
-			out.println(" sunteak_proc('login','1',''); ");
-			out.println("</script>");
-			return;
-		}else if(!pw.equals(newPw)) {
-			out.println("<script>");
-			out.println("alert('비밀번호 빈칸 오류');");
-			out.println(" sunteak_proc('login','1',''); ");
-			out.println("</script>");
-			return;	
-		}
-		
-		MemberDTO dto =new MemberDTO(); //DTO set
-		dto.setId(id);
-		dto.setPw(pw);
-		MemberDTO resultDTO = memberDao.Login(dto);
-		
-		response.setContentType("text/html; charset=utf-8");
-		
-		if(resultDTO != null ){ 
-			HttpSession session = request.getSession(); //세션등록
-			session.setAttribute("cookNo", resultDTO.getNo());
-			session.setAttribute("cookId", resultDTO.getId());
-			session.setAttribute("cookName", resultDTO.getName());
-			
-			memberDao.loginCounterSucsess(resultDTO);
-			temp = path;
-			response.sendRedirect(temp);
-		}else {
-			memberDao.loginCounterfail(dto);
-			out.println("<script>");
-			out.println("alert('비밀번호 다름.');");
-			out.println("location.href='"+path+"/member/login2.do';");
-			out.println("</script>");
-		}
-	}
-		
-		@RequestMapping("/logout.do")
-		public void logout(
-				Model model,
-				HttpServletResponse response,
-				HttpServletRequest request
-				) throws IOException {
-			Map<String, Object> map = topInfo(request);
-			String path = (String)map.get("path");
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			HttpSession session = request.getSession();
-			
-			session.invalidate(); //세션제거
-			out.println("<script>");
-			out.println("alert('로그아웃 되었습니다.\\n즐거운 하루 되세요.');");
-			out.println("location.href='"+path+"';");
-			out.println("</script>");
-		}
-		
 }
