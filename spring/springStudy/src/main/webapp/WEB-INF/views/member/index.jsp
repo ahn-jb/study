@@ -5,7 +5,7 @@
 
 <%-- naljaMap : ${naljaMap}<br> --%>
 <%-- ip : ${ip}<br> --%>
-<span id="menu_gubun" style="display:none;">${menu_gubun}</span><br>
+<span id="menu_gubun" style="display:">${menu_gubun}</span><br>
 <span id="span_proc" style="display:none;">${span_proc}</span><br>
 <span id="span_pageNumber" style="display:none;">${span_pageNumber}</span><br>
 <span id="span_pageSize" style="display:none;">${span_pageSize}</span><br>
