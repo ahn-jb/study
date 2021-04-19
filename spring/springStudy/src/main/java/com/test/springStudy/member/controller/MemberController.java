@@ -70,8 +70,8 @@ public class MemberController {
 			) {
 //		Map<String, Object> map = util.basicInfo(request);
 		Map<String, Object> map = topInfo(request);
-		int pageNumber = (int) map.get("pageNumber");
-		int no = (int) map.get("no");
+		int pageNumber = (int)map.get("pageNumber");
+		int no = (int)map.get("no");
 		String search_option = (String) map.get("search_option");
 		String search_data = (String) map.get("search_data");
 		
