@@ -13,15 +13,14 @@ class="org.springframework.jdbc.datasource.DriverManagerDataSource">
             value="oracle.jdbc.driver.OracleDriver" />
         <property name="url"
             value="jdbc:oracle:thin:@localhost:1521/xe" />
-        <property name="username" value="jspStudy" />			<!-- 수정할것 -->
-        <property name="password" value="1234" />	   			 <!-- 수정할것 -->
+        <property name="username" value="jspStudy" />			
+        <property name="password" value="1234" />	   			
     </bean>
     <bean id="sqlSessionFactory"
         class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="configLocation"
-            value="classpath:/mybatis-config.xml" />        <!-- mybatis설정파일 -->
-        <property name="mapperLocations"
+       <property name="configLocation"  value="classpath:/mybatis-config.xml"  />      
+       <property name="mapperLocations"
             value="classpath:/mappers/**/*.xml" />
     </bean>
     <bean id="sqlSession"

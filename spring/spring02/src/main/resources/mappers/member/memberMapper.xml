@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="member">
+
+	<select id="getList" resultType="com.study.spring01.member.model.dto.MemberDTO">
+		select * from member order by name
+	</select>
+	
+	<select id="getView" resultType="com.study.spring01.member.model.dto.MemberDTO">
+		select * from member where id = #{id}
+	</select>
+	
+	<select id="checkPasswd" resultType="int">
+		select count(*) from member where id = #{id} and passwd = #{passwd}
+	</select>
+	
+	<select id="login_check" resultType="String">
+		select name from member
+		where id=#{id} and passwd=#{passwd}
+	</select>
+	
+	<insert id="setInsert">
+		insert into member (id, passwd, name, email) <!-- regi_date 를 안적어도 되지만, 적어주는 것이 좋을 것 같다. -->
+		values
+		(#{id}, #{passwd}, #{name}, #{email})
+	</insert>
+
+	<update id="setUpdate">
+		update member set email = #{email} where id = #{id}
+	</update>
+	
+	<delete id="setDelete">
+		delete from member where id = #{id}
+	</delete>
+	
+</mapper>

@@ -7,7 +7,10 @@
     <typeAliases>
  <!-- 클래스 이름이 너무 긴 경우, 여기에 짧게 적기위한 별칭을 적으면 된다. -->
  
+	<typeAlias type="com.test.springStudy.board.model.dto.BoardDTO" alias="boardDto"/>
  	<typeAlias type="com.test.springStudy.member.model.dto.MemberDTO" alias="memberDto"/>
     </typeAliases>
+    
+
  
 </configuration>

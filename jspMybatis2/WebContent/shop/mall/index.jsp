@@ -28,7 +28,7 @@ function GoPage(value1,value2){
 	var url = "${path}/mall_servlet/"+value1+".do";
 	
 	if(value1 == 'mall_list'){
-		result.style.height = "750px";
+		result.style.height = "900px";
 		param ={
 				"pageNumber" : $("#span_pageNumber").text(),
 				"pageSize" : $("#span_pageSize").text(),

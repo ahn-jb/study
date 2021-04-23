@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="product">
+
+	<select id="getList" resultType="com.study.spring01.product.model.dto.ProductDTO">
+		select * from product order by product_no desc
+	</select>
+	
+	<select id="getView" resultType="com.study.spring01.product.model.dto.ProductDTO">
+		select * from product where product_no = #{product_no}
+	</select>
+	
+	<insert id="setInsert">
+		<selectKey keyProperty="product_no" resultType="int" order="BEFORE">
+			select nvl(max(product_no), 0)+1 from product
+		</selectKey>	
+		
+		insert into product (product_no, product_name, product_price, product_description, product_img, product_img_type, product_img_oldName)
+		values
+		(#{product_no}, #{product_name}, #{product_price}, #{product_description}, #{product_img}, #{newFileType}, #{originalFileName})
+	</insert>
+
+	<update id="setUpdate">
+		update product set 
+		product_name = #{product_name}, 
+		product_price = #{product_price}, 
+		product_description = #{product_description}, 
+		product_img = #{product_img} 
+		where id = #{id}
+	</update>
+	
+	<delete id="setDelete">
+		delete from product where product_no = #{product_no}
+	</delete>
+	
+</mapper>

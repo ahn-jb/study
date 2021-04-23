@@ -54,7 +54,7 @@ function GoPage(value1,value2){
 		console.log($('input[name="file"]')[2].files[0]);
 		return;
 */		
-		var file_counter =parseInt($('input[name="file"]').length);
+		var file_counter = parseInt($('input[name="file"]').length);
 		for(i=0; i<file_counter; i++){
 			param.append(i,$('input[name="file"]')[i].files[0]);
 		}

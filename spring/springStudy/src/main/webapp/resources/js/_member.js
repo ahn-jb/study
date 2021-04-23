@@ -2,6 +2,7 @@ var path=$("#span_path").text();
 var no = $("#span_no").text();
 $(document).ready(function(){
 	var menu_gubun = $('#menu_gubun').text();
+	alert("메뉴:"+menu_gubun);
 	if(menu_gubun == 'member_chuga2'){
 		sunteak_proc('chuga','','');
 	}else if(menu_gubun == 'member_login2'){
