@@ -16,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.servlet.HandlerMapping;
 
 import com.test.springStudy.member.model.dao.MemberDAO;
 import com.test.springStudy.member.model.dto.MemberDTO;
@@ -46,8 +46,10 @@ public class MemberController {
 		map.put("search_option", search_option);
 		map.put("search_data", search_data);
 		return map;
+		
+		
 	}
-	
+    
 	@RequestMapping("/index.do")
 	public String index(HttpServletRequest request, Model model){
 		Map<String, Object> map = topInfo(request);

@@ -42,7 +42,6 @@ function sunteak_proc(value1,value2,value3){
 function GoPage(value1){
 //	alert('wwww');
 	var param = {};
-//	var url = "${path}/member_servlet/" + value1 + ".do";
 	var url = path+"/member/" + value1 + ".do";
 //	alert(url);	
 	if(value1 == "list"){
